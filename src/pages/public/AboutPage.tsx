@@ -34,6 +34,7 @@ export function AboutPage() {
                 🌱 About Us
               </span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
+                <br/>
                 Green Leaf <br />
                 <span className="bg-gradient-to-r from-yellow-300 via-green-300 to-blue-300 bg-clip-text text-transparent">Energy</span>
               </h1>

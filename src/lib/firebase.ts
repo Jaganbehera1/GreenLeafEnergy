@@ -42,6 +42,7 @@ export interface GalleryItem {
   url: string;
   title: string;
   description: string;
+  company?: 'green-leaf';
   order_index: number;
   created_at: string;
   admin_id: string;
@@ -53,4 +54,15 @@ export interface ContactInfo {
   email: string;
   whatsapp_number: string;
   updated_at: string;
+}
+
+export interface ContactRequest {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+  status?: string;
+  created_at?: string;
 }

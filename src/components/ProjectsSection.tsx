@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db, GalleryItem } from '../lib/firebase';
 import { GalleryCard } from './GalleryCard';
@@ -75,12 +76,12 @@ export function ProjectsSection({ limit }: { limit?: number }) {
         </div>
 
         <div className="mt-8 text-center">
-          <button
-            onClick={() => setSelectedItem(null)}
-            className="px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
+          <Link
+            to="/gallery"
+            className="inline-flex items-center justify-center px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
           >
             View All Projects
-          </button>
+          </Link>
         </div>
       </div>
 

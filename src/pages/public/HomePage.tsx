@@ -168,9 +168,17 @@ export function HomePage() {
       {/* ================= RESIDENTIAL SECTION ================= */}
       <section className="bg-gradient-to-r from-yellow-50 via-green-50 to-blue-50 py-12 sm:py-16 border-t-4 border-gradient-to-r from-yellow-400 via-green-500 to-blue-500">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold">
-            <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">🏡 Residential</span>
-            <span className="text-gray-800"> Solar Installation</span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-2">
+              <span className="text-4xl sm:text-5xl">🏡</span>
+              <span className="bg-gradient-to-r from-brand-green via-brand-blue to-brand-cyan bg-clip-text text-transparent">
+                Residential
+              </span>
+            </div>
+
+            <span className="text-gray-800">
+              Solar Installation
+            </span>
           </h2>
           <p className="mt-4 text-lg sm:text-xl text-gray-700">
             High-efficiency panels and professional installation tailored to your home.
