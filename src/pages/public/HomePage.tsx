@@ -171,12 +171,12 @@ export function HomePage() {
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
             <div className="flex items-center justify-center sm:justify-start gap-2">
               <span className="text-4xl sm:text-5xl">🏡</span>
-              <span className="bg-gradient-to-r from-brand-green via-brand-blue to-brand-cyan bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-green via-brand-blue to-brand-cyan bg-clip-text text-yellow-800 font-extrabold">
                 Residential
               </span>
             </div>
 
-            <span className="text-gray-800">
+              <span className="bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red bg-clip-text text-red-800 font-extrabold">
               Solar Installation
             </span>
           </h2>
