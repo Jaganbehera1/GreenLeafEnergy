@@ -11,6 +11,18 @@ export interface SiteVisitReport {
   installation_type?: string;
   roof_type?: string;
   roof_material?: string;
+  system_capacity?: string;
+  structure_height_low?: string;
+  structure_height_high?: string;
+  north_south_height?: string;
+  north_south_distance?: string;
+  east_west_distance?: string;
+  panel_brand?: string;
+  panel_type?: string;
+  inverter_type?: string;
+  inverter_brand?: string;
+  battery_type?: string;
+  battery_power?: string;
   shadow_analysis?: string;
   electricity_bill?: string;
   recommended_capacity?: string;
@@ -22,7 +34,7 @@ export interface SiteVisitReport {
   admin_comment?: string;
   reviewed_by?: string;
   reviewed_at?: string;
-  attachments?: { name: string; type: string }[];
+  attachments?: { name: string; type: string; category?: string; size?: number }[];
 }
 
 const STORAGE_KEY = 'kse_site_visit_reports_v1';
@@ -36,6 +48,18 @@ function hasMeaningfulContent(report: SiteVisitReport) {
     report.installation_type,
     report.roof_type,
     report.roof_material,
+    report.system_capacity,
+    report.structure_height_low,
+    report.structure_height_high,
+    report.north_south_height,
+    report.north_south_distance,
+    report.east_west_distance,
+    report.panel_brand,
+    report.panel_type,
+    report.inverter_type,
+    report.inverter_brand,
+    report.battery_type,
+    report.battery_power,
     report.shadow_analysis,
     report.electricity_bill,
     report.recommended_capacity,

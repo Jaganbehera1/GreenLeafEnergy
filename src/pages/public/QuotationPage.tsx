@@ -19,7 +19,8 @@ import {
 } from 'lucide-react';
 import { createQuotationDraft, saveQuotation } from '../../lib/quotations';
 
-const capacityOptions = ['2 kW', '3 kW', '5 kW', '7 kW', '10 kW'];
+const capacityOptions = ['1 kW', '2 kW', '3 kW', '4 kW', '5 kW', '6 kW', '7 kW', '8 kW', '9 kW', '10 kW'];
+const systemCategories = ['Domestic', 'Agriculture', 'Commercial'] as const;
 const panelOptions = ['Tata Power Solar', 'Waaree', 'Adani Solar', 'Luminous', 'Vikram Solar', 'Jinko Solar'];
 const inverterOptions = ['SMA', 'Huawei', 'Fronius', 'GoodWe', 'Growatt', 'SolarEdge'];
 const batteryOptions = ['No Battery', '1 Battery', '2 Batteries', '3 Batteries'];
@@ -50,6 +51,8 @@ export function QuotationPage() {
   const capacityNum = Number(form.system_capacity.replace(/[^0-9.]/g, '')) || 3;
   
   // Calculate estimated savings
+  const subsidyEligible = form.system_category === 'Domestic';
+  const subsidyAmount = subsidyEligible ? 15000 : 0;
   const estimatedSavings = useMemo(() => {
     return `₹${(capacityNum * 8500).toLocaleString('en-IN')}`;
   }, [capacityNum]);
@@ -61,6 +64,7 @@ export function QuotationPage() {
         {/* ================= HEADER ================= */}
         <div className="mb-10 md:mb-12 text-center">
           <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-yellow-100 to-green-100 px-4 py-2 text-sm font-semibold text-green-700 border border-yellow-200">
+            <br />
             <FileText className="h-4 w-4 text-yellow-600" /> Quotation Generator
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
@@ -151,6 +155,32 @@ export function QuotationPage() {
                 >
                   {capacityOptions.map((option) => <option key={option} value={option}>{option}</option>)}
                 </select>
+              </div>
+              <div>
+                <label className="mb-1.5 block text-sm font-semibold text-gray-700 flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-green-600" /> Solar System Category
+                </label>
+                <select
+                  value={form.system_category}
+                  onChange={(e) => setForm({ ...form, system_category: e.target.value as typeof systemCategories[number] })}
+                  className="w-full rounded-xl border-2 border-gray-200 px-4 py-3 outline-none focus:border-green-400 focus:shadow-md transition-all duration-300 hover:border-green-300 bg-white"
+                  required
+                >
+                  {systemCategories.map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="md:col-span-2">
+                <div className="rounded-3xl border-2 border-dashed border-yellow-300 bg-yellow-50/80 p-4">
+                  <p className="text-sm font-semibold text-yellow-700">Subsidy status</p>
+                  <p className="mt-2 text-base text-gray-700">
+                    {subsidyEligible ? 'Domestic systems are eligible for subsidy benefits.' : 'Agriculture and Commercial systems are not eligible for the subsidy benefit.'}
+                  </p>
+                  {subsidyEligible && (
+                    <p className="mt-3 text-lg font-bold text-green-700">Estimated subsidy: ₹{subsidyAmount.toLocaleString('en-IN')}</p>
+                  )}
+                </div>
               </div>
               <div>
                 <label className="mb-1.5 block text-sm font-semibold text-gray-700 flex items-center gap-2">
@@ -254,6 +284,10 @@ export function QuotationPage() {
                 <div className="bg-white/5 rounded-lg p-2.5 border border-white/5">
                   <p className="text-green-300 text-xs font-medium">Capacity</p>
                   <p className="text-white font-bold">{form.system_capacity || '---'}</p>
+                </div>
+                <div className="bg-white/5 rounded-lg p-2.5 border border-white/5">
+                  <p className="text-green-300 text-xs font-medium">Category</p>
+                  <p className="text-white font-bold truncate">{form.system_category || '---'}</p>
                 </div>
                 <div className="bg-white/5 rounded-lg p-2.5 border border-white/5">
                   <p className="text-green-300 text-xs font-medium">Panel</p>

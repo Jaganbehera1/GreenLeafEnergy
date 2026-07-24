@@ -5,6 +5,7 @@ export interface Quotation {
   address: string;
   electricity_bill: string;
   system_capacity: string;
+  system_category: 'Domestic' | 'Agriculture' | 'Commercial';
   panel_brand: string;
   inverter_brand: string;
   battery_requirement: string;
@@ -71,6 +72,7 @@ export function createQuotationDraft(partial: Partial<Quotation> = {}): Quotatio
     address: '',
     electricity_bill: '',
     system_capacity: capacity,
+    system_category: partial.system_category || 'Domestic',
     panel_brand: 'Tier-1 Poly/Mono',
     inverter_brand: 'Huawei/SMA',
     battery_requirement: 'No',

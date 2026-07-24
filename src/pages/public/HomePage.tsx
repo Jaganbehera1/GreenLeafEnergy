@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Zap } from 'lucide-react';
+import { ChevronRight, Zap } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { ProjectsSection } from '../../components/ProjectsSection';
-import { AssistanceWidget } from '../../components/public/AssistanceWidget';
 import { useState } from 'react';
 
 // HERO IMAGES
@@ -32,32 +31,12 @@ import iitLogo from '../../images/affiliations/iit-bhubneswar-01.jpg';
 
 import workImg from '../../images/work/Greenleaf.png';
 
-// Inverter Images
-import stringInverterImg from '../../images/inverters/string-inverter.webp';
-import microInverterImg from '../../images/inverters/micro-inverter.jpg';
-import hybridInverterImg from '../../images/inverters/hybrid-inverter.jpg';
-import centralInverterImg from '../../images/inverters/central-inverter.webp';
-
-// Solar Panel Images
-import monocrystallineImg from '../../images/panels/monocrystalline.png';
-import polycrystallineImg from '../../images/panels/polycrystalline.webp';
-import thinFilmImg from '../../images/panels/thin-film.webp';
-import bifacialImg from '../../images/panels/bifacial.webp';
-
 // Rooftop System Images
 import onGridRooftopImg from '../../images/rooftop/on-grid.avif';
 import offGridRooftopImg from '../../images/rooftop/off-grid.gif';
 import hybridRooftopImg from '../../images/rooftop/hybrid.jpg';
 
-// ICON MAP for better visuals
-const ICONS = {
-  'Save Electricity Bills': '💰',
-  'Eco Friendly': '🌱',
-  'Renewable Energy': '♻️',
-  'Low Maintenance': '🔋',
-  'Suitable for Homes & Businesses': '🏠',
-  'Increases Property Value': '📈',
-};
+import bgVideo from '../../images/background3.mp4';
 
 export function HomePage() {
   const { t } = useLanguage();
@@ -88,526 +67,334 @@ export function HomePage() {
   return (
     <div className="bg-white">
 
-      {/* ================= HERO SECTION ================= */}
-      <section className="w-full bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 py-12 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 items-center">
+      {/* ================= HERO VIDEO SECTION ================= */}
+      <section className="relative overflow-hidden min-h-[550px] md:min-h-[650px] flex items-center">
 
-            {/* LEFT – MODI IMAGE */}
-            <div className="flex justify-center md:justify-start">
-              <img
-                src={modiImg}
-                alt="PM Surya Ghar Yojana"
-                className="max-h-[220px] md:max-h-[280px] object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
-              />
-            </div>
+        {/* Background Video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src={bgVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
 
-            {/* CENTER – TEXT */}
-            <div className="space-y-5 text-center md:text-left">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">Solar</span>
-                <span className="text-gray-800"> Energy</span><br />
-                <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">for Every Home</span>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/45"></div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div className="max-w-4xl mx-auto text-center space-y-6">
+            <br />
+            <br />
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-green-400 to-blue-400">
+                Solar Energy for Every Home
+                <br />
               </h1>
 
-              <ul className="text-base sm:text-lg text-gray-700 space-y-2">
-                <li className="flex items-center gap-2 justify-center md:justify-start">
-                  <span className="text-green-500 text-xl">✓</span> {t('hero_bullet_1')}
+              <ul className="text-lg md:text-xl text-white space-y-3">
+                <li className="flex items-center justify-center gap-2">
+                  <span className="text-green-400 text-2xl">✓</span>
+                  {t("hero_bullet_1")}
                 </li>
-                <li className="flex items-center gap-2 justify-center md:justify-start">
-                  <span className="text-green-500 text-xl">✓</span> {t('hero_bullet_2')}
+
+                <li className="flex items-center justify-center gap-2">
+                  <span className="text-green-400 text-2xl">✓</span>
+                  {t("hero_bullet_2")}
                 </li>
-                <li className="flex items-center gap-2 justify-center md:justify-start">
-                  <span className="text-green-500 text-xl">✓</span> {t('hero_bullet_3')}
+
+                <li className="flex items-center justify-center gap-2">
+                  <span className="text-green-400 text-2xl">✓</span>
+                  {t("hero_bullet_3")}
                 </li>
               </ul>
 
-              <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
+              <div className="flex flex-wrap justify-center gap-5 pt-5">
+
                 <Link
                   to="/contact"
-                  className="bg-gradient-to-r from-yellow-400 via-green-500 to-blue-500 text-white px-8 py-3 rounded-xl font-bold hover:shadow-xl transition-all duration-300 hover:scale-105 shadow-md flex items-center gap-2"
+                  className="bg-gradient-to-r from-yellow-400 via-green-500 to-blue-500 text-white px-8 py-3 rounded-xl font-bold shadow-xl hover:scale-105 transition"
                 >
-                  <span>📞</span> {t('book_consult')}
+                  📞 {t("book_consult")}
                 </Link>
 
                 <Link
                   to="/gallery"
-                  className="border-2 border-gray-300 text-gray-800 px-8 py-3 rounded-xl font-semibold hover:bg-gradient-to-r hover:from-green-50 hover:to-blue-50 transition-all duration-300 flex items-center gap-2"
+                  className="bg-white text-gray-800 px-8 py-3 rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg"
                 >
-                  <span>🖼️</span> {t('view_projects')}
+                  🖼️ {t("view_projects")}
                 </Link>
+
               </div>
-            </div>
 
-            {/* RIGHT – PM SURYA GHAR CARD */}
-            <div className="flex justify-center md:justify-end">
-              <div className="bg-white border-2 border-yellow-200 rounded-3xl shadow-2xl p-6 w-full max-w-[380px] hover:shadow-3xl transition-all duration-300 hover:scale-105">
-
-                <div className="bg-gradient-to-r from-yellow-400 via-orange-300 to-yellow-200 rounded-2xl p-2 text-center mb-4">
-                  <span className="text-sm font-bold text-gray-800 tracking-widest">🇮🇳 PM SURYA GHAR YOJANA</span>
-                </div>
-
-                <img
-                  src={sliderGif}
-                  alt="PM Surya Ghar Solar Scheme"
-                  className="w-full h-auto max-h-[280px] object-contain mx-auto rounded-xl"
-                />
-
-                <div className="mt-3 text-center">
-                  <span className="inline-block bg-gradient-to-r from-green-100 to-blue-100 text-green-800 px-4 py-1 rounded-full text-sm font-bold">
-                    💰 Subsidy up to 40%
-                  </span>
+              <div className="mt-10 rounded-[32px] border border-white/20 bg-white/10 backdrop-blur-xl p-6 sm:p-8 shadow-2xl shadow-slate-950/10">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.3em] text-emerald-100 font-semibold mb-2">Welcome to Green Leaf Energy</p>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                      Your trusted partner for solar design, subsidy guidance, and premium installation.
+                    </h2>
+                  </div>
+                  <div className="rounded-3xl bg-gradient-to-r from-green-500 to-teal-400 px-5 py-4 text-white shadow-lg shadow-teal-500/20">
+                    <p className="text-sm font-semibold">Fast decision support</p>
+                    <p className="mt-1 text-base">Guaranteed expert quotes, subsidy eligibility checks, and project planning.</p>
+                  </div>
                 </div>
               </div>
+
             </div>
 
           </div>
         </div>
+
       </section>
 
-      {/* ================= RESIDENTIAL SECTION ================= */}
-      <section className="bg-gradient-to-r from-yellow-50 via-green-50 to-blue-50 py-12 sm:py-16 border-t-4 border-gradient-to-r from-yellow-400 via-green-500 to-blue-500">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-2">
-              <span className="text-4xl sm:text-5xl">🏡</span>
-              <span className="bg-gradient-to-r from-brand-green via-brand-blue to-brand-cyan bg-clip-text text-yellow-800 font-extrabold">
-                Residential
-              </span>
-            </div>
+{/* ================= PM SURYA GHAR SECTION ================= */}
+<section className="relative overflow-hidden py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-green-900">
 
-              <span className="bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red bg-clip-text text-red-800 font-extrabold">
-              Solar Installation
-            </span>
+  {/* Background Glow */}
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute -top-24 -left-20 w-72 h-72 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
+
+    <div className="absolute top-1/2 -right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+
+    <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-green-500/20 rounded-full blur-3xl"></div>
+  </div>
+
+  <div className="relative max-w-7xl mx-auto px-4 flex justify-center">
+
+    <div className="w-full max-w-lg rounded-[32px] border border-white/20 bg-white/10 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-8 transition-all duration-500 hover:scale-105 hover:border-yellow-400">
+
+      {/* Header */}
+      <div className="inline-flex items-center justify-center w-full mb-6">
+        <div className="px-8 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 shadow-lg">
+
+          <h2 className="text-lg font-extrabold tracking-wider text-gray-900">
+            🇮🇳 PM SURYA GHAR YOJANA
           </h2>
-          <p className="mt-4 text-lg sm:text-xl text-gray-700">
-            High-efficiency panels and professional installation tailored to your home.
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/contact"
-              className="bg-gradient-to-r from-yellow-400 via-green-500 to-blue-500 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-2"
-            >
-              <span>📅</span> Book a Free Consultation
-            </Link>
-            <Link
-              to="/gallery"
-              className="bg-gray-100 text-gray-900 px-8 py-3 rounded-xl font-semibold hover:bg-gradient-to-r hover:from-yellow-50 hover:to-green-50 transition-all duration-300 flex items-center gap-2"
-            >
-              <span>📁</span> View Our Projects
-            </Link>
-          </div>
+
         </div>
-      </section>
+      </div>
 
-      {/* ================= WHAT IS SOLAR ENERGY ================= */}
-      <section className="py-16 bg-gradient-to-b from-green-50 via-blue-50 to-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">☀️ What is Solar Energy?</span>
-            </h2>
-            <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-              Solar energy is electricity generated from sunlight. It is clean, renewable, pollution-free, and helps reduce electricity bills while offering a long-term investment.
-            </p>
+      {/* GIF */}
+      <div className="bg-white rounded-2xl p-4 flex justify-center">
+        <img
+          src={sliderGif}
+          alt="PM Surya Ghar Solar Scheme"
+          className="w-full max-h-[320px] object-contain drop-shadow-2xl"
+        />
+      </div>
+
+      {/* Subsidy Banner */}
+      <div className="mt-8 flex justify-center">
+
+        <div className="relative overflow-hidden flex items-center rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 px-3 py-2 border-2 border-yellow-300 shadow-2xl animate-pulse">
+
+          {/* Shine */}
+          <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[shine_2.5s_linear_infinite]" />
+
+          {/* Modi Image */}
+          <div className="relative z-10 flex-shrink-0">
+            <img
+              src={modiImg}
+              alt="PM Modi"
+              className="w-16 h-16 rounded-full object-cover border-2 border-white bg-white shadow-lg"
+            />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 text-lg">
-            <div className="rounded-3xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-yellow-50 to-white p-8 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="text-4xl mb-3">☀️</div>
-              <p>Solar energy is electricity generated from sunlight.</p>
-              <p className="mt-4 text-green-700 font-semibold">🌿 It is clean, renewable, and pollution-free.</p>
+          {/* Text */}
+          <div className="relative z-10 ml-4">
+
+            <p className="text-white text-sm font-semibold uppercase tracking-wide">
+              💰 Subsidy up to
+            </p>
+
+            <div className="mt-1 inline-block bg-white text-red-600 px-5 py-1 rounded-full text-2xl font-extrabold shadow-lg">
+              ₹1,38,000
             </div>
-            <div className="rounded-3xl border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 via-green-50 to-white p-8 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="text-4xl mb-3">💰</div>
-              <p>It helps reduce electricity bills.</p>
-              <p className="mt-4 text-blue-700 font-semibold">📈 It is a long-term investment for your home or business.</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* Bottom Text */}
+      <div className="mt-8 text-center">
+
+        <p className="text-gray-200 text-lg">
+          Government Subsidy Available under
+        </p>
+
+        <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-yellow-300 via-green-300 to-cyan-300 bg-clip-text text-transparent">
+          PM Surya Ghar Muft Yojana
+        </h3>
+
+      </div>
+
+    </div>
+
+  </div>
+
+{/* </section> */}
+
+      {/* ================= RESIDENTIAL SOLAR SECTION ================= */}
+      {/* <section className="relative overflow-hidden py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-green-900"> */}
+      {/* Background Glow */}
+      <br />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-32 -left-24 w-72 h-72 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
+
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+
+        <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-green-400/20 rounded-full blur-3xl"></div>
+      </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Heading */}
+          <div className="text-center max-w-4xl mx-auto">
+
+            <div className="inline-flex items-center gap-4 rounded-full border border-yellow-300 bg-white/10 backdrop-blur-xl px-8 py-4 shadow-2xl">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-3xl shadow-lg">🏡</div>
+
+              <h2 className="text-3xl sm:text-4xl font-extrabold">
+                <span className="bg-gradient-to-r from-green-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                  Residential
+                </span>{" "}
+                <span className="bg-gradient-to-r from-green-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                  Solar Installation
+                </span>
+              </h2>
+
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ================= WHY CHOOSE SOLAR ================= */}
-      <section className="py-16 bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">Why Choose Solar?</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              Solar energy delivers savings, sustainability, and long-term value.
+            <p className="mt-6 text-lg text-gray-200 leading-8">
+              High-efficiency solar panels with professional installation,
+              government subsidy support and long-term savings for your home.
             </p>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+
+              <Link
+                to="/contact"
+                className="rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 px-8 py-4 font-bold text-white shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-yellow-500/50"
+              >
+                📅 Book a Free Consultation
+              </Link>
+
+              <Link
+                to="/gallery"
+                className="rounded-full border border-white/30 bg-white/10 backdrop-blur-lg px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-white hover:text-slate-900"
+              >
+                📁 View Our Projects
+              </Link>
+
+            </div>
+
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Object.entries(ICONS).map(([title, icon]) => (
-              <div key={title} className="group rounded-3xl border-2 border-gray-200 bg-gradient-to-br from-white via-yellow-50 to-green-50 p-8 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 text-center hover:border-yellow-400">
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">{icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
-              </div>
-            ))}
+          {/* Divider */}
+          <div className="my-16 flex justify-center">
+            <div className="h-1 w-40 rounded-full bg-gradient-to-r from-yellow-400 via-green-400 to-blue-500"></div>
           </div>
-        </div>
-      </section>
+          {/* Sub Heading */}
+          <div className="text-center mb-10">
 
-      {/* ================= TYPES OF SOLAR PANELS ================= */}
-      <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">🟦 Types of Solar Panels</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              Choose the right solar panel technology for your needs.
+            <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-green-400 to-blue-400">
+              🏠 Types of Rooftop Solar Systems
+            </h3>
+
+            <p className="text-white mt-3">
+              Choose the perfect rooftop solar solution according to your needs.
             </p>
+
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Cards */}
+          <div className="grid gap-8 md:grid-cols-3">
+
             {[
-              { name: 'Monocrystalline', desc: 'Highest efficiency, sleek black appearance, space-efficient.', icon: '⬛', img: monocrystallineImg, color: 'from-blue-900 to-blue-700' },
-              { name: 'Polycrystalline', desc: 'Cost-effective, blue color, good efficiency for homes.', icon: '🔷', img: polycrystallineImg, color: 'from-blue-500 to-blue-300' },
-              { name: 'Thin Film', desc: 'Flexible, lightweight, good for curved surfaces.', icon: '📜', img: thinFilmImg, color: 'from-gray-500 to-gray-300' },
-              { name: 'Bifacial', desc: 'Generates from both sides, higher output, modern design.', icon: '🔄', img: bifacialImg, color: 'from-purple-500 to-purple-300' },
-            ].map((panel) => (
-              <div key={panel.name} className={`rounded-3xl border-2 border-gray-200 bg-gradient-to-br ${panel.color} p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-300 text-white`}>
+              {
+                name: "On-Grid System",
+                img: onGridRooftopImg,
+                color: "from-blue-500 to-cyan-400",
+                desc:
+                  "Connected directly to the electricity grid. No batteries required. Ideal for homes with reliable power supply.",
+                best: "💡 Best for Urban Areas",
+              },
+              {
+                name: "Off-Grid System",
+                img: offGridRooftopImg,
+                color: "from-green-500 to-emerald-400",
+                desc:
+                  "Works independently using battery storage. Perfect for villages and remote locations without grid access.",
+                best: "🔋 Best for Remote Areas",
+              },
+              {
+                name: "Hybrid System",
+                img: hybridRooftopImg,
+                color: "from-purple-500 to-pink-400",
+                desc:
+                  "Combines grid connection with battery backup. Ideal where frequent power cuts occur.",
+                best: "⚡ Best for Backup Power",
+              },
+            ].map((item) => (
+              <div
+                key={item.name}
+                className="group overflow-hidden rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:shadow-2xl transition duration-300 hover:-translate-y-4 hover:scale-105"
+              >
+
+                <div className={`h-2 bg-gradient-to-r ${item.color}`}></div>
+
                 <img
-                  src={panel.img}
-                  alt={panel.name}
-                  className="w-full h-48 object-cover rounded-2xl mb-4"
+                  src={item.img}
+                  alt={item.name}
+                  className="h-56 w-full object-cover transition duration-700 group-hover:scale-110"
                 />
-                <h3 className="text-xl font-bold">{panel.name}</h3>
-                <p className="mt-3 text-white/90 leading-7">{panel.desc}</p>
+
+                <div className="p-6">
+
+                  <h4 className="text-2xl font-bold text-white">
+                    {item.name}
+                  </h4>
+
+                  <p className="mt-4 text-gray-200 leading-7">
+                    {item.desc}
+                  </p>
+
+                  <div className={`mt-6 rounded-full bg-gradient-to-r ${item.color} py-3 text-center font-bold text-white shadow-lg`}>
+                    {item.best}
+                  </div>
+
+                </div>
+
               </div>
             ))}
+
           </div>
+
         </div>
       </section>
 
-      {/* ================= TYPES OF INVERTERS ================= */}
-      <section className="py-16 bg-gradient-to-b from-blue-50 via-green-50 to-yellow-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">⚡ Types of Inverters</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              Different inverter technologies for different solar needs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { name: 'String Inverter', desc: 'Most common, cost-effective, works well for standard installations.', icon: '🔌', img: stringInverterImg, color: 'from-orange-500 to-orange-300' },
-              { name: 'Micro Inverter', desc: 'Per-panel optimization, ideal for complex roofs, higher efficiency.', icon: '⚡', img: microInverterImg, color: 'from-green-500 to-green-300' },
-              { name: 'Hybrid Inverter', desc: 'Works with batteries, grid, and solar. Best for power backup.', icon: '🔋', img: hybridInverterImg, color: 'from-purple-500 to-purple-300' },
-              { name: 'Central Inverter', desc: 'For large commercial systems, high power output, industrial use.', icon: '🏭', img: centralInverterImg, color: 'from-red-500 to-red-300' },
-            ].map((inverter) => (
-              <div key={inverter.name} className={`rounded-3xl border-2 border-gray-200 bg-gradient-to-br ${inverter.color} p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-300 text-white`}>
-                <img
-                  src={inverter.img}
-                  alt={inverter.name}
-                  className="w-full h-48 object-cover rounded-2xl mb-4"
-                />
-                <h3 className="text-xl font-bold">{inverter.name}</h3>
-                <p className="mt-3 text-white/90 leading-7">{inverter.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= TYPE OF ROOFTOP SOLAR SYSTEM ================= */}
-      <section className="py-16 bg-gradient-to-b from-yellow-50 via-green-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">🏠 Types of Rooftop Solar Systems</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              Choose the right rooftop solar system for your home or business.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { name: 'On-Grid System', desc: 'Connected to utility grid, low cost, no battery needed. Best for areas with stable grid.', icon: '🌐', img: onGridRooftopImg, color: 'from-blue-500 to-blue-300' },
-              { name: 'Off-Grid System', desc: 'Independent system with batteries, works without grid. Best for remote areas.', icon: '🏝️', img: offGridRooftopImg, color: 'from-green-500 to-green-300' },
-              { name: 'Hybrid System', desc: 'Combines on-grid & off-grid features, battery backup, grid connectivity. Best for power cuts.', icon: '🔄', img: hybridRooftopImg, color: 'from-purple-500 to-purple-300' },
-            ].map((system) => (
-              <div key={system.name} className={`rounded-3xl border-2 border-gray-200 bg-gradient-to-br ${system.color} p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-300 text-white text-center`}>
-                <img
-                  src={system.img}
-                  alt={system.name}
-                  className="w-full h-48 object-cover rounded-2xl mb-4"
-                />
-                <h3 className="text-2xl font-bold">{system.name}</h3>
-                <p className="mt-3 text-white/90 leading-7">{system.desc}</p>
-                <div className="mt-4 bg-white/20 rounded-xl p-3 text-sm font-semibold">
-                  {system.name === 'On-Grid System' && '💡 Best for: Urban areas, no power cuts'}
-                  {system.name === 'Off-Grid System' && '🔋 Best for: Rural areas, remote locations'}
-                  {system.name === 'Hybrid System' && '⚡ Best for: Frequent power cuts, backup needed'}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= ON-GRID VS HYBRID ================= */}
-      <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">⚡ On-Grid vs Hybrid System</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              Understand the difference and choose the right system for your needs.
-            </p>
-          </div>
-
-          <div className="grid gap-10 lg:grid-cols-2">
-            {/* On-Grid */}
-            <div className="rounded-3xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 via-yellow-50 to-white p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <h3 className="text-2xl font-bold text-blue-800 mb-4 flex items-center gap-2">
-                <span>🔌</span> On-Grid Solar System
-              </h3>
-              <p className="text-gray-700 mb-4 font-semibold">How it works</p>
-              <div className="rounded-2xl bg-white p-5 border-2 border-blue-100 text-sm leading-8 text-gray-700">
-                <span className="text-blue-600 font-bold">☀️ Solar Panels</span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;⬇<br />
-                <span className="text-orange-500 font-bold">⚡ Solar Inverter</span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;⬇<br />
-                <span className="text-green-600 font-bold">🏠 Home</span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;⬇<br />
-                <span className="text-purple-600 font-bold">📊 Net Meter</span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;⬇<br />
-                <span className="text-gray-600 font-bold">⚡ Electric Grid</span>
-              </div>
-              <div className="mt-6 space-y-3">
-                <div className="rounded-2xl bg-gradient-to-r from-green-50 to-green-100 p-4 border-2 border-green-200 text-green-700 font-semibold flex items-center gap-2">
-                  <span>✅</span> Lowest cost
-                </div>
-                <div className="rounded-2xl bg-gradient-to-r from-green-50 to-green-100 p-4 border-2 border-green-200 text-green-700 font-semibold flex items-center gap-2">
-                  <span>✅</span> Government subsidy available
-                </div>
-                <div className="rounded-2xl bg-gradient-to-r from-green-50 to-green-100 p-4 border-2 border-green-200 text-green-700 font-semibold flex items-center gap-2">
-                  <span>✅</span> Reduce electricity bill
-                </div>
-                <div className="rounded-2xl bg-gradient-to-r from-red-50 to-red-100 p-4 border-2 border-red-200 text-red-600 font-semibold flex items-center gap-2">
-                  <span>❌</span> Doesn't work during power cuts
-                </div>
-              </div>
-            </div>
-
-            {/* Hybrid */}
-            <div className="rounded-3xl border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 via-green-50 to-white p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <h3 className="text-2xl font-bold text-yellow-800 mb-4 flex items-center gap-2">
-                <span>🔋</span> Hybrid Solar System
-              </h3>
-              <p className="text-gray-700 mb-4 font-semibold">How it works</p>
-              <div className="rounded-2xl bg-white p-5 border-2 border-yellow-100 text-sm leading-8 text-gray-700">
-                <span className="text-blue-600 font-bold">☀️ Solar Panels</span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;⬇<br />
-                <span className="text-orange-500 font-bold">⚡ Hybrid Inverter</span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;⬇<br />
-                <span className="text-green-600 font-bold">🔋 Battery</span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;⬇<br />
-                <span className="text-green-600 font-bold">🏠 Home</span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;⬇<br />
-                <span className="text-gray-600 font-bold">⚡ Grid</span>
-              </div>
-              <div className="mt-6 space-y-3">
-                <div className="rounded-2xl bg-gradient-to-r from-green-50 to-green-100 p-4 border-2 border-green-200 text-green-700 font-semibold flex items-center gap-2">
-                  <span>✅</span> Works during power cuts
-                </div>
-                <div className="rounded-2xl bg-gradient-to-r from-green-50 to-green-100 p-4 border-2 border-green-200 text-green-700 font-semibold flex items-center gap-2">
-                  <span>✅</span> Battery backup
-                </div>
-                <div className="rounded-2xl bg-gradient-to-r from-green-50 to-green-100 p-4 border-2 border-green-200 text-green-700 font-semibold flex items-center gap-2">
-                  <span>✅</span> Lower electricity bill
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Which One Should I Choose? */}
-          <div className="mt-12 overflow-x-auto rounded-3xl border-2 border-gray-200 bg-gradient-to-r from-yellow-50 via-green-50 to-blue-50 p-6 shadow-lg">
-            <div className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-              <span>📌</span> Which One Should I Choose?
-            </div>
-            <div className="grid gap-4 md:grid-cols-4">
-              <div className="rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 p-5 border-2 border-blue-200 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="text-sm uppercase tracking-wide text-gray-500 mb-2">No power cuts</div>
-                <div className="font-bold text-blue-700 text-lg">On-Grid</div>
-              </div>
-              <div className="rounded-2xl bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 border-2 border-yellow-200 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="text-sm uppercase tracking-wide text-gray-500 mb-2">Frequent power cuts</div>
-                <div className="font-bold text-yellow-700 text-lg">Hybrid</div>
-              </div>
-              <div className="rounded-2xl bg-gradient-to-br from-green-50 to-green-100 p-5 border-2 border-green-200 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="text-sm uppercase tracking-wide text-gray-500 mb-2">Want lowest investment</div>
-                <div className="font-bold text-green-700 text-lg">On-Grid</div>
-              </div>
-              <div className="rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 p-5 border-2 border-purple-200 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="text-sm uppercase tracking-wide text-gray-500 mb-2">Need backup</div>
-                <div className="font-bold text-purple-700 text-lg">Hybrid</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= SOLAR SYSTEM COMPONENTS ================= */}
-      <section className="py-16 bg-gradient-to-b from-blue-50 via-green-50 to-yellow-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">🔧 Solar System Components</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              The essential parts that make a solar system work efficiently.
-            </p>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {[
-              { name: 'Solar Panels', desc: 'Convert sunlight into electricity using photovoltaic cells.', icon: '☀️', color: 'from-yellow-200 to-yellow-100' },
-              { name: 'Solar Inverter', desc: 'Turns DC power from panels into AC power for your home.', icon: '⚡', color: 'from-orange-200 to-orange-100' },
-              { name: 'Hybrid Inverter', desc: 'Manages solar power, battery storage, and grid input seamlessly.', icon: '🔄', color: 'from-purple-200 to-purple-100' },
-              { name: 'Battery', desc: 'Stores energy so your home can run during power cuts.', icon: '🔋', color: 'from-green-200 to-green-100' },
-              { name: 'Net Meter', desc: 'Measures electricity exported to and imported from the grid.', icon: '📊', color: 'from-blue-200 to-blue-100' },
-              { name: 'Mounting Structure', desc: 'Supports solar panels securely on the roof.', icon: '🏗️', color: 'from-gray-200 to-gray-100' },
-              { name: 'DC Cable', desc: 'Carries direct current from panels to the inverter.', icon: '🔌', color: 'from-red-200 to-red-100' },
-              { name: 'ACDB/DCDB', desc: 'Distributes AC and DC power safely throughout the system.', icon: '📦', color: 'from-indigo-200 to-indigo-100' },
-              { name: 'Earthing', desc: 'Protects the system and your home from electrical faults.', icon: '⛑️', color: 'from-teal-200 to-teal-100' },
-              { name: 'Lightning Arrester', desc: 'Guards the system against lightning and surges.', icon: '⚡', color: 'from-pink-200 to-pink-100' },
-            ].map((item) => (
-              <div key={item.name} className={`rounded-3xl border-2 border-gray-200 bg-gradient-to-br ${item.color} p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-400`}>
-                <div className="text-4xl mb-3">{item.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900">{item.name}</h3>
-                <p className="mt-3 text-gray-600 leading-7">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= WHY REPLACE COAL ================= */}
-      <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-green-50">
+      <section className="py-16 bg-gradient-to-b from-green-50 via-white to-blue-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">🔄 Why Replace Coal Electricity?</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              Solar energy is a cleaner, more sustainable alternative to coal-generated power.
-            </p>
-          </div>
-
-          <div className="overflow-x-auto rounded-3xl border-2 border-gray-200 shadow-xl">
-            <div className="grid grid-cols-2">
-              <div className="bg-gradient-to-r from-gray-800 to-gray-700 p-4 text-white font-bold text-center text-lg">Coal</div>
-              <div className="bg-gradient-to-r from-green-700 to-green-600 p-4 text-white font-bold text-center text-lg">Solar</div>
-              <div className="bg-gray-100 p-4 text-center border-t border-gray-300 flex items-center justify-center gap-2"><span>🏭</span> Pollution</div>
-              <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 text-center border-t border-gray-300 flex items-center justify-center gap-2"><span>🌿</span> Clean</div>
-              <div className="bg-gray-100 p-4 text-center border-t border-gray-300 flex items-center justify-center gap-2"><span>⛏️</span> Limited Resource</div>
-              <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 text-center border-t border-gray-300 flex items-center justify-center gap-2"><span>♾️</span> Unlimited</div>
-              <div className="bg-gray-100 p-4 text-center border-t border-gray-300 flex items-center justify-center gap-2"><span>📈</span> Cost Increasing</div>
-              <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 text-center border-t border-gray-300 flex items-center justify-center gap-2"><span>📉</span> Cost Reducing</div>
-              <div className="bg-gray-100 p-4 text-center border-t border-gray-300 flex items-center justify-center gap-2"><span>💀</span> Environmental Damage</div>
-              <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 text-center border-t border-gray-300 flex items-center justify-center gap-2"><span>🌎</span> Eco Friendly</div>
+          <div className="rounded-[32px] border border-green-100 bg-white/90 p-8 shadow-2xl shadow-green-100 md:p-10">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-700">Knowledge Hub</p>
+                <h2 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">Explore solar basics in a dedicated learning space</h2>
+                <p className="mt-4 max-w-2xl text-lg text-slate-600">
+                  The homepage now stays focused on services, projects, and conversions, while the full educational content lives in one place for easier reading.
+                </p>
+              </div>
+              <Link to="/learning" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-green-600 to-emerald-500 px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105">
+                Visit Learning Page <ChevronRight className="h-4 w-4" />
+              </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= APPLICATIONS ================= */}
-      <section className="py-16 bg-gradient-to-b from-blue-50 via-green-50 to-yellow-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">🏢 Applications of Solar</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              Solar energy can power a wide range of homes, businesses and public services.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { name: 'Home Rooftop', icon: '🏠', color: 'from-yellow-200 to-yellow-100' },
-              { name: 'Water Pump', icon: '💧', color: 'from-blue-200 to-blue-100' },
-              { name: 'Street Lights', icon: '💡', color: 'from-yellow-200 to-yellow-100' },
-              { name: 'Water Heater', icon: '🔥', color: 'from-red-200 to-red-100' },
-              { name: 'Solar Cooking', icon: '🍳', color: 'from-orange-200 to-orange-100' },
-              { name: 'Industries', icon: '🏭', color: 'from-gray-200 to-gray-100' },
-              { name: 'Commercial Buildings', icon: '🏢', color: 'from-blue-200 to-blue-100' },
-            ].map((item) => (
-              <div key={item.name} className={`rounded-3xl border-2 border-gray-200 bg-gradient-to-br ${item.color} p-8 text-center shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-400`}>
-                <div className="text-5xl mb-4">{item.icon}</div>
-                <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= GOVERNMENT SUBSIDY ================= */}
-      <section className="py-16 bg-gradient-to-b from-white via-green-50 to-blue-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">🏛️ Government Subsidy</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              Government subsidies can reduce the cost of solar installations, and the program details may change over time.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            {[
-              { title: 'Central Government subsidy', description: 'Support from the central government for approved solar systems.', icon: '🇮🇳', color: 'from-blue-200 to-blue-100' },
-              { title: 'State Government subsidy', description: 'Additional state-level incentives and rebates.', icon: '🏛️', color: 'from-green-200 to-green-100' },
-              { title: 'Loan facility', description: 'Easy financing options to make your solar investment affordable.', icon: '🏦', color: 'from-yellow-200 to-yellow-100' },
-              { title: 'Insurance', description: 'Optional coverage for equipment and installation.', icon: '🛡️', color: 'from-purple-200 to-purple-100' },
-              { title: 'Net Meter', description: 'Net metering lets you sell excess solar power back to the grid.', icon: '📊', color: 'from-red-200 to-red-100' },
-              { title: 'Installation timeline', description: 'Fast execution with professional workmanship and timely delivery.', icon: '⏱️', color: 'from-indigo-200 to-indigo-100' },
-            ].map((item) => (
-              <div key={item.title} className={`rounded-3xl border-2 border-gray-200 bg-gradient-to-br ${item.color} p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-400`}>
-                <div className="text-3xl mb-3">{item.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>
-                <p className="mt-3 text-gray-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= REQUIRED DOCUMENTS ================= */}
-      <section className="py-16 bg-gradient-to-b from-yellow-50 via-green-50 to-blue-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">📋 Required Documents</span>
-            </h2>
-            <p className="mt-4 text-gray-600">
-              Keep these documents ready when you book your solar site visit.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              { name: 'Aadhaar Card', icon: '🪪' },
-              { name: 'PAN Card', icon: '💳' },
-              { name: 'Electricity Bill', icon: '📄' },
-              { name: 'Bank Passbook', icon: '📕' },
-              { name: 'Mobile Number', icon: '📱' },
-            ].map((item) => (
-              <div key={item.name} className="rounded-3xl border-2 border-green-200 bg-gradient-to-br from-white to-green-50 p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-400 flex items-center gap-4">
-                <div className="text-3xl">{item.icon}</div>
-                <span className="text-gray-700 font-semibold text-lg">{item.name}</span>
-              </div>
-            ))}
           </div>
         </div>
       </section>

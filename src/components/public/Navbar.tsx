@@ -13,6 +13,8 @@ export function Navbar() {
     { to: '/', label: t('nav_home') },
     { to: '/about', label: t('nav_about') },
     { to: '/services', label: t('nav_services') },
+    { to: '/learning', label: 'Learning' },
+    { to: '/franchise', label: 'Franchise' },
     { to: '/gallery', label: t('nav_projects') },
     { to: '/quotation', label: t('nav_quotation') || 'Quotation' },
     { to: '/contact', label: t('nav_contact') },

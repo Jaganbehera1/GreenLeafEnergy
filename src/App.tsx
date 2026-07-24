@@ -20,7 +20,9 @@ import { SiteVisitForm } from './pages/admin/engineer/SiteVisitForm';
 import { ReportsListPage } from './pages/admin/engineer/ReportsListPage';
 import { ReportViewPage } from './pages/admin/engineer/ReportViewPage';
 import { QuotationPage } from './pages/public/QuotationPage';
+import { FranchisePage } from './pages/public/FranchisePage';
 import { QuotationsPage } from './pages/admin/QuotationsPage';
+import { LearningPage } from './pages/public/LearningPage';
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/quotation" element={<QuotationPage />} />
+              <Route path="/learning" element={<LearningPage />} />
+              <Route path="/franchise" element={<FranchisePage />} />
             </Route>
 
             {/* Admin Login */}

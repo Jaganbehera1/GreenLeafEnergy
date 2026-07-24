@@ -34,9 +34,8 @@ export function AboutPage() {
                 🌱 About Us
               </span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
-                <br/>
-                Green Leaf <br />
-                <span className="bg-gradient-to-r from-yellow-300 via-green-300 to-blue-300 bg-clip-text text-transparent">Energy</span>
+              <br />
+                <span className="bg-gradient-to-r from-yellow-300 via-green-300 to-blue-300 bg-clip-text text-transparent">Green Leaf Energy</span>
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
                 Powering a Sustainable Future, One Home at a Time
@@ -71,25 +70,25 @@ export function AboutPage() {
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-yellow-300 flex-shrink-0 mt-1" />
-                  <p className="text-sm md:text-base leading-relaxed">ପିପିଲି, ପୁରୀ ଓ ଓଡିଶାର ବିଶ୍ୱସନୀୟ ସୋଲାର ପ୍ରଦାନକାରୀ</p>
+                  <p className="text-sm md:text-base leading-relaxed">Trusted Solar Provider in Pipili, Puri, and Across Odisha</p>
                 </div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-yellow-300 flex-shrink-0 mt-1" />
-                  <p className="text-sm md:text-base leading-relaxed">ଘର ଓ ବ୍ୟବସାୟ ପାଇଁ ଶୁଭ ସୋଲାର ସମାଧାନ</p>
+                  <p className="text-sm md:text-base leading-relaxed">Smart Solar Solutions for Homes and Businesses</p>
                 </div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-yellow-300 flex-shrink-0 mt-1" />
-                  <p className="text-sm md:text-base leading-relaxed">ବିଦ୍ୟୁତ୍ ବିଲ୍ କମେଇବାରେ ସହାୟକ</p>
+                  <p className="text-sm md:text-base leading-relaxed">Helping Reduce Electricity Bills</p>
                 </div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-yellow-300 flex-shrink-0 mt-1" />
-                  <p className="text-sm md:text-base leading-relaxed">ପ୍ରବୀଣ ସ୍ଥାପନା ଓ ସହାୟତା • ପରିବେଶ-ମେଳା ଦୀର୍ଘ ସେବା</p>
+                  <p className="text-sm md:text-base leading-relaxed">Expert Installation & Support • Eco-Friendly & Long-Lasting Service</p>
                 </div>
               </div>
             </div>
