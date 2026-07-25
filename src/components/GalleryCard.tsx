@@ -47,6 +47,7 @@ export function GalleryCard({ item, onClick, activePlayingId, onPlayRequest }: G
   const isPlaying = activePlayingId === item.id;
   // Show autoplay on hover (desktop) or when this card is the active playing id
   const shouldShowYoutube = (isHovered || isPlaying) && isYoutube;
+  const shouldPlayLocalVideo = item.type === 'video' && !isYoutube && (isHovered || isPlaying);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     // Start touch-play. Suppress the immediate click that follows a touch
@@ -91,6 +92,16 @@ export function GalleryCard({ item, onClick, activePlayingId, onPlayRequest }: G
             className="absolute inset-0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           />
+        ) : shouldPlayLocalVideo ? (
+          <video
+            src={item.url}
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
         ) : (
           // Default video placeholder or non-YouTube video
           <>
@@ -106,6 +117,8 @@ export function GalleryCard({ item, onClick, activePlayingId, onPlayRequest }: G
               <video
                 src={item.url}
                 className="w-full h-full object-cover"
+                muted
+                preload="metadata"
               />
             )}
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition-colors">

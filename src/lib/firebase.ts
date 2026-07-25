@@ -46,6 +46,7 @@ export interface GalleryItem {
   order_index: number;
   created_at: string;
   admin_id: string;
+  cloudinary_public_id?: string;
 }
 
 export interface ContactInfo {

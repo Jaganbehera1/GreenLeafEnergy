@@ -4,6 +4,15 @@
 
 This project uses Firebase for authentication and database. To run locally, you need to set up environment variables.
 
+## Cloudinary Configuration
+
+Media uploads for gallery images and videos now use Cloudinary. Add these values to your environment file:
+
+```env
+VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
+VITE_CLOUDINARY_UPLOAD_PRESET=your_unsigned_upload_preset
+```
+
 ### Step 1: Copy the environment template
 ```bash
 cp .env.example .env.local

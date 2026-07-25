@@ -122,6 +122,9 @@ export function ProjectsSection({ limit }: { limit?: number }) {
                   src={selectedItem.url}
                   controls
                   autoPlay
+                  muted
+                  playsInline
+                  loop
                   className="w-full h-auto rounded-2xl shadow-2xl"
                 />
               );

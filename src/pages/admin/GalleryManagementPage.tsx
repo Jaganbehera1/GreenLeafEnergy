@@ -40,7 +40,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { db, GalleryItem } from '../../lib/firebase';
-import { supabase, GALLERY_BUCKET } from '../../lib/supabase';
+import { deleteFileFromCloudinary, uploadFileToCloudinary } from '../../lib/cloudinary';
 import { useAuth } from '../../contexts/AuthContext';
 
 // Helper function to detect if URL is a YouTube link
@@ -116,23 +116,12 @@ export function GalleryManagementPage() {
     try {
       let downloadUrl = url.trim();
 
+      let publicId: string | undefined;
+
       if (file) {
-        const fileExt = file.name.split('.').pop();
-        const filename = `${user.uid}/${Date.now()}.${fileExt}`;
-        
-        const { error: uploadError } = await supabase.storage
-          .from(GALLERY_BUCKET)
-          .upload(filename, file, { upsert: false });
-
-        if (uploadError) {
-          throw new Error(`Upload failed: ${uploadError.message}`);
-        }
-
-        const { data: publicData } = supabase.storage
-          .from(GALLERY_BUCKET)
-          .getPublicUrl(filename);
-
-        downloadUrl = publicData.publicUrl;
+        const uploadResult = await uploadFileToCloudinary(file, type);
+        downloadUrl = uploadResult.url;
+        publicId = uploadResult.publicId;
       }
 
       if (!downloadUrl) {
@@ -148,6 +137,7 @@ export function GalleryManagementPage() {
         order_index: items.length,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
+        cloudinary_public_id: publicId,
       });
 
       setUrl('');
@@ -164,14 +154,19 @@ export function GalleryManagementPage() {
     setUploading(false);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this item?')) return;
+  const handleDelete = async (item: GalleryItem) => {
+    if (!confirm('Are you sure you want to delete this item from the gallery and remove its stored media reference?')) return;
 
     try {
-      await deleteDoc(doc(db, 'gallery_items', id));
+      if (item.cloudinary_public_id) {
+        await deleteFileFromCloudinary(item.cloudinary_public_id, item.type);
+      }
+
+      await deleteDoc(doc(db, 'gallery_items', item.id));
       await loadGallery();
     } catch (error) {
       console.error('Error deleting item:', error);
+      alert('Delete failed. Please try again.');
     }
   };
 
@@ -524,8 +519,13 @@ export function GalleryManagementPage() {
                       </span>
                     </div>
                     <button
-                      onClick={() => handleDelete(item.id)}
-                      className="absolute top-2 right-2 p-2 bg-red-500/80 hover:bg-red-600 rounded-lg text-white opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleDelete(item);
+                      }}
+                      className="absolute top-2 right-2 p-2 bg-red-500/80 hover:bg-red-600 rounded-lg text-white shadow-sm transition-all duration-300"
+                      title="Delete item"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -555,6 +555,13 @@ export function GalleryManagementPage() {
                       >
                         View
                       </a>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(item)}
+                        className="flex-1 text-center text-red-600 hover:text-red-700 font-medium text-sm py-1.5 px-3 bg-red-50 hover:bg-red-100 rounded-lg transition-all duration-300"
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
