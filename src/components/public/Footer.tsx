@@ -49,7 +49,7 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
+            <div><h3 className="text-xl font-bold mb-4 bg-gray-900 text-green-400">Best Regards</h3>
               <h3 className="text-xl font-bold mb-4">Green Leaf Energy</h3>
               <p className="text-gray-400">
                 Leading provider of solar panel solutions for homes and businesses.

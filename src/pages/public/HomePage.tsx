@@ -231,7 +231,7 @@ export function HomePage() {
         </p>
 
         <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-yellow-300 via-green-300 to-cyan-300 bg-clip-text text-transparent">
-          PM Surya Ghar Muft Yojana
+          PM Surya Ghar Muft Bijli Yojana
         </h3>
 
       </div>
@@ -392,7 +392,7 @@ export function HomePage() {
                 </p>
               </div>
               <Link to="/learning" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-green-600 to-emerald-500 px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105">
-                Visit Learning Page <ChevronRight className="h-4 w-4" />
+                Learn More About Solar System <ChevronRight className="h-4 w-4" />
               </Link>
             </div>
           </div>

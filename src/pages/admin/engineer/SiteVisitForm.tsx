@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { SiteVisitReport, getReport, createDraft, saveReport } from '../../../lib/engineerReports';
 import { saveSiteVisit } from '../../../lib/siteVisits';
+import { uploadFileToCloudinary } from '../../../lib/cloudinary';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
 import {
@@ -16,10 +17,8 @@ import {
   Send,
   X,
   CheckCircle,
-  Upload,
   Trash2,
   Building,
-  Calendar,
   Clock,
   Shield,
   AlertCircle,
@@ -31,10 +30,7 @@ import {
   Navigation,
   TrendingUp,
   Battery,
-  Award,
-  HelpCircle,
   Camera,
-  Image,
   FolderOpen,
   Smartphone
 } from 'lucide-react';
@@ -79,7 +75,6 @@ export function SiteVisitForm() {
   const [activeSection, setActiveSection] = useState<string>('customer');
   const [uploadingAttachment, setUploadingAttachment] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const cameraInputRef = useRef<HTMLInputElement>(null);
 
   if (loading) {
     return (
@@ -127,7 +122,11 @@ export function SiteVisitForm() {
   }
 
   const update = (patch: Partial<SiteVisitReport>) => {
-    const updated = { ...report, ...patch, updated_at: new Date().toISOString() };
+    const updated: SiteVisitReport = {
+      ...report,
+      ...patch,
+      updated_at: new Date().toISOString(),
+    };
     setReport(updated);
     saveReport(updated);
     
@@ -157,6 +156,12 @@ export function SiteVisitForm() {
     }
     if (!report.address?.trim()) {
       errors.address = 'Address is required';
+    }
+    if (!report.engineer_name?.trim()) {
+      errors.engineer_name = 'Engineer name is required';
+    }
+    if (!report.engineer_mobile?.trim()) {
+      errors.engineer_mobile = 'Engineer mobile number is required';
     }
     
     setFormErrors(errors);
@@ -208,6 +213,7 @@ export function SiteVisitForm() {
     const draft: SiteVisitReport = {
       ...report,
       status: 'draft',
+      engineer_id: user?.uid ?? report.engineer_id,
       updated_at: new Date().toISOString(),
     };
     saveReport(draft);
@@ -215,24 +221,49 @@ export function SiteVisitForm() {
     setTimeout(() => setSavedMessage(''), 3000);
   };
 
-  const handleFileUpload = (category: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (category: string) => async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
     
     setUploadingAttachment(category);
     
     try {
-      const attachments = Array.from(files).map((f) => ({
-        name: f.name,
-        type: f.type,
-        size: f.size,
-        category,
-        // Store as base64 for preview
-        data: URL.createObjectURL(f)
-      }));
-      update({ attachments: [...(report.attachments || []), ...attachments] });
+      const uploadedAttachments = await Promise.all(
+        Array.from(files).map(async (file) => {
+          const baseAttachment = {
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            category,
+          } as const;
+
+          if (file.type.startsWith('image/')) {
+            try {
+              const uploadResult = await uploadFileToCloudinary(file, 'image');
+              return {
+                ...baseAttachment,
+                url: uploadResult.url,
+                public_id: uploadResult.publicId,
+                data: uploadResult.url,
+              };
+            } catch (uploadError) {
+              console.warn('Cloudinary upload failed, using local preview:', uploadError);
+              return {
+                ...baseAttachment,
+                data: URL.createObjectURL(file),
+              };
+            }
+          }
+
+          return {
+            ...baseAttachment,
+            data: URL.createObjectURL(file),
+          };
+        })
+      );
+
+      update({ attachments: [...(report.attachments || []), ...uploadedAttachments] });
       
-      // Show success message
       setSavedMessage(`✅ ${files.length} file(s) uploaded successfully!`);
       setTimeout(() => setSavedMessage(''), 3000);
     } catch (error) {
@@ -240,15 +271,15 @@ export function SiteVisitForm() {
       alert('Failed to upload file. Please try again.');
     } finally {
       setUploadingAttachment(null);
-      // Reset input
-      e.target.value = '';
+      if (e.target) {
+        e.target.value = '';
+      }
     }
   };
 
-  const handleCameraCapture = (category: string) => {
-    // Check if device has camera
-    if (cameraInputRef.current) {
-      cameraInputRef.current.click();
+  const handleCameraCapture = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
 
@@ -309,7 +340,10 @@ export function SiteVisitForm() {
           
           <div className="flex flex-wrap gap-2">
             {/* Gallery/File Upload */}
-            <label className="flex-1 min-w-[120px] inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-green-600 shadow-sm border border-green-200 hover:bg-green-50 transition-all duration-300 cursor-pointer">
+            <label
+              onClick={handleCameraCapture}
+              className="flex-1 min-w-[120px] inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-green-600 shadow-sm border border-green-200 hover:bg-green-50 transition-all duration-300 cursor-pointer"
+            >
               <FolderOpen className="h-4 w-4" />
               <span>Choose File</span>
               <input
@@ -330,7 +364,6 @@ export function SiteVisitForm() {
                   <Camera className="h-4 w-4" />
                   <span>Take Photo</span>
                   <input
-                    ref={cameraInputRef}
                     type="file"
                     onChange={handleFileUpload(category)}
                     className="hidden"
@@ -632,7 +665,7 @@ export function SiteVisitForm() {
                 <div>
                   <label className={labelClasses}>
                     <Building className="h-4 w-4 inline mr-1 text-cyan-400" />
-                    Structure Height (Low)
+                    South Height
                   </label>
                   <input
                     value={report.structure_height_low || ''}
@@ -644,7 +677,7 @@ export function SiteVisitForm() {
                 <div>
                   <label className={labelClasses}>
                     <Building className="h-4 w-4 inline mr-1 text-cyan-400" />
-                    Structure Height (High)
+                    North Height
                   </label>
                   <input
                     value={report.structure_height_high || ''}
@@ -653,7 +686,7 @@ export function SiteVisitForm() {
                     className={inputClasses('structure_height_high')}
                   />
                 </div>
-                <div>
+                {/* <div>
                   <label className={labelClasses}>
                     <Building className="h-4 w-4 inline mr-1 text-cyan-400" />
                     North/South Height
@@ -664,7 +697,7 @@ export function SiteVisitForm() {
                     placeholder="e.g. 3.5 m"
                     className={inputClasses('north_south_height')}
                   />
-                </div>
+                </div> */}
                 <div>
                   <label className={labelClasses}>
                     <ArrowLeft className="h-4 w-4 inline mr-1 text-cyan-400" />
@@ -688,6 +721,34 @@ export function SiteVisitForm() {
                     placeholder="e.g. 5 m"
                     className={inputClasses('east_west_distance')}
                   />
+                </div>
+                <div>
+                  <label className={labelClasses}>
+                    <Zap className="h-4 w-4 inline mr-1 text-cyan-400" />
+                    Cables in meters
+                  </label>
+                  <input
+                    value={report.cables_in_meters || ''}
+                    onChange={(e) => update({ cables_in_meters: e.target.value })}
+                    placeholder="e.g. 120"
+                    className={inputClasses('cables_in_meters')}
+                  />
+                </div>
+                <div>
+                  <label className={labelClasses}>
+                    <Zap className="h-4 w-4 inline mr-1 text-cyan-400" />
+                    Cable Type
+                  </label>
+                  <select
+                    value={report.cable_type || ''}
+                    onChange={(e) => update({ cable_type: e.target.value })}
+                    className={inputClasses('cable_type')}
+                  >
+                    <option value="">Select cable type</option>
+                    <option value="Earthing">Earthing</option>
+                    <option value="AC">AC</option>
+                    <option value="DC">DC</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -943,7 +1004,7 @@ export function SiteVisitForm() {
                           <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
                             {file.type?.startsWith('image/') ? (
                               <img 
-                                src={(file as any).data || ''} 
+                                src={(file as any).url || (file as any).data || ''} 
                                 alt={file.name}
                                 className="w-10 h-10 rounded-lg object-cover"
                               />
@@ -1005,6 +1066,48 @@ export function SiteVisitForm() {
                 <X className="h-5 w-5" />
                 Cancel
               </button>
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-gradient-to-br from-slate-50 to-gray-100 p-4 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Engineer Details</p>
+                <div className="mt-3 space-y-3 text-sm text-gray-700">
+                  <div>
+                    <label className={labelClasses}>Engineer Name</label>
+                    <input
+                      value={report.engineer_name || ''}
+                      onChange={(e) => update({ engineer_name: e.target.value })}
+                      onBlur={() => handleFieldTouch('engineer_name')}
+                      placeholder="Enter engineer name"
+                      className={inputClasses('engineer_name')}
+                      required
+                    />
+                    {formErrors.engineer_name && touchedFields.engineer_name && (
+                      <p className="mt-1.5 text-sm text-red-600 flex items-center gap-1">
+                        <AlertCircle className="h-4 w-4" />
+                        {formErrors.engineer_name}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className={labelClasses}>Mobile Number</label>
+                    <input
+                      value={report.engineer_mobile || ''}
+                      onChange={(e) => update({ engineer_mobile: e.target.value })}
+                      onBlur={() => handleFieldTouch('engineer_mobile')}
+                      placeholder="Enter mobile number"
+                      className={inputClasses('engineer_mobile')}
+                      required
+                    />
+                    {formErrors.engineer_mobile && touchedFields.engineer_mobile && (
+                      <p className="mt-1.5 text-sm text-red-600 flex items-center gap-1">
+                        <AlertCircle className="h-4 w-4" />
+                        {formErrors.engineer_mobile}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Form Progress */}

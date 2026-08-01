@@ -4,6 +4,8 @@ export interface SiteVisitReport {
   created_at: string;
   updated_at: string;
   engineer_id?: string | null;
+  engineer_name?: string;
+  engineer_mobile?: string;
   customer_name: string;
   phone_number: string;
   address: string;
@@ -25,6 +27,8 @@ export interface SiteVisitReport {
   battery_power?: string;
   shadow_analysis?: string;
   electricity_bill?: string;
+  cables_in_meters?: string;
+  cable_type?: string;
   recommended_capacity?: string;
   inverter_recommendation?: string;
   panel_recommendation?: string;
@@ -34,7 +38,15 @@ export interface SiteVisitReport {
   admin_comment?: string;
   reviewed_by?: string;
   reviewed_at?: string;
-  attachments?: { name: string; type: string; category?: string; size?: number }[];
+  attachments?: {
+    name: string;
+    type: string;
+    category?: string;
+    size?: number;
+    url?: string;
+    public_id?: string;
+    data?: string;
+  }[];
 }
 
 const STORAGE_KEY = 'kse_site_visit_reports_v1';
@@ -85,6 +97,13 @@ function readAll(): SiteVisitReport[] {
   }
 }
 
+function cloneReportForPersistence(report: SiteVisitReport): SiteVisitReport {
+  return {
+    ...report,
+    attachments: report.attachments?.map(({ data, ...attachment }) => attachment) ?? [],
+  };
+}
+
 function writeAll(items: SiteVisitReport[]) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
@@ -101,17 +120,23 @@ export function listReports(): SiteVisitReport[] {
   return filtered.sort((a, b) => (a.updated_at < b.updated_at ? 1 : -1));
 }
 
+export function listReportsByEngineer(engineerId: string | null): SiteVisitReport[] {
+  if (!engineerId) return [];
+  return listReports().filter((report) => report.engineer_id === engineerId);
+}
+
 export function getReport(id: string): SiteVisitReport | undefined {
   return readAll().find((r) => r.id === id);
 }
 
 export function saveReport(report: SiteVisitReport) {
+  const persistentReport = cloneReportForPersistence(report);
   const items = readAll();
-  const idx = items.findIndex((r) => r.id === report.id);
+  const idx = items.findIndex((r) => r.id === persistentReport.id);
   if (idx >= 0) {
-    items[idx] = report;
+    items[idx] = persistentReport;
   } else {
-    items.push(report);
+    items.push(persistentReport);
   }
   writeAll(items);
 }

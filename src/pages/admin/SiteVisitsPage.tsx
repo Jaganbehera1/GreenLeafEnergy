@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
-import { listSiteVisits, updateSiteVisitStatus, deleteSiteVisit } from '../../lib/siteVisits';
+import { useEffect, useState } from 'react';
+import { listSiteVisits, listSiteVisitsByEngineer, updateSiteVisitStatus, deleteSiteVisit } from '../../lib/siteVisits';
 import { SiteVisitReport } from '../../lib/engineerReports';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -16,26 +16,12 @@ import {
   Trash2,
   RefreshCw,
   Search,
-  Filter,
-  FileText,
   Users,
   Grid,
   List,
-  Check,
-  X,
   Database,
   Download,
   Loader2,
-  Building,
-  Gauge,
-  Zap,
-  Battery,
-  TrendingUp,
-  Home,
-  Navigation,
-  HardHat,
-  Sun,
-  PenTool
 } from 'lucide-react';
 import jsPDF from 'jspdf';
 
@@ -74,7 +60,7 @@ function renderStatusBadge(status: SiteVisitReport['status']) {
 }
 
 export function SiteVisitsPage() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const [items, setItems] = useState<SiteVisitReport[]>([]);
   const [filteredItems, setFilteredItems] = useState<SiteVisitReport[]>([]);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -98,7 +84,12 @@ export function SiteVisitsPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      const data = await listSiteVisits();
+      let data: SiteVisitReport[];
+      if (role === 'engineer' && user?.uid) {
+        data = await listSiteVisitsByEngineer(user.uid);
+      } else {
+        data = await listSiteVisits();
+      }
       setItems(data);
       setDataSource(data.length > 0 ? '✅ Data loaded successfully' : '📭 No data found');
       if (data.length === 0) {
@@ -280,6 +271,8 @@ export function SiteVisitsPage() {
       ['Customer Name', report.customer_name || 'N/A'],
       ['Phone Number', report.phone_number || 'N/A'],
       ['Address', report.address || 'N/A'],
+      ['Engineer Name', report.engineer_name || 'N/A'],
+      ['Engineer Mobile', report.engineer_mobile || 'N/A'],
       ['GPS Location', report.gps_location || 'N/A'],
       ['Installation Type', report.installation_type || 'N/A'],
     ];
@@ -338,6 +331,8 @@ export function SiteVisitsPage() {
     doc.setTextColor(50, 50, 50);
     const systemData = [
       ['System Capacity', report.system_capacity || 'N/A'],
+      ['Cables in meters', report.cables_in_meters || 'N/A'],
+      ['Cable Type', report.cable_type || 'N/A'],
       ['Recommended Capacity', report.recommended_capacity || 'N/A'],
       ['Panel Brand', report.panel_brand || 'N/A'],
       ['Panel Type', report.panel_type || 'N/A'],
@@ -469,6 +464,42 @@ export function SiteVisitsPage() {
       const remarksLines = doc.splitTextToSize(report.remarks, pageWidth - 40);
       doc.text(remarksLines, 20, yPos);
       yPos += remarksLines.length * 5 + 2;
+    }
+
+    if (report.attachments && report.attachments.length > 0) {
+      yPos += 2;
+      doc.setFillColor(240, 249, 255);
+      doc.rect(15, yPos - 4, pageWidth - 30, 8, 'F');
+      doc.setFontSize(12);
+      doc.setTextColor(37, 99, 235);
+      doc.text('Attachments', 20, yPos);
+
+      yPos += 8;
+      doc.setFontSize(10);
+      doc.setTextColor(50, 50, 50);
+      const imageAttachments = report.attachments.filter((file) => file.type?.startsWith('image/'));
+
+      if (imageAttachments.length > 0) {
+        const imageWidth = 80;
+        const imageHeight = 60;
+        const columns = 2;
+        imageAttachments.forEach((file, index) => {
+          if (yPos > pageHeight - 60) {
+            doc.addPage();
+            yPos = 20;
+          }
+          const data = (file as { data?: string }).data;
+          if (!data) return;
+          try {
+            const x = 20 + (index % columns) * 90;
+            const y = yPos + Math.floor(index / columns) * 70;
+            doc.addImage(data, 'JPEG', x, y, imageWidth, imageHeight);
+            doc.text(file.name, x, y + imageHeight + 5);
+          } catch (error) {
+            console.warn('Could not embed attachment image in PDF:', error);
+          }
+        });
+      }
     }
 
     // Footer

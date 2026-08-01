@@ -2,6 +2,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getReport, SiteVisitReport, saveReport } from '../../../lib/engineerReports';
 import { getSiteVisitByIdFromFirestore } from '../../../lib/siteVisits';
 import { useEffect, useState, useRef } from 'react';
+import { useAuth } from '../../../contexts/AuthContext';
 import {
   ArrowLeft,
   Edit,
@@ -76,6 +77,7 @@ function renderStatusBadge(status: SiteVisitReport['status']) {
 export function ReportViewPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user, role } = useAuth();
   const [report, setReport] = useState<SiteVisitReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
@@ -91,6 +93,10 @@ export function ReportViewPage() {
       try {
         const remote = await getSiteVisitByIdFromFirestore(id);
         if (remote) {
+          if (role === 'engineer' && user && remote.engineer_id !== user.uid) {
+            navigate('/admin/engineer-portal/reports');
+            return;
+          }
           setReport(remote);
           setLoading(false);
           return;
@@ -99,7 +105,7 @@ export function ReportViewPage() {
         console.warn('Could not load remote report:', err);
       }
       const r = getReport(id);
-      if (!r) {
+      if (!r || (role === 'engineer' && user && r.engineer_id !== user.uid)) {
         navigate('/admin/engineer-portal/reports');
         return;
       }
@@ -517,6 +523,28 @@ export function ReportViewPage() {
                   </div>
                 </div>
 
+                {/* Engineer Details */}
+                <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl p-4 border border-slate-200">
+                  <div className="flex items-start gap-3">
+                    <User className="w-5 h-5 text-slate-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider">Engineer Name</p>
+                      <p className="text-gray-700 font-medium mt-0.5">{report.engineer_name || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Engineer Mobile */}
+                <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl p-4 border border-slate-200">
+                  <div className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 text-slate-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider">Engineer Mobile</p>
+                      <p className="text-gray-700 font-medium mt-0.5">{report.engineer_mobile || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* GPS Location */}
                 <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-4 border border-indigo-100">
                   <div className="flex items-start gap-3">
@@ -638,6 +666,28 @@ export function ReportViewPage() {
                   </div>
                 </div>
 
+                {/* Cables in meters */}
+                <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-4 border border-indigo-100">
+                  <div className="flex items-start gap-3">
+                    <Zap className="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Cables in meters</p>
+                      <p className="text-gray-700 font-medium mt-0.5">{report.cables_in_meters || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Cable Type */}
+                <div className="bg-gradient-to-br from-cyan-50 to-sky-50 rounded-xl p-4 border border-cyan-100">
+                  <div className="flex items-start gap-3">
+                    <Battery className="w-5 h-5 text-cyan-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-semibold text-cyan-600 uppercase tracking-wider">Cable Type</p>
+                      <p className="text-gray-700 font-medium mt-0.5">{report.cable_type || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Recommended Capacity */}
                 <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100">
                   <div className="flex items-start gap-3">
@@ -678,6 +728,44 @@ export function ReportViewPage() {
                     <div className="flex-1">
                       <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Remarks</p>
                       <p className="text-gray-700 font-medium mt-0.5">{report.remarks || 'No remarks provided'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Attachments - Full Width */}
+                <div className="md:col-span-2 bg-gradient-to-br from-white to-gray-50 rounded-xl p-4 border border-gray-200">
+                  <div className="flex items-start gap-3">
+                    <FileText className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Uploaded Images & Documents</p>
+                      {report.attachments && report.attachments.length > 0 ? (
+                        <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {report.attachments.map((file, index) => {
+                            const attachmentData = (file as { data?: string; url?: string }).url || (file as { data?: string }).data;
+                            const isImage = file.type?.startsWith('image/');
+                            return (
+                              <div key={`${file.name}-${index}`} className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm">
+                                <div className="flex items-center justify-between gap-2 mb-2">
+                                  <p className="text-sm font-semibold text-gray-700 truncate">{file.name}</p>
+                                  <span className="text-xs text-gray-400">{file.category || 'Attachment'}</span>
+                                </div>
+                                {isImage && attachmentData ? (
+                                  <img src={attachmentData} alt={file.name} className="w-full h-48 object-cover rounded-lg border border-gray-100" />
+                                ) : (
+                                  <div className="flex h-48 items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50">
+                                    <div className="text-center">
+                                      <FileText className="mx-auto h-8 w-8 text-blue-400" />
+                                      <p className="mt-2 text-sm text-gray-500">{file.name}</p>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <p className="text-gray-500 mt-2">No uploaded images or documents.</p>
+                      )}
                     </div>
                   </div>
                 </div>

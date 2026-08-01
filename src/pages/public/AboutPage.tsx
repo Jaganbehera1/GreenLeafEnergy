@@ -70,7 +70,7 @@ export function AboutPage() {
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-yellow-300 flex-shrink-0 mt-1" />
-                  <p className="text-sm md:text-base leading-relaxed">Trusted Solar Provider in Pipili, Puri, and Across Odisha</p>
+                  <p className="text-sm md:text-base leading-relaxed">Trusted Solar Provider Across Odisha</p>
                 </div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
-import { listReports, deleteReport, SiteVisitReport } from '../../../lib/engineerReports';
-import { listSiteVisitsByEngineer } from '../../../lib/siteVisits';
+import { listReports, listReportsByEngineer, deleteReport, SiteVisitReport } from '../../../lib/engineerReports';
+import { listSiteVisits, listSiteVisitsByEngineer } from '../../../lib/siteVisits';
 import { 
   Trash2, Edit, Plus, Eye, Calendar, MapPin, Phone, User, 
   FileText, CheckCircle, XCircle, Clock, AlertCircle, 
@@ -46,7 +46,7 @@ function renderStatusBadge(status: SiteVisitReport['status']) {
 }
 
 export function ReportsListPage() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const [items, setItems] = useState<SiteVisitReport[]>([]);
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
@@ -60,14 +60,23 @@ export function ReportsListPage() {
       setLoading(true);
       if (user?.uid) {
         try {
-          const remote = await listSiteVisitsByEngineer(user.uid);
-          const local = listReports();
+          let remote: SiteVisitReport[] = [];
+          let local: SiteVisitReport[] = [];
+
+          if (role === 'engineer') {
+            remote = await listSiteVisitsByEngineer(user.uid);
+            local = listReportsByEngineer(user.uid);
+          } else {
+            remote = await listSiteVisits();
+            local = listReports();
+          }
+
           const mergedMap = new Map(local.map((item) => [item.id, item]));
           remote.forEach((item) => mergedMap.set(item.id, item));
           setItems(Array.from(mergedMap.values()).sort((a, b) => (a.updated_at < b.updated_at ? 1 : -1)));
         } catch (err) {
           console.warn('Failed to load engineer reports from Firestore, using local drafts', err);
-          setItems(listReports());
+          setItems(role === 'engineer' ? listReportsByEngineer(user.uid) : listReports());
         }
       } else {
         setItems(listReports());
