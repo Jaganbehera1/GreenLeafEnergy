@@ -14,6 +14,7 @@ export interface Quotation {
   created_at: string;
   updated_at: string;
   notes?: string;
+  inverter_type : string;
 }
 
 const STORAGE_KEY = 'kse_quotations_v1';
