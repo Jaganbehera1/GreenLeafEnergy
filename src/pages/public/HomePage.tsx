@@ -3,6 +3,7 @@ import { ChevronRight, Zap } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { ProjectsSection } from '../../components/ProjectsSection';
 import { useState } from 'react';
+import { SolarCostCalculator } from './SolarCostCalculator';
 
 // HERO IMAGES
 import modiImg from '../../images/modi.png';
@@ -40,29 +41,6 @@ import bgVideo from '../../images/background3.mp4';
 
 export function HomePage() {
   const { t } = useLanguage();
-
-  // Calculator state
-  const [annualConsumption, setAnnualConsumption] = useState<number>(6000);
-  const [monthlyBill, setMonthlyBill] = useState<number>(2000);
-  const [location, setLocation] = useState<string>('Mumbai');
-  const [roofType, setRoofType] = useState<string>('Concrete Roof');
-  const [showResults, setShowResults] = useState<boolean>(false);
-
-  // Calculate estimates using the specified method
-  const calculateEstimate = () => {
-    setShowResults(true);
-  };
-
-  // Derived calculations using the specified method
-  const dailyUsage = annualConsumption / 12 / 30;
-  const systemSize = Math.ceil((dailyUsage / 4) * 10) / 10;
-  const recommendedSize = Math.ceil(systemSize);
-  
-  const baseCost = recommendedSize * 35000;
-  const costRange = `${(recommendedSize * 32000).toLocaleString()} - ${(recommendedSize * 38000).toLocaleString()}`;
-  const subsidy = recommendedSize * 15000;
-  const monthlySaving = Math.round((monthlyBill / 3000) * 70) + 20;
-  const paybackYears = Math.max(Math.round((baseCost - subsidy) / (monthlyBill * 12 * (monthlySaving / 100))), 2);
 
   return (
     <div className="bg-white">
@@ -153,106 +131,105 @@ export function HomePage() {
 
       </section>
 
-{/* ================= PM SURYA GHAR SECTION ================= */}
-<section className="relative overflow-hidden py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-green-900">
+      {/* ================= PM SURYA GHAR SECTION ================= */}
+      <section className="relative overflow-hidden py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-green-900">
 
-  {/* Background Glow */}
-  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    <div className="absolute -top-24 -left-20 w-72 h-72 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
+        {/* Background Glow */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-24 -left-20 w-72 h-72 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
 
-    <div className="absolute top-1/2 -right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 -right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
 
-    <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-green-500/20 rounded-full blur-3xl"></div>
-  </div>
-
-  <div className="relative max-w-7xl mx-auto px-4 flex justify-center">
-
-    <div className="w-full max-w-lg rounded-[32px] border border-white/20 bg-white/10 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-8 transition-all duration-500 hover:scale-105 hover:border-yellow-400">
-
-      {/* Header */}
-      <div className="inline-flex items-center justify-center w-full mb-6">
-        <div className="px-8 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 shadow-lg">
-
-          <h2 className="text-lg font-extrabold tracking-wider text-gray-900">
-            🇮🇳 PM SURYA GHAR YOJANA
-          </h2>
-
+          <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-green-500/20 rounded-full blur-3xl"></div>
         </div>
-      </div>
 
-      {/* GIF */}
-      <div className="bg-white rounded-2xl p-4 flex justify-center">
-        <img
-          src={sliderGif}
-          alt="PM Surya Ghar Solar Scheme"
-          className="w-full max-h-[320px] object-contain drop-shadow-2xl"
-        />
-      </div>
+        <div className="relative max-w-7xl mx-auto px-4 flex justify-center">
 
-      {/* Subsidy Banner */}
-      <div className="mt-8 flex justify-center">
+          <div className="w-full max-w-lg rounded-[32px] border border-white/20 bg-white/10 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-8 transition-all duration-500 hover:scale-105 hover:border-yellow-400">
 
-        <div className="relative overflow-hidden flex items-center rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 px-3 py-2 border-2 border-yellow-300 shadow-2xl animate-pulse">
+            {/* Header */}
+            <div className="inline-flex items-center justify-center w-full mb-6">
+              <div className="px-8 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-300 shadow-lg">
 
-          {/* Shine */}
-          <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[shine_2.5s_linear_infinite]" />
+                <h2 className="text-lg font-extrabold tracking-wider text-gray-900">
+                  🇮🇳 PM SURYA GHAR YOJANA
+                </h2>
 
-          {/* Modi Image */}
-          <div className="relative z-10 flex-shrink-0">
-            <img
-              src={modiImg}
-              alt="PM Modi"
-              className="w-16 h-16 rounded-full object-cover border-2 border-white bg-white shadow-lg"
-            />
-          </div>
+              </div>
+            </div>
 
-          {/* Text */}
-          <div className="relative z-10 ml-4">
+            {/* GIF */}
+            <div className="bg-white rounded-2xl p-4 flex justify-center">
+              <img
+                src={sliderGif}
+                alt="PM Surya Ghar Solar Scheme"
+                className="w-full max-h-[320px] object-contain drop-shadow-2xl"
+              />
+            </div>
 
-            <p className="text-white text-sm font-semibold uppercase tracking-wide">
-              💰 Subsidy up to
-            </p>
+            {/* Subsidy Banner */}
+            <div className="mt-8 flex justify-center">
 
-            <div className="mt-1 inline-block bg-white text-red-600 px-5 py-1 rounded-full text-2xl font-extrabold shadow-lg">
-              ₹1,38,000
+              <div className="relative overflow-hidden flex items-center rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 px-3 py-2 border-2 border-yellow-300 shadow-2xl animate-pulse">
+
+                {/* Shine */}
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[shine_2.5s_linear_infinite]" />
+
+                {/* Modi Image */}
+                <div className="relative z-10 flex-shrink-0">
+                  <img
+                    src={modiImg}
+                    alt="PM Modi"
+                    className="w-16 h-16 rounded-full object-cover border-2 border-white bg-white shadow-lg"
+                  />
+                </div>
+
+                {/* Text */}
+                <div className="relative z-10 ml-4">
+
+                  <p className="text-white text-sm font-semibold uppercase tracking-wide">
+                    💰 Subsidy up to
+                  </p>
+
+                  <div className="mt-1 inline-block bg-white text-red-600 px-5 py-1 rounded-full text-2xl font-extrabold shadow-lg">
+                    ₹1,38,000
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* Bottom Text */}
+            <div className="mt-8 text-center">
+
+              <p className="text-gray-200 text-lg">
+                Government Subsidy Available under
+              </p>
+
+              <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-yellow-300 via-green-300 to-cyan-300 bg-clip-text text-transparent">
+                PM Surya Ghar Muft Bijli Yojana
+              </h3>
+
             </div>
 
           </div>
 
         </div>
 
-      </div>
-
-      {/* Bottom Text */}
-      <div className="mt-8 text-center">
-
-        <p className="text-gray-200 text-lg">
-          Government Subsidy Available under
-        </p>
-
-        <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-yellow-300 via-green-300 to-cyan-300 bg-clip-text text-transparent">
-          PM Surya Ghar Muft Bijli Yojana
-        </h3>
-
-      </div>
-
-    </div>
-
-  </div>
-
-{/* </section> */}
+      </section>
 
       {/* ================= RESIDENTIAL SOLAR SECTION ================= */}
-      {/* <section className="relative overflow-hidden py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-green-900"> */}
-      {/* Background Glow */}
-      <br />
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-32 -left-24 w-72 h-72 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
+      <section className="relative overflow-hidden py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-green-900">
+        {/* Background Glow */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-32 -left-24 w-72 h-72 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
 
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
 
-        <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-green-400/20 rounded-full blur-3xl"></div>
-      </div>
+          <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-green-400/20 rounded-full blur-3xl"></div>
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Heading */}
@@ -380,6 +357,7 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ================= KNOWLEDGE HUB SECTION ================= */}
       <section className="py-16 bg-gradient-to-b from-green-50 via-white to-blue-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="rounded-[32px] border border-green-100 bg-white/90 p-8 shadow-2xl shadow-green-100 md:p-10">
@@ -400,139 +378,7 @@ export function HomePage() {
       </section>
 
       {/* ================= SOLAR COST CALCULATOR ================= */}
-      <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold">
-              <span className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 bg-clip-text text-transparent">🧮 Solar Cost Calculator</span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              Enter your annual electricity consumption to get a personalized solar estimate.
-            </p>
-            <p className="mt-2 text-sm bg-gradient-to-r from-yellow-100 to-green-100 inline-block px-4 py-2 rounded-full shadow">
-              💡 1 kW solar system generates ~4 units (kWh) per day
-            </p>
-          </div>
-
-          <div className="grid gap-8 lg:grid-cols-2">
-            <div className="rounded-3xl border-2 border-gray-200 bg-gradient-to-br from-white to-yellow-50 p-8 shadow-xl hover:shadow-2xl transition-all duration-300">
-              <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); calculateEstimate(); }}>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900">📊 Annual electricity consumption (kWh)</label>
-                  <input 
-                    type="number" 
-                    min="0" 
-                    value={annualConsumption}
-                    onChange={(e) => setAnnualConsumption(Number(e.target.value))}
-                    placeholder="e.g. 6000" 
-                    className="mt-2 w-full rounded-2xl border-2 border-gray-300 bg-white px-4 py-3 outline-none focus:border-green-400 focus:shadow-md transition" 
-                  />
-                  <p className="mt-1 text-xs text-gray-500">Check your electricity bills for annual consumption</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900">💰 Monthly electricity bill (₹)</label>
-                  <input 
-                    type="number" 
-                    min="0" 
-                    value={monthlyBill}
-                    onChange={(e) => setMonthlyBill(Number(e.target.value))}
-                    placeholder="e.g. 2000" 
-                    className="mt-2 w-full rounded-2xl border-2 border-gray-300 bg-white px-4 py-3 outline-none focus:border-green-400 focus:shadow-md transition" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900">📍 House location</label>
-                  <input 
-                    type="text" 
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    placeholder="e.g. Mumbai" 
-                    className="mt-2 w-full rounded-2xl border-2 border-gray-300 bg-white px-4 py-3 outline-none focus:border-green-400 focus:shadow-md transition" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900">🏠 Roof type</label>
-                  <select 
-                    value={roofType}
-                    onChange={(e) => setRoofType(e.target.value)}
-                    className="mt-2 w-full rounded-2xl border-2 border-gray-300 bg-white px-4 py-3 outline-none focus:border-green-400 focus:shadow-md transition"
-                  >
-                    <option>Tile Roof</option>
-                    <option>Metal Roof</option>
-                    <option>Concrete Roof</option>
-                    <option>Flat Roof</option>
-                  </select>
-                </div>
-                <button 
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-yellow-400 via-green-500 to-blue-500 text-white px-6 py-3 rounded-xl font-bold hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
-                >
-                  <span>🔍</span> Calculate Estimate
-                </button>
-              </form>
-            </div>
-
-            <div className={`rounded-3xl border-2 border-gray-200 p-8 shadow-xl transition-all duration-500 ${showResults ? 'bg-gradient-to-br from-green-100 via-yellow-100 to-blue-100' : 'bg-gradient-to-br from-gray-50 to-gray-100'}`}>
-              {showResults ? (
-                <div className="space-y-4 animate-fadeIn">
-                  <div className="bg-gradient-to-r from-yellow-500 via-green-500 to-blue-500 text-white p-4 rounded-2xl text-center">
-                    <div className="text-sm font-semibold">📊 Your Solar Estimate</div>
-                    <div className="text-2xl font-bold mt-1">For {location}</div>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-green-200 hover:shadow-md transition-all duration-300 hover:scale-105">
-                    <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>📊</span> Recommended system size</h3>
-                    <p className="mt-2 text-gray-700 font-bold text-2xl">{recommendedSize} kW</p>
-                    <p className="text-sm text-gray-500">Based on {annualConsumption} kWh annual consumption</p>
-                    <div className="mt-2 text-xs bg-gradient-to-r from-yellow-50 to-green-50 p-2 rounded-lg">
-                      <p>📐 Calculation: {annualConsumption} ÷ 12 = {(annualConsumption/12).toFixed(1)} kWh/month</p>
-                      <p>📐 {(annualConsumption/12).toFixed(1)} ÷ 30 = {(dailyUsage).toFixed(2)} kWh/day</p>
-                      <p>📐 {(dailyUsage).toFixed(2)} ÷ 4 = {(systemSize).toFixed(2)} kW → Recommended: {recommendedSize} kW</p>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-yellow-200 hover:shadow-md transition-all duration-300 hover:scale-105">
-                    <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>💵</span> Approximate installation cost</h3>
-                    <p className="mt-2 text-gray-700 font-bold text-lg">₹{costRange}</p>
-                    <p className="text-sm text-gray-500">₹{(recommendedSize * 35000).toLocaleString()} average</p>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-blue-200 hover:shadow-md transition-all duration-300 hover:scale-105">
-                    <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>🏛️</span> Estimated subsidy</h3>
-                    <p className="mt-2 text-gray-700 font-bold text-lg">₹{subsidy.toLocaleString()}</p>
-                    <p className="text-sm text-gray-500">~{(subsidy / (recommendedSize * 35000) * 100).toFixed(0)}% of installation cost</p>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-green-200 hover:shadow-md transition-all duration-300 hover:scale-105">
-                    <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>💰</span> Expected monthly savings</h3>
-                    <p className="mt-2 text-gray-700 font-bold text-lg">~{monthlySaving}%</p>
-                    <p className="text-sm text-gray-500">Save up to ₹{(monthlyBill * monthlySaving / 100).toFixed(0)} per month</p>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-purple-200 hover:shadow-md transition-all duration-300 hover:scale-105">
-                    <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>⏱️</span> Payback period</h3>
-                    <p className="mt-2 text-gray-700 font-bold text-lg">{paybackYears} years</p>
-                    <p className="text-sm text-gray-500">With current consumption and subsidy</p>
-                  </div>
-                  
-                  <Link
-                    to="/contact"
-                    className="block w-full bg-gradient-to-r from-yellow-400 via-green-500 to-blue-500 text-white text-center p-3 rounded-xl font-bold hover:shadow-xl transition-all duration-300 hover:scale-105"
-                  >
-                    💡 Get a personalized quote from our experts!
-                  </Link>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center h-full text-center text-gray-500 p-8">
-                  <div className="text-6xl mb-4">📊</div>
-                  <h3 className="text-xl font-semibold text-gray-700">Enter your details</h3>
-                  <p className="mt-2">Fill in the form and click "Calculate Estimate" to see your personalized solar savings.</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+      <SolarCostCalculator />
 
       {/* ================= WHAT WE OFFER ================= */}
       <section className="py-16 bg-gradient-to-b from-white via-yellow-50 to-green-50">
@@ -784,6 +630,10 @@ export function HomePage() {
         }
         .border-gradient-to-r {
           border-image: linear-gradient(to right, #fbbf24, #22c55e, #3b82f6) 1;
+        }
+        @keyframes shine {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
         }
       `}</style>
 

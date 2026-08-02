@@ -32,13 +32,26 @@ import {
   Battery,
   Camera,
   FolderOpen,
-  Smartphone
+  Smartphone,
+  Wifi,
+  Database
 } from 'lucide-react';
 
 // Helper function to check if device is mobile
 const isMobileDevice = () => {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
+
+// Dropdown data constants
+const cableTypes = ['Earthing', 'DC', 'AC'];
+const panelBrands = ['TATA', 'adani', 'Waaree', 'Luminous', 'Surya', 'Jackson', 'Goutam', 'UTL'];
+const panelTypes = ['Polycrystalline', 'Monocrystalline', 'Mono Half Cut', 'Bifacial', 'Topcon'];
+const inverterTypes = ['Ongrid', 'Hybrid', 'Offgrid'];
+const inverterBrands = ['Luminous', 'Servotec', 'UTL', 'DEYE', 'POM POWER', 'Visiontek', 'Cathod Power', 'V-Solel', 'Solex', 'Goodwe', 'Waaree'];
+const batteryBrands = ['Luminous', 'Exide', 'Power Guard', 'Amaron', 'Eastman', 'Power Build', 'No Battery'];
+const batteryTypes = ['Lead Acid', 'Solar Lead Acid', 'Solar GEL', 'Lithium Ion', 'No Battery'];
+const batteryPowers = ['80 AH', '100 AH', '150 AH', '200 AH', '220 AH', '250 AH', '300 AH', '350 AH', 'Nil'];
+const quantities = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
 
 function useFormState(id?: string) {
   const [report, setReport] = useState<SiteVisitReport | null>(null);
@@ -298,8 +311,10 @@ export function SiteVisitForm() {
     { id: 'site', label: 'Site Details', icon: MapPin },
     { id: 'measurements', label: 'Measurements', icon: Gauge },
     { id: 'equipment', label: 'Equipment', icon: Building },
+    { id: 'cable', label: 'Cable Details', icon: Wifi },
     { id: 'solar', label: 'Solar Analysis', icon: Sun },
     { id: 'recommendations', label: 'Recommendations', icon: TrendingUp },
+    { id: 'technician', label: 'Technician', icon: HardHat },
     { id: 'remarks', label: 'Remarks', icon: PenTool },
   ];
 
@@ -334,7 +349,7 @@ export function SiteVisitForm() {
             </div>
             <div className="flex-1">
               <p className="text-sm font-semibold text-gray-700">{label}</p>
-              <p className="text-xs text-gray-400">Upload or capture image</p>
+              <p className="text-xs text-gray-400">Upload or capture image from Original Document Only</p>
             </div>
           </div>
           
@@ -686,18 +701,6 @@ export function SiteVisitForm() {
                     className={inputClasses('structure_height_high')}
                   />
                 </div>
-                {/* <div>
-                  <label className={labelClasses}>
-                    <Building className="h-4 w-4 inline mr-1 text-cyan-400" />
-                    North/South Height
-                  </label>
-                  <input
-                    value={report.north_south_height || ''}
-                    onChange={(e) => update({ north_south_height: e.target.value })}
-                    placeholder="e.g. 3.5 m"
-                    className={inputClasses('north_south_height')}
-                  />
-                </div> */}
                 <div>
                   <label className={labelClasses}>
                     <ArrowLeft className="h-4 w-4 inline mr-1 text-cyan-400" />
@@ -722,34 +725,6 @@ export function SiteVisitForm() {
                     className={inputClasses('east_west_distance')}
                   />
                 </div>
-                <div>
-                  <label className={labelClasses}>
-                    <Zap className="h-4 w-4 inline mr-1 text-cyan-400" />
-                    Cables in meters
-                  </label>
-                  <input
-                    value={report.cables_in_meters || ''}
-                    onChange={(e) => update({ cables_in_meters: e.target.value })}
-                    placeholder="e.g. 120"
-                    className={inputClasses('cables_in_meters')}
-                  />
-                </div>
-                <div>
-                  <label className={labelClasses}>
-                    <Zap className="h-4 w-4 inline mr-1 text-cyan-400" />
-                    Cable Type
-                  </label>
-                  <select
-                    value={report.cable_type || ''}
-                    onChange={(e) => update({ cable_type: e.target.value })}
-                    className={inputClasses('cable_type')}
-                  >
-                    <option value="">Select cable type</option>
-                    <option value="Earthing">Earthing</option>
-                    <option value="AC">AC</option>
-                    <option value="DC">DC</option>
-                  </select>
-                </div>
               </div>
             </div>
 
@@ -770,73 +745,175 @@ export function SiteVisitForm() {
                     <Battery className="h-4 w-4 inline mr-1 text-indigo-400" />
                     Panel Brand
                   </label>
-                  <input
+                  <select
                     value={report.panel_brand || ''}
                     onChange={(e) => update({ panel_brand: e.target.value })}
-                    placeholder="e.g. Tata Power Solar"
                     className={inputClasses('panel_brand')}
-                  />
+                  >
+                    <option value="">Select panel brand</option>
+                    {panelBrands.map((brand) => (
+                      <option key={brand} value={brand}>{brand}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className={labelClasses}>
                     <Battery className="h-4 w-4 inline mr-1 text-indigo-400" />
                     Panel Type
                   </label>
-                  <input
+                  <select
                     value={report.panel_type || ''}
                     onChange={(e) => update({ panel_type: e.target.value })}
-                    placeholder="e.g. Monocrystalline"
                     className={inputClasses('panel_type')}
-                  />
+                  >
+                    <option value="">Select panel type</option>
+                    {panelTypes.map((type) => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className={labelClasses}>
                     <Zap className="h-4 w-4 inline mr-1 text-indigo-400" />
                     Inverter Type
                   </label>
-                  <input
+                  <select
                     value={report.inverter_type || ''}
                     onChange={(e) => update({ inverter_type: e.target.value })}
-                    placeholder="e.g. Hybrid"
                     className={inputClasses('inverter_type')}
-                  />
+                  >
+                    <option value="">Select inverter type</option>
+                    {inverterTypes.map((type) => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className={labelClasses}>
                     <Zap className="h-4 w-4 inline mr-1 text-indigo-400" />
                     Inverter Brand
                   </label>
-                  <input
+                  <select
                     value={report.inverter_brand || ''}
                     onChange={(e) => update({ inverter_brand: e.target.value })}
-                    placeholder="e.g. SMA"
                     className={inputClasses('inverter_brand')}
-                  />
+                  >
+                    <option value="">Select inverter brand</option>
+                    {inverterBrands.map((brand) => (
+                      <option key={brand} value={brand}>{brand}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClasses}>
+                    <Battery className="h-4 w-4 inline mr-1 text-indigo-400" />
+                    Battery Brand
+                  </label>
+                  <select
+                    value={report.battery_brand || ''}
+                    onChange={(e) => update({ battery_brand: e.target.value })}
+                    className={inputClasses('battery_brand')}
+                  >
+                    <option value="">Select battery brand</option>
+                    {batteryBrands.map((brand) => (
+                      <option key={brand} value={brand}>{brand}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className={labelClasses}>
                     <Battery className="h-4 w-4 inline mr-1 text-indigo-400" />
                     Battery Type
                   </label>
-                  <input
+                  <select
                     value={report.battery_type || ''}
                     onChange={(e) => update({ battery_type: e.target.value })}
-                    placeholder="e.g. Lithium Ion"
                     className={inputClasses('battery_type')}
-                  />
+                  >
+                    <option value="">Select battery type</option>
+                    {batteryTypes.map((type) => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className={labelClasses}>
                     <Battery className="h-4 w-4 inline mr-1 text-indigo-400" />
                     Battery Power
                   </label>
-                  <input
+                  <select
                     value={report.battery_power || ''}
                     onChange={(e) => update({ battery_power: e.target.value })}
-                    placeholder="e.g. 5 kW"
                     className={inputClasses('battery_power')}
-                  />
+                  >
+                    <option value="">Select battery power</option>
+                    {batteryPowers.map((power) => (
+                      <option key={power} value={power}>{power}</option>
+                    ))}
+                  </select>
                 </div>
+                <div>
+                  <label className={labelClasses}>
+                    <Database className="h-4 w-4 inline mr-1 text-indigo-400" />
+                    Quantity
+                  </label>
+                  <select
+                    value={report.battery_quantity || ''}
+                    onChange={(e) => update({ battery_quantity: e.target.value })}
+                    className={inputClasses('battery_quantity')}
+                  >
+                    <option value="">Select quantity</option>
+                    {quantities.map((qty) => (
+                      <option key={qty} value={qty}>{qty}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Section: Cable Details */}
+            <div id="section-cable" className="mb-10 scroll-mt-20">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl flex items-center justify-center shadow-sm">
+                  <Wifi className="h-5 w-5 text-amber-500" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-800">Cable Details</h3>
+                  <p className="text-sm text-gray-400">Cable specifications for the installation</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {cableTypes.map((cableType) => (
+                  <div key={cableType} className="md:col-span-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                      <div>
+                        <label className={labelClasses}>
+                          <Wifi className="h-4 w-4 inline mr-1 text-amber-400" />
+                          Cable Type
+                        </label>
+                        <select
+                          value={report[`cable_type_${cableType.toLowerCase()}` as keyof SiteVisitReport] || cableType}
+                          onChange={(e) => update({ [`cable_type_${cableType.toLowerCase()}`]: e.target.value } as any)}
+                          className={inputClasses(`cable_type_${cableType.toLowerCase()}`)}
+                        >
+                          <option value={cableType}>{cableType}</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className={labelClasses}>
+                          <Zap className="h-4 w-4 inline mr-1 text-amber-400" />
+                          Cable Measurement
+                        </label>
+                        <input
+                          value={report[`cable_measurement_${cableType.toLowerCase()}` as keyof SiteVisitReport] || ''}
+                          onChange={(e) => update({ [`cable_measurement_${cableType.toLowerCase()}`]: e.target.value } as any)}
+                          placeholder={`e.g. ${cableType === 'Earthing' ? '50' : cableType === 'DC' ? '40' : '15'} mtr`}
+                          className={inputClasses(`cable_measurement_${cableType.toLowerCase()}`)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -869,15 +946,16 @@ export function SiteVisitForm() {
                   <div>
                     <label className={labelClasses}>
                       <FileText className="h-4 w-4 inline mr-1 text-yellow-400" />
-                      Electricity Bill (kWh/month)
+                      Electricity Bill (₹/month)
                     </label>
                     <input
                       value={report.electricity_bill || ''}
                       onChange={(e) => update({ electricity_bill: e.target.value })}
-                      placeholder="e.g. 600"
+                      placeholder="e.g. 3000"
                       className={inputClasses('electricity_bill')}
                     />
                   </div>
+              
                   <div>
                     <label className={labelClasses}>
                       <TrendingUp className="h-4 w-4 inline mr-1 text-yellow-400" />
@@ -932,7 +1010,6 @@ export function SiteVisitForm() {
                 </div>
               </div>
             </div>
-
             {/* Section: Additional Information */}
             <div id="section-remarks" className="mb-10 scroll-mt-20">
               <div className="flex items-center gap-3 mb-5">

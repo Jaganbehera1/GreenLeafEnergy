@@ -38,6 +38,18 @@ export interface SiteVisitReport {
   admin_comment?: string;
   reviewed_by?: string;
   reviewed_at?: string;
+  cable_type_earthing?: string;
+  cable_measurement_earthing?: string;
+  cable_type_dc?: string;
+  cable_measurement_dc?: string;
+  cable_type_ac?: string;
+  cable_measurement_ac?: string;
+  battery_brand?: string;
+  battery_quantity?: string;
+  electricity_units?: string; // Units/month - New field
+  technician_name?: string;
+  technician_mobile?: string;
+  
   attachments?: {
     name: string;
     type: string;
@@ -159,5 +171,25 @@ export function createDraft(partial: Partial<SiteVisitReport> = {}): SiteVisitRe
     address: '',
     attachments: [],
     ...partial,
+    engineer_name: '',
+    engineer_mobile: '',
+    // New fields with default values
+    cable_type_earthing: 'Earthing',
+    cable_measurement_earthing: '',
+    cable_type_dc: 'DC',
+    cable_measurement_dc: '',
+    cable_type_ac: 'AC',
+    cable_measurement_ac: '',
+    panel_brand: '',
+    panel_type: '',
+    inverter_type: '',
+    inverter_brand: '',
+    battery_brand: '',
+    battery_type: '',
+    battery_power: '',
+    battery_quantity: '',
+    electricity_units: '',
+    technician_name: '',
+    technician_mobile: '',
   };
 }
