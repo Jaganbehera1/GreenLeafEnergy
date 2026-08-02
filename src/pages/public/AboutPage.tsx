@@ -136,7 +136,7 @@ export function AboutPage() {
             <div className="order-1 md:order-2">
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-green-500 to-blue-500 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-                <div className="relative h-80 sm:h-96 rounded-2xl shadow-2xl overflow-hidden bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center border-4 border-white">
+                <div className="relative h-60 sm:h-80 rounded-2xl shadow-2xl overflow-hidden bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center border-4 border-white">
                   <img
                     src={kaashvi2}
                     alt="Green Leaf Energy Logo"
