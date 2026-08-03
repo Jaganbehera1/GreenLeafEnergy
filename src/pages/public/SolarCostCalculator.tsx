@@ -68,21 +68,18 @@ export function SolarCostCalculator() {
     // Ensure minimum 1 kW system
     if (recommendedKw < 1) recommendedKw = 1;
     
-    // Cost calculation (₹35,000 per kW average)
-    const costPerKw = 35000;
+    // NEW: Cost calculation (₹70,000 per kW)
+    const costPerKw = 70000;
     const systemCost = recommendedKw * costPerKw;
     
-    // Subsidy calculation (₹15,000 per kW for up to 3kW, then ₹7,500 per kW)
+    // NEW: Subsidy calculation - ₹1,38,000 maximum for domestic connections
     let subsidyAmount = 0;
     if (connectionType === 'domestic') {
-      if (recommendedKw <= 3) {
-        subsidyAmount = recommendedKw * 15000;
-      } else if (recommendedKw <= 10) {
-        subsidyAmount = (3 * 15000) + ((recommendedKw - 3) * 7500);
-      } else {
-        subsidyAmount = (3 * 15000) + (7 * 7500);
-      }
+      // Maximum subsidy is ₹1,38,000 under PM Surya Ghar Yojana
+      // Subsidy = minimum of ₹1,38,000 and System Cost
+      subsidyAmount = Math.min(138000, systemCost);
     }
+    // For commercial and agriculture, subsidy remains ₹0
     
     const netCost = systemCost - subsidyAmount;
     
@@ -90,8 +87,11 @@ export function SolarCostCalculator() {
     const monthlySavingsAmount = monthlyBill * 0.7;
     const annualSavingsAmount = monthlySavingsAmount * 12;
     
-    // Payback period in years
-    const paybackYears = netCost / annualSavingsAmount;
+    // Payback period in years - prevent division by zero
+    let paybackYears = 0;
+    if (annualSavingsAmount > 0) {
+      paybackYears = netCost / annualSavingsAmount;
+    }
     
     setResults({
       monthlyConsumption: monthlyConsumptionValue,
@@ -242,21 +242,36 @@ export function SolarCostCalculator() {
                   </div>
                 </div>
 
-                {/* System Cost */}
+                {/* System Cost - UPDATED */}
                 <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-blue-200 hover:shadow-md transition-all duration-300 hover:scale-105">
                   <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>💵</span> System Cost</h3>
                   <p className="mt-2 text-gray-700 font-bold text-xl">{formatCurrency(results.systemCost)}</p>
-                  <p className="text-sm text-gray-500">₹35,000 per kW average</p>
+                  <p className="text-sm text-gray-500">₹70,000 per kW</p>
                   <div className="mt-1 text-xs bg-blue-50 p-1 rounded">
-                    {formatNumber(results.recommendedKw)} × ₹35,000 = {formatCurrency(results.systemCost)}
+                    {formatNumber(results.recommendedKw)} × ₹70,000 = {formatCurrency(results.systemCost)}
                   </div>
                 </div>
 
-                {/* Subsidy */}
+                {/* Subsidy - UPDATED */}
                 <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-orange-200 hover:shadow-md transition-all duration-300 hover:scale-105">
                   <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>🏛️</span> Estimated Subsidy</h3>
                   <p className="mt-2 text-gray-700 font-bold text-xl">{formatCurrency(results.subsidyAmount)}</p>
-                  <p className="text-sm text-gray-500">Under PM Surya Ghar Yojana</p>
+                  <p className="text-sm text-gray-500">₹1,38,000 maximum under PM Surya Ghar Yojana</p>
+                  {connectionType === 'domestic' && results.systemCost > 138000 && (
+                    <div className="mt-1 text-xs bg-orange-50 p-1 rounded">
+                      Max subsidy applied: ₹1,38,000
+                    </div>
+                  )}
+                  {connectionType === 'domestic' && results.systemCost <= 138000 && results.subsidyAmount > 0 && (
+                    <div className="mt-1 text-xs bg-orange-50 p-1 rounded">
+                      Full system cost covered: {formatCurrency(results.systemCost)}
+                    </div>
+                  )}
+                  {connectionType !== 'domestic' && (
+                    <div className="mt-1 text-xs bg-gray-50 p-1 rounded text-gray-500">
+                      Subsidy available only for Domestic connections
+                    </div>
+                  )}
                 </div>
 
                 {/* Net Cost */}
@@ -292,10 +307,16 @@ export function SolarCostCalculator() {
                 {/* Payback Period */}
                 <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-red-200 hover:shadow-md transition-all duration-300 hover:scale-105">
                   <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>⏱️</span> Payback Period</h3>
-                  <p className="mt-2 text-gray-700 font-bold text-2xl">{results.paybackYears.toFixed(1)} Years</p>
+                  <p className="mt-2 text-gray-700 font-bold text-2xl">
+                    {results.paybackYears > 0 ? results.paybackYears.toFixed(1) : '0.0'} Years
+                  </p>
                   <p className="text-sm text-gray-500">Net Investment ÷ Annual Savings</p>
                   <div className="mt-1 text-xs bg-red-50 p-1 rounded">
-                    {formatCurrency(results.netCost)} ÷ {formatCurrency(results.annualSavings)} = {results.paybackYears.toFixed(1)} Years
+                    {results.paybackYears > 0 ? (
+                      `${formatCurrency(results.netCost)} ÷ ${formatCurrency(results.annualSavings)} = ${results.paybackYears.toFixed(1)} Years`
+                    ) : (
+                      'Annual savings is zero'
+                    )}
                   </div>
                 </div>
 
