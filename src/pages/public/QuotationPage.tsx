@@ -287,45 +287,167 @@ const panelBrandOptions = ['TATA', 'adani', 'Waaree', 'Luminous', 'Surya', 'Jack
 const inverterTypeOptions = ['Ongrid', 'Hybrid'];
 const batteryOptions = ['No Battery', 'Without Battery', '2 Nos', '4 Nos', '8 Nos'];
 
-// Print styles for the quotation
+// Optimized print styles for single page
 const printStyles = `
   @page { 
     size: A4; 
-    margin: 8mm; 
+    margin: 5mm; 
   }
   @media print {
-    body { 
+    * {
+      box-sizing: border-box !important;
+    }
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
       background: white !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
-      margin: 0 !important;
-      padding: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
     }
     .no-print { display: none !important; }
     .print-container {
       display: block !important;
-      padding: 10px !important;
+      width: 100% !important;
+      max-width: 210mm !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
     }
     .quotation-print-card {
       box-shadow: none !important;
       border: 1px solid #e5e7eb !important;
       page-break-inside: avoid !important;
-      max-height: 100vh !important;
-      overflow: visible !important;
+      page-break-after: avoid !important;
+      page-break-before: avoid !important;
       margin: 0 auto !important;
-      padding: 20px !important;
+      padding: 6px 10px !important;
+      max-width: 100% !important;
       width: 100% !important;
-      max-width: 210mm !important;
+      overflow: hidden !important;
+      max-height: 100vh !important;
     }
     .print-gradient {
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     }
-    .print-page-break {
-      page-break-after: avoid !important;
+    /* Compact styles for single page */
+    .quotation-print-card h1 {
+      font-size: 16px !important;
+      margin: 0 !important;
     }
-    .print-hide {
-      display: none !important;
+    .quotation-print-card .text-2xl {
+      font-size: 14px !important;
+    }
+    .quotation-print-card .text-3xl {
+      font-size: 18px !important;
+    }
+    .quotation-print-card .text-xl {
+      font-size: 12px !important;
+    }
+    .quotation-print-card p, 
+    .quotation-print-card td, 
+    .quotation-print-card th,
+    .quotation-print-card span,
+    .quotation-print-card .text-sm {
+      font-size: 8px !important;
+      padding: 1px 4px !important;
+      line-height: 1.2 !important;
+    }
+    .quotation-print-card .text-xs {
+      font-size: 7px !important;
+    }
+    .quotation-print-card .p-4 {
+      padding: 2px 4px !important;
+    }
+    .quotation-print-card .p-5 {
+      padding: 2px 4px !important;
+    }
+    .quotation-print-card .p-6 {
+      padding: 2px 4px !important;
+    }
+    .quotation-print-card .mb-1 {
+      margin-bottom: 1px !important;
+    }
+    .quotation-print-card .mb-2 {
+      margin-bottom: 2px !important;
+    }
+    .quotation-print-card .mb-3 {
+      margin-bottom: 2px !important;
+    }
+    .quotation-print-card .mb-4 {
+      margin-bottom: 3px !important;
+    }
+    .quotation-print-card .mt-1 {
+      margin-top: 1px !important;
+    }
+    .quotation-print-card .mt-2 {
+      margin-top: 2px !important;
+    }
+    .quotation-print-card .mt-3 {
+      margin-top: 2px !important;
+    }
+    .quotation-print-card .mt-4 {
+      margin-top: 3px !important;
+    }
+    .quotation-print-card .gap-1 {
+      gap: 1px !important;
+    }
+    .quotation-print-card .gap-2 {
+      gap: 2px !important;
+    }
+    .quotation-print-card .gap-4 {
+      gap: 3px !important;
+    }
+    .quotation-print-card .gap-6 {
+      gap: 3px !important;
+    }
+    .quotation-print-card .border-b-3 {
+      border-bottom-width: 2px !important;
+      padding-bottom: 2px !important;
+      margin-bottom: 2px !important;
+    }
+    .quotation-print-card table {
+      margin-top: 2px !important;
+      margin-bottom: 2px !important;
+    }
+    .quotation-print-card th,
+    .quotation-print-card td {
+      padding: 1px 3px !important;
+      font-size: 7px !important;
+    }
+    .quotation-print-card .grid {
+      gap: 2px !important;
+    }
+    .quotation-print-card .rounded-xl {
+      border-radius: 4px !important;
+    }
+    .quotation-print-card .rounded-2xl {
+      border-radius: 6px !important;
+    }
+    /* Prevent page breaks */
+    .no-break {
+      page-break-inside: avoid !important;
+      page-break-after: avoid !important;
+      page-break-before: avoid !important;
+    }
+    /* Force single page */
+    .quotation-print-card * {
+      max-height: none !important;
+    }
+    .quotation-print-card {
+      max-height: 100% !important;
+      min-height: auto !important;
+    }
+    /* Hide extra pages */
+    .print-container {
+      max-height: 100vh !important;
+      overflow: hidden !important;
+    }
+    body {
+      overflow: hidden !important;
+      height: 100vh !important;
     }
   }
 `;
@@ -357,9 +479,9 @@ export function QuotationPage() {
       if (capacity && phase && panelBrand && inverterType) {
         setForm(prev => ({
           ...prev,
-          estimated_price: 'Price not available'
+          estimated_price: 'Wrong Battery Field Selection'
         }));
-        setPriceMessage(`❌ Price not available for this configuration. Please contact admin.`);
+        setPriceMessage(`❌ Wrong Battery Field Selection. Please select a valid configuration.`);
       } else {
         setForm(prev => ({
           ...prev,
@@ -379,7 +501,7 @@ export function QuotationPage() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const priceToSave = form.estimated_price?.startsWith('₹') ? form.estimated_price : 'Price not available';
+    const priceToSave = form.estimated_price?.startsWith('₹') ? form.estimated_price : 'Wrong Battery Field Selection';
     const quotation = {
       ...form,
       estimated_price: priceToSave,
@@ -413,14 +535,14 @@ export function QuotationPage() {
     }, 300);
   };
 
-  // Quotation Print Component
+  // Quotation Print Component - Compact for single page
   const QuotationPrintContent = () => {
     return (
-      <div className="quotation-print-card bg-white rounded-2xl p-6 max-w-4xl mx-auto border border-gray-200 print-page-break">
-        <div className="flex justify-between items-start border-b-3 border-green-600 pb-3 mb-4">
+      <div className="quotation-print-card bg-white rounded-lg p-3 max-w-4xl mx-auto border border-gray-200 no-break">
+        <div className="flex justify-between items-start border-b-2 border-green-600 pb-1 mb-1">
           <div>
-            <h1 className="text-2xl font-extrabold text-green-700">☀️ Green Leaf Energy</h1>
-            <p className="text-gray-500 text-sm">Professional Solar Quotation</p>
+            <h1 className="text-lg font-extrabold text-green-700">☀️ Green Leaf Energy</h1>
+            <p className="text-gray-500 text-xs">Professional Solar Quotation</p>
           </div>
           <div className="text-right">
             <p className="text-xs text-gray-500">Quotation #</p>
@@ -429,74 +551,74 @@ export function QuotationPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-2 gap-1 mb-1">
           <div>
-            <h3 className="text-xs font-semibold uppercase text-gray-500 tracking-wider mb-1">Customer Details</h3>
-            <p className="font-semibold text-gray-800">{form.customer_name || '---'}</p>
-            <p className="text-sm text-gray-600">{form.phone || '---'}</p>
-            <p className="text-sm text-gray-600">{form.address || '---'}</p>
+            <p className="text-xs font-semibold uppercase text-gray-500 tracking-wider">Customer Details</p>
+            <p className="font-semibold text-gray-800 text-sm">{form.customer_name || '---'}</p>
+            <p className="text-xs text-gray-600">{form.phone || '---'}</p>
+            <p className="text-xs text-gray-600">{form.address || '---'}</p>
           </div>
           <div className="text-right">
-            <h3 className="text-xs font-semibold uppercase text-gray-500 tracking-wider mb-1">Quotation Details</h3>
-            <p className="text-sm text-gray-600"><span className="font-medium">Category:</span> {form.system_category || '---'}</p>
-            <p className="text-sm text-gray-600"><span className="font-medium">Electricity Bill:</span> {form.electricity_bill || '---'}</p>
+            <p className="text-xs font-semibold uppercase text-gray-500 tracking-wider">Quotation Details</p>
+            <p className="text-xs text-gray-600"><span className="font-medium">Category:</span> {form.system_category || '---'}</p>
+            <p className="text-xs text-gray-600"><span className="font-medium">Electricity Bill:</span> {form.electricity_bill || '---'}</p>
           </div>
         </div>
 
-        <table className="w-full border-collapse rounded-lg overflow-hidden mb-4 text-sm">
+        <table className="w-full border-collapse rounded-lg overflow-hidden mb-1 text-xs">
           <thead>
             <tr className="bg-green-50">
-              <th className="border border-gray-200 px-3 py-2 text-left text-sm font-semibold text-green-800">Component</th>
-              <th className="border border-gray-200 px-3 py-2 text-left text-sm font-semibold text-green-800">Specification</th>
+              <th className="border border-gray-200 px-1 py-0.5 text-left text-xs font-semibold text-green-800">Component</th>
+              <th className="border border-gray-200 px-1 py-0.5 text-left text-xs font-semibold text-green-800">Specification</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className="border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700">System Capacity</td>
-              <td className="border border-gray-200 px-3 py-2 text-sm text-gray-600">{form.system_capacity || '---'}</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">System Capacity</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.system_capacity || '---'}</td>
             </tr>
             <tr className="bg-gray-50">
-              <td className="border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700">Phase</td>
-              <td className="border border-gray-200 px-3 py-2 text-sm text-gray-600">{form.system_phase || '---'}</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">Phase</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.system_phase || '---'}</td>
             </tr>
             <tr>
-              <td className="border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700">Panel Brand</td>
-              <td className="border border-gray-200 px-3 py-2 text-sm text-gray-600">{form.panel_brand || '---'}</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">Panel Brand</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.panel_brand || '---'}</td>
             </tr>
             <tr className="bg-gray-50">
-              <td className="border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700">Inverter Type</td>
-              <td className="border border-gray-200 px-3 py-2 text-sm text-gray-600">{form.inverter_type || '---'}</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">Inverter Type</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.inverter_type || '---'}</td>
             </tr>
             <tr>
-              <td className="border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700">Battery Requirement</td>
-              <td className="border border-gray-200 px-3 py-2 text-sm text-gray-600">{form.battery_requirement || '---'}</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">Battery Requirement</td>
+              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.battery_requirement || '---'}</td>
             </tr>
           </tbody>
         </table>
 
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200 mb-3 print-gradient">
+        <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-1 border border-green-200 mb-1 print-gradient">
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm font-semibold text-green-800">Estimated Price</p>
-              {form.notes && <p className="text-xs text-gray-500 mt-1"><strong>Notes:</strong> {form.notes}</p>}
+              <p className="text-xs font-semibold text-green-800">Estimated Price</p>
+              {form.notes && <p className="text-xs text-gray-500"><strong>Notes:</strong> {form.notes}</p>}
             </div>
-            <p className="text-2xl font-bold text-green-700">{estimatedPrice}</p>
+            <p className="text-lg font-bold text-green-700">{estimatedPrice}</p>
           </div>
         </div>
 
-        <div className="bg-blue-50 rounded-xl p-3 border border-blue-200 mb-4 print-gradient">
+        <div className="bg-blue-50 rounded-lg p-1 border border-blue-200 mb-1 print-gradient">
           <div className="flex justify-between items-center">
-            <p className="text-sm font-semibold text-blue-800">Estimated Monthly Savings</p>
-            <p className="text-lg font-bold text-blue-700">{estimatedSavings}</p>
+            <p className="text-xs font-semibold text-blue-800">Est. Monthly Savings</p>
+            <p className="text-base font-bold text-blue-700">{estimatedSavings}</p>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 pt-3 flex justify-between text-xs text-gray-400">
+        <div className="border-t border-gray-200 pt-1 flex justify-between text-xs text-gray-400">
           <span>Green Leaf Energy - Powering Tomorrow</span>
           <span>Generated: {new Date().toLocaleString()}</span>
         </div>
 
-        <div className="mt-3 flex justify-center gap-4 text-xs text-gray-500">
+        <div className="mt-1 flex justify-center gap-3 text-xs text-gray-500">
           <span>✓ 25-Year Warranty</span>
           <span>✓ Free Consultation</span>
           <span>✓ Expert Installation</span>
@@ -574,7 +696,7 @@ export function QuotationPage() {
               </div>
               <div>
                 <label className="mb-1.5 block text-sm font-semibold text-gray-700 flex items-center gap-2">
-                  <Activity className="h-4 w-4 text-yellow-600" /> Electricity Bill (₹)
+                  <Activity className="h-4 w-4 text-yellow-600" /> Monthly Electricity Bill (₹)
                 </label>
                 <input 
                   value={form.electricity_bill} 
@@ -711,14 +833,14 @@ export function QuotationPage() {
             <button 
               type="submit" 
               className="mt-8 w-full bg-gradient-to-r from-yellow-400 via-green-500 to-blue-500 text-white px-8 py-3.5 rounded-xl font-bold hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-3 group"
-              disabled={form.estimated_price === 'Price not available' || form.estimated_price === 'Select configuration to get price'}
+              disabled={form.estimated_price === 'Wrong Battery Field Selection' || form.estimated_price === 'Select configuration to get price'}
             >
               <Sparkles className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
               Generate Quotation
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
             </button>
-            {form.estimated_price === 'Price not available' && (
-              <p className="text-xs text-red-500 mt-2 text-center">Please select a valid configuration to generate quotation</p>
+            {form.estimated_price === 'Wrong Battery Field Selection' && (
+              <p className="text-xs text-red-500 mt-2 text-center">Please select a valid battery configuration</p>
             )}
           </form>
 
@@ -866,22 +988,28 @@ export function QuotationPage() {
             background: white !important;
             margin: 0 !important;
             padding: 0 !important;
+            overflow: hidden !important;
+            height: 100vh !important;
           }
           .quotation-print-card {
             box-shadow: none !important;
             border: 1px solid #e5e7eb !important;
             page-break-inside: avoid !important;
+            page-break-after: avoid !important;
+            page-break-before: avoid !important;
           }
-          .border-b-3 {
-            border-bottom-width: 3px !important;
+          .border-b-2 {
+            border-bottom-width: 2px !important;
           }
           .print-container {
             display: block !important;
-            padding: 10px !important;
+            padding: 0 !important;
+            max-height: 100vh !important;
+            overflow: hidden !important;
           }
         }
-        .border-b-3 {
-          border-bottom-width: 3px;
+        .border-b-2 {
+          border-bottom-width: 2px;
         }
         .print-container {
           display: none;
