@@ -33,9 +33,9 @@ import iitLogo from '../../images/affiliations/iit-bhubneswar-01.jpg';
 import workImg from '../../images/work/Greenleaf.png';
 
 // Rooftop System Images
-import onGridRooftopImg from '../../images/rooftop/on-grid.avif';
+import onGridRooftopImg from '../../images/On-Grid.gif';
 import offGridRooftopImg from '../../images/rooftop/off-grid.gif';
-import hybridRooftopImg from '../../images/rooftop/hybrid.jpg';
+import hybridRooftopImg from '../../images/hybrid.jpg';
 
 import bgVideo from '../../images/background3.mp4';
 
@@ -118,8 +118,8 @@ export function HomePage() {
                     </h2>
                   </div>
                   <div className="rounded-3xl bg-gradient-to-r from-green-500 to-teal-400 px-5 py-4 text-white shadow-lg shadow-teal-500/20">
-                    <p className="text-sm font-semibold">Fast decision support</p>
-                    <p className="mt-1 text-base">Guaranteed expert quotes, subsidy eligibility checks, and project planning.</p>
+                    <p className="text-sm font-semibold">Welcome to our world of quality and trust. We're glad you're here!</p>
+                    <p className="mt-1 text-base">Welcome to your trusted solar partner "Green Leaf Energy". Powering homes and businesses with clean, reliable energy for a brighter tomorrow.</p>
                   </div>
                 </div>
               </div>

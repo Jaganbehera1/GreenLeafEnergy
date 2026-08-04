@@ -15,6 +15,7 @@ export interface Quotation {
   updated_at: string;
   notes?: string;
   inverter_type : string;
+  system_phase: string;
 }
 
 const STORAGE_KEY = 'kse_quotations_v1';
@@ -81,6 +82,7 @@ export function createQuotationDraft(partial: Partial<Quotation> = {}): Quotatio
     status: 'draft',
     created_at: now,
     updated_at: now,
+    system_phase: partial.system_phase || 'Single Phase',
     ...partial,
   };
 }

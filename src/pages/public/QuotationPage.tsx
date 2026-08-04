@@ -285,7 +285,7 @@ const phaseOptions = ['Single Phase', 'Three Phase'];
 const systemCategories = ['Domestic', 'Agriculture', 'Commercial'] as const;
 const panelBrandOptions = ['TATA', 'adani', 'Waaree', 'Luminous', 'Surya', 'Jackson', 'Goutam', 'UTL'];
 const inverterTypeOptions = ['Ongrid', 'Hybrid'];
-const batteryOptions = ['No Battery', 'Without Battery', '2 Nos', '4 Nos', '8 Nos'];
+const batteryOptions = ['Ongrid - No Battery', 'Hybrid - Without Battery', '2 Nos', '4 Nos', '8 Nos'];
 
 // Optimized print styles for single page
 const printStyles = `
@@ -516,7 +516,7 @@ export function QuotationPage() {
   const capacityNum = Number(form.system_capacity?.replace(/[^0-9.]/g, '')) || 3;
   
   const subsidyEligible = form.system_category === 'Domestic';
-  const subsidyAmount = subsidyEligible ? 15000 : 0;
+  const subsidyAmount = subsidyEligible ? 138000 : 0;
   const estimatedSavings = useMemo(() => {
     return `₹${(capacityNum * 8500).toLocaleString('en-IN')}`;
   }, [capacityNum]);
