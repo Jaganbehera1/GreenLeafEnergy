@@ -285,7 +285,7 @@ const phaseOptions = ['Single Phase', 'Three Phase'];
 const systemCategories = ['Domestic', 'Agriculture', 'Commercial'] as const;
 const panelBrandOptions = ['TATA', 'adani', 'Waaree', 'Luminous', 'Surya', 'Jackson', 'Goutam', 'UTL'];
 const inverterTypeOptions = ['Ongrid', 'Hybrid'];
-const batteryOptions = ['Ongrid - No Battery', 'Hybrid - Without Battery', '2 Nos', '4 Nos', '8 Nos'];
+const batteryOptions = ['No Battery', 'Without Battery', '2 Nos', '4 Nos', '8 Nos'];
 
 // Optimized print styles for single page
 const printStyles = `
@@ -518,12 +518,22 @@ export function QuotationPage() {
   const subsidyEligible = form.system_category === 'Domestic';
   const subsidyAmount = subsidyEligible ? 138000 : 0;
   const estimatedSavings = useMemo(() => {
-    return `₹${(capacityNum * 8500).toLocaleString('en-IN')}`;
+    return `₹${(capacityNum * 900).toLocaleString('en-IN')}`;
   }, [capacityNum]);
 
   const handleFieldChange = (field: string, value: any) => {
+    if (field === 'inverter_type') {
+      if (value === 'Ongrid') {
+        setForm({ ...form, [field]: value, battery_requirement: 'No Battery' });
+        return;
+      }
+      setForm({ ...form, [field]: value, battery_requirement: '' });
+      return;
+    }
     setForm({ ...form, [field]: value });
   };
+
+  const isBatteryEditable = form.inverter_type === 'Hybrid';
 
   const handlePrint = () => {
     setIsPrinting(true);
@@ -819,14 +829,24 @@ export function QuotationPage() {
                   <Battery className="h-4 w-4 text-green-600" /> Battery Requirement
                 </label>
                 <select 
-                  value={form.battery_requirement} 
-                  onChange={(e) => handleFieldChange('battery_requirement', e.target.value)} 
-                  className="w-full rounded-xl border-2 border-gray-200 px-4 py-3 outline-none focus:border-green-400 focus:shadow-md transition-all duration-300 hover:border-green-300 bg-white"
-                  required
+                  value={form.battery_requirement || 'No Battery'}
+                  onChange={(e) => handleFieldChange('battery_requirement', e.target.value)}
+                  disabled={!isBatteryEditable}
+                  className={`w-full rounded-xl border-2 border-gray-200 px-4 py-3 outline-none transition-all duration-300 bg-white ${isBatteryEditable ? 'focus:border-green-400 focus:shadow-md hover:border-green-300' : 'bg-gray-100 text-gray-600 cursor-not-allowed'}`}
+                  required={isBatteryEditable}
                 >
-                  <option value="">Select battery</option>
-                  {batteryOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+                  {isBatteryEditable ? (
+                    <>
+                      <option value="">Select battery</option>
+                      {batteryOptions.map((option) => <option key={option} value={option}>{option}</option>)}
+                    </>
+                  ) : (
+                    batteryOptions.map((option) => <option key={option} value={option}>{option}</option>)
+                  )}
                 </select>
+                {!isBatteryEditable && (
+                  <p className="mt-2 text-xs text-gray-500">Ongrid systems use No Battery by default.</p>
+                )}
               </div>
             </div>
             
@@ -841,6 +861,9 @@ export function QuotationPage() {
             </button>
             {form.estimated_price === 'Wrong Battery Field Selection' && (
               <p className="text-xs text-red-500 mt-2 text-center">Please select a valid battery configuration</p>
+            )}
+            {!isBatteryEditable && (
+              <p className="text-xs text-gray-500 mt-2 text-center">Battery requirement is fixed as No Battery for Ongrid systems.</p>
             )}
           </form>
 
