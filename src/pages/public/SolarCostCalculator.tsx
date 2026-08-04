@@ -177,7 +177,7 @@ export function SolarCostCalculator() {
                   placeholder="e.g. 3000"
                   className="mt-2 w-full rounded-2xl border-2 border-gray-300 bg-white px-4 py-3 outline-none focus:border-green-400 focus:shadow-md transition"
                 />
-                <p className="mt-1 text-xs text-gray-500">Enter your monthly electricity bill amount</p>
+                <p className="mt-1 text-xs text-gray-500">Enter your monthly electricity bill amount : (Domestic) equal or greater than 1400</p>
               </div>
 
               <div className="flex gap-3">
