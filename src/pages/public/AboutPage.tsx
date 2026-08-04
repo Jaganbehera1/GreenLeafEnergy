@@ -1,6 +1,7 @@
 import { Users, Award, Target, Heart, Leaf, Sun, Shield, Zap, CheckCircle, ArrowRight } from 'lucide-react';
 import kaashvi2 from '../../images/Greenleaflogo.png';
 import bgVideo from '../../images/background2.mp4';
+import certificateImage from '../../images/certificate.jpeg';
 
 export function AboutPage() {
   return (
@@ -341,6 +342,54 @@ export function AboutPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= CERTIFICATE SHOWCASE ================= */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-slate-50 via-white to-green-50 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-[32px] overflow-hidden shadow-[0_25px_80px_-20px_rgba(15,23,42,0.35)] border border-white/70 bg-white">
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="bg-gradient-to-br from-green-600 via-emerald-600 to-blue-600 p-8 md:p-10 lg:p-12 text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.25),_transparent_40%)]" />
+                <div className="relative z-10">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-sm font-semibold mb-5">
+                    <Award className="w-4 h-4 text-yellow-300" />
+                    Certifications & Recognition
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+                    Trusted by Customers and Recognized in the Industry
+                  </h2>
+                  <p className="text-base sm:text-lg text-white/85 leading-relaxed max-w-2xl">
+                    Our commitment to quality, safety, and long-term performance is reflected in the certifications and industry recognition that support every Green Leaf Energy installation.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <span className="px-4 py-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-sm font-medium">
+                      Quality Assured
+                    </span>
+                    <span className="px-4 py-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-sm font-medium">
+                      Reliable Service
+                    </span>
+                    <span className="px-4 py-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-sm font-medium">
+                      Customer Trusted
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 md:p-8 lg:p-10 bg-gradient-to-br from-white to-gray-50">
+                <div className="rounded-3xl border border-gray-200 bg-white p-3 shadow-lg">
+                  <div className="overflow-hidden rounded-[24px] border border-gray-100 bg-gray-50">
+                    <img
+                      src={certificateImage}
+                      alt="Green Leaf Energy certificate"
+                      className="w-full h-[420px] sm:h-[500px] object-contain bg-white"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
