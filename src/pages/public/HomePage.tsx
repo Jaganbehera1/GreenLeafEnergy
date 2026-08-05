@@ -35,7 +35,7 @@ import workImg from '../../images/work/Greenleaf.png';
 // Rooftop System Images
 import onGridRooftopImg from '../../images/On-Grid.gif';
 import offGridRooftopImg from '../../images/rooftop/off-grid.gif';
-import hybridRooftopImg from '../../images/hybrid-solar-system-ezgif.com-remove-background.gif';
+import hybridRooftopImg from '../../images/hybrid-solar-system.gif';
 
 import bgVideo from '../../images/background3.mp4';
 
