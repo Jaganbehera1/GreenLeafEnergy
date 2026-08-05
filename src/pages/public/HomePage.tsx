@@ -304,20 +304,20 @@ export function HomePage() {
                 best: "💡 Best for Urban Areas",
               },
               {
-                name: "Off-Grid System",
-                img: offGridRooftopImg,
-                color: "from-green-500 to-emerald-400",
-                desc:
-                  "Works independently using battery storage. Perfect for villages and remote locations without grid access.",
-                best: "🔋 Best for Remote Areas",
-              },
-              {
                 name: "Hybrid System",
                 img: hybridRooftopImg,
                 color: "from-purple-500 to-pink-400",
                 desc:
                   "Combines grid connection with battery backup. Ideal where frequent power cuts occur.",
                 best: "⚡ Best for Backup Power",
+              },
+              {
+                name: "Off-Grid System",
+                img: offGridRooftopImg,
+                color: "from-green-500 to-emerald-400",
+                desc:
+                  "Works independently using battery storage. Perfect for villages and remote locations without grid access.",
+                best: "🔋 Best for Remote Areas",
               },
             ].map((item) => (
               <div
