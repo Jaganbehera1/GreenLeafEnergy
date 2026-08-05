@@ -20,6 +20,7 @@ import {
   Workflow
 } from 'lucide-react';
 import { createQuotationDraft, saveQuotation } from '../../lib/quotations';
+import greenLeafLogo from '../../images/GreenLeaf.jpeg';
 
 // ============================================
 // PRICE MASTER DATA - Derived from Excel
@@ -589,18 +590,36 @@ export function QuotationPage() {
         <body>
           <div class="quotation-container">
             <!-- Header -->
-            <div class="header">
-              <div>
-                <h1>☀️ Green Leaf Energy</h1>
-                <p class="sub">Professional Solar Quotation</p>
-              </div>
-              <div class="header-right">
-                <span class="badge">PENDING</span>
-                <p class="ref">#${form.id?.slice(0, 8) || 'DRAFT'}</p>
-                <p class="ref" style="margin-top: 2px;">${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
-              </div>
-            </div>
+              <div class="header">
+                <div>
+                  <h1 class="company-title">
+                  <img
+                    src="${greenLeafLogo}"
+                    alt="Green Leaf Energy Logo"
+                    style="width:50px;height:50px;object-fit:contain;"
+                  />
+                    <span>Green Leaf Energy</span>
+                  </h1>
 
+                  <p class="sub">Professional Solar Quotation</p>
+                </div>
+
+                <div class="header-right">
+                  <span class="badge">PENDING</span>
+
+                  <p class="ref">
+                    #${form.id?.slice(0, 8) || 'DRAFT'}
+                  </p>
+
+                  <p class="ref" style="margin-top: 2px;">
+                    ${new Date().toLocaleDateString('en-IN', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric'
+                    })}
+                  </p>
+                </div>
+              </div>
             <!-- Customer Details -->
             <div class="section">
               <p class="section-title">Customer Details</p>
@@ -1063,6 +1082,24 @@ export function QuotationPage() {
         @keyframes pulse {
           0%, 100% { opacity: 0.5; }
           50% { opacity: 1; }
+        }
+        .company-title {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .company-title img {
+          width: 50px;
+          height: 50px;
+          object-fit: contain;
+          flex-shrink: 0;
+        }
+
+        .company-title span {
+          font-size: 28px;
+          font-weight: bold;
+          line-height: 1;
         }
         .animate-pulse {
           animation: pulse 3s ease-in-out infinite;
