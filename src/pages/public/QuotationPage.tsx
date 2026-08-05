@@ -287,171 +287,6 @@ const panelBrandOptions = ['TATA', 'adani', 'Waaree', 'Luminous', 'Surya', 'Jack
 const inverterTypeOptions = ['Ongrid', 'Hybrid'];
 const batteryOptions = ['No Battery', 'Without Battery', '2 Nos', '4 Nos', '8 Nos'];
 
-// Optimized print styles for single page
-const printStyles = `
-  @page { 
-    size: A4; 
-    margin: 5mm; 
-  }
-  @media print {
-    * {
-      box-sizing: border-box !important;
-    }
-    html, body {
-      margin: 0 !important;
-      padding: 0 !important;
-      background: white !important;
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-      width: 100% !important;
-      height: 100% !important;
-      overflow: hidden !important;
-    }
-    .no-print { display: none !important; }
-    .print-container {
-      display: block !important;
-      width: 100% !important;
-      max-width: 210mm !important;
-      margin: 0 auto !important;
-      padding: 0 !important;
-    }
-    .quotation-print-card {
-      box-shadow: none !important;
-      border: 1px solid #e5e7eb !important;
-      page-break-inside: avoid !important;
-      page-break-after: avoid !important;
-      page-break-before: avoid !important;
-      margin: 0 auto !important;
-      padding: 6px 10px !important;
-      max-width: 100% !important;
-      width: 100% !important;
-      overflow: hidden !important;
-      max-height: 100vh !important;
-    }
-    .print-gradient {
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-    }
-    /* Compact styles for single page */
-    .quotation-print-card h1 {
-      font-size: 16px !important;
-      margin: 0 !important;
-    }
-    .quotation-print-card .text-2xl {
-      font-size: 14px !important;
-    }
-    .quotation-print-card .text-3xl {
-      font-size: 18px !important;
-    }
-    .quotation-print-card .text-xl {
-      font-size: 12px !important;
-    }
-    .quotation-print-card p, 
-    .quotation-print-card td, 
-    .quotation-print-card th,
-    .quotation-print-card span,
-    .quotation-print-card .text-sm {
-      font-size: 8px !important;
-      padding: 1px 4px !important;
-      line-height: 1.2 !important;
-    }
-    .quotation-print-card .text-xs {
-      font-size: 7px !important;
-    }
-    .quotation-print-card .p-4 {
-      padding: 2px 4px !important;
-    }
-    .quotation-print-card .p-5 {
-      padding: 2px 4px !important;
-    }
-    .quotation-print-card .p-6 {
-      padding: 2px 4px !important;
-    }
-    .quotation-print-card .mb-1 {
-      margin-bottom: 1px !important;
-    }
-    .quotation-print-card .mb-2 {
-      margin-bottom: 2px !important;
-    }
-    .quotation-print-card .mb-3 {
-      margin-bottom: 2px !important;
-    }
-    .quotation-print-card .mb-4 {
-      margin-bottom: 3px !important;
-    }
-    .quotation-print-card .mt-1 {
-      margin-top: 1px !important;
-    }
-    .quotation-print-card .mt-2 {
-      margin-top: 2px !important;
-    }
-    .quotation-print-card .mt-3 {
-      margin-top: 2px !important;
-    }
-    .quotation-print-card .mt-4 {
-      margin-top: 3px !important;
-    }
-    .quotation-print-card .gap-1 {
-      gap: 1px !important;
-    }
-    .quotation-print-card .gap-2 {
-      gap: 2px !important;
-    }
-    .quotation-print-card .gap-4 {
-      gap: 3px !important;
-    }
-    .quotation-print-card .gap-6 {
-      gap: 3px !important;
-    }
-    .quotation-print-card .border-b-3 {
-      border-bottom-width: 2px !important;
-      padding-bottom: 2px !important;
-      margin-bottom: 2px !important;
-    }
-    .quotation-print-card table {
-      margin-top: 2px !important;
-      margin-bottom: 2px !important;
-    }
-    .quotation-print-card th,
-    .quotation-print-card td {
-      padding: 1px 3px !important;
-      font-size: 7px !important;
-    }
-    .quotation-print-card .grid {
-      gap: 2px !important;
-    }
-    .quotation-print-card .rounded-xl {
-      border-radius: 4px !important;
-    }
-    .quotation-print-card .rounded-2xl {
-      border-radius: 6px !important;
-    }
-    /* Prevent page breaks */
-    .no-break {
-      page-break-inside: avoid !important;
-      page-break-after: avoid !important;
-      page-break-before: avoid !important;
-    }
-    /* Force single page */
-    .quotation-print-card * {
-      max-height: none !important;
-    }
-    .quotation-print-card {
-      max-height: 100% !important;
-      min-height: auto !important;
-    }
-    /* Hide extra pages */
-    .print-container {
-      max-height: 100vh !important;
-      overflow: hidden !important;
-    }
-    body {
-      overflow: hidden !important;
-      height: 100vh !important;
-    }
-  }
-`;
-
 export function QuotationPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState(createQuotationDraft());
@@ -535,116 +370,348 @@ export function QuotationPage() {
 
   const isBatteryEditable = form.inverter_type === 'Hybrid';
 
+  // Fixed Print Function - Opens in new window with proper formatting
   const handlePrint = () => {
-    setIsPrinting(true);
-    setTimeout(() => {
-      window.print();
-      setTimeout(() => {
-        setIsPrinting(false);
-      }, 1000);
-    }, 300);
-  };
+    const printWindow = window.open('', '_blank', 'width=900,height=700,menubar=no,toolbar=no,location=no,status=no,scrollbars=yes');
+    if (!printWindow) {
+      alert('Please allow popups for this site to print.');
+      return;
+    }
 
-  // Quotation Print Component - Compact for single page
-  const QuotationPrintContent = () => {
-    return (
-      <div className="quotation-print-card bg-white rounded-lg p-3 max-w-4xl mx-auto border border-gray-200 no-break">
-        <div className="flex justify-between items-start border-b-2 border-green-600 pb-1 mb-1">
-          <div>
-            <h1 className="text-lg font-extrabold text-green-700">☀️ Green Leaf Energy</h1>
-            <p className="text-gray-500 text-xs">Professional Solar Quotation</p>
-          </div>
-          <div className="text-right">
-            <p className="text-xs text-gray-500">Quotation #</p>
-            <p className="text-sm font-mono text-gray-700">{form.id?.slice(0, 8) || 'DRAFT'}</p>
-            <p className="text-xs text-gray-500 mt-1">Date: {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-1 mb-1">
-          <div>
-            <p className="text-xs font-semibold uppercase text-gray-500 tracking-wider">Customer Details</p>
-            <p className="font-semibold text-gray-800 text-sm">{form.customer_name || '---'}</p>
-            <p className="text-xs text-gray-600">{form.phone || '---'}</p>
-            <p className="text-xs text-gray-600">{form.address || '---'}</p>
-          </div>
-          <div className="text-right">
-            <p className="text-xs font-semibold uppercase text-gray-500 tracking-wider">Quotation Details</p>
-            <p className="text-xs text-gray-600"><span className="font-medium">Category:</span> {form.system_category || '---'}</p>
-            <p className="text-xs text-gray-600"><span className="font-medium">Electricity Bill:</span> {form.electricity_bill || '---'}</p>
-          </div>
-        </div>
-
-        <table className="w-full border-collapse rounded-lg overflow-hidden mb-1 text-xs">
-          <thead>
-            <tr className="bg-green-50">
-              <th className="border border-gray-200 px-1 py-0.5 text-left text-xs font-semibold text-green-800">Component</th>
-              <th className="border border-gray-200 px-1 py-0.5 text-left text-xs font-semibold text-green-800">Specification</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">System Capacity</td>
-              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.system_capacity || '---'}</td>
-            </tr>
-            <tr className="bg-gray-50">
-              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">Phase</td>
-              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.system_phase || '---'}</td>
-            </tr>
-            <tr>
-              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">Panel Brand</td>
-              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.panel_brand || '---'}</td>
-            </tr>
-            <tr className="bg-gray-50">
-              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">Inverter Type</td>
-              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.inverter_type || '---'}</td>
-            </tr>
-            <tr>
-              <td className="border border-gray-200 px-1 py-0.5 text-xs font-medium text-gray-700">Battery Requirement</td>
-              <td className="border border-gray-200 px-1 py-0.5 text-xs text-gray-600">{form.battery_requirement || '---'}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-1 border border-green-200 mb-1 print-gradient">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-xs font-semibold text-green-800">Estimated Price</p>
-              {form.notes && <p className="text-xs text-gray-500"><strong>Notes:</strong> {form.notes}</p>}
+    const priceDisplay = form.estimated_price?.startsWith('₹') ? form.estimated_price : 'Price not available';
+    
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Quotation - Green Leaf Energy</title>
+          <meta charset="UTF-8">
+          <style>
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            body {
+              font-family: 'Segoe UI', Arial, sans-serif;
+              background: #f9fafb;
+              padding: 20px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-height: 100vh;
+            }
+            .quotation-container {
+              max-width: 210mm;
+              width: 100%;
+              background: white;
+              border-radius: 12px;
+              box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+              padding: 30px;
+              border: 1px solid #e5e7eb;
+            }
+            .header {
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-start;
+              border-bottom: 3px solid #166534;
+              padding-bottom: 16px;
+              margin-bottom: 16px;
+            }
+            .header h1 {
+              font-size: 24px;
+              font-weight: 800;
+              color: #166534;
+              margin: 0;
+            }
+            .header .sub {
+              color: #6b7280;
+              font-size: 13px;
+              margin-top: 2px;
+            }
+            .header-right {
+              text-align: right;
+            }
+            .header-right .badge {
+              display: inline-block;
+              padding: 4px 12px;
+              border-radius: 9999px;
+              font-size: 12px;
+              font-weight: 600;
+              background: #fef3c7;
+              color: #92400e;
+            }
+            .header-right .ref {
+              font-size: 12px;
+              color: #6b7280;
+              margin-top: 4px;
+            }
+            .section {
+              margin-bottom: 12px;
+            }
+            .section-title {
+              font-size: 11px;
+              font-weight: 600;
+              color: #6b7280;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+              margin-bottom: 4px;
+            }
+            .customer-grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 8px 16px;
+            }
+            .customer-grid .full-width {
+              grid-column: 1 / -1;
+            }
+            .customer-grid .label {
+              font-size: 10px;
+              color: #6b7280;
+              font-weight: 500;
+            }
+            .customer-grid .value {
+              font-size: 13px;
+              font-weight: 600;
+              color: #111827;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 8px 0 12px 0;
+              border-radius: 8px;
+              overflow: hidden;
+            }
+            th {
+              background: #f0fdf4;
+              color: #166534;
+              font-weight: 600;
+              font-size: 11px;
+              text-transform: uppercase;
+              letter-spacing: 0.3px;
+              padding: 6px 10px;
+              border: 1px solid #e5e7eb;
+              text-align: left;
+            }
+            td {
+              padding: 5px 10px;
+              border: 1px solid #e5e7eb;
+              font-size: 13px;
+              color: #374151;
+            }
+            td .label-text {
+              font-weight: 500;
+              color: #111827;
+            }
+            .total-box {
+              background: linear-gradient(to right, #f0fdf4, #dcfce7);
+              border-radius: 10px;
+              padding: 12px 16px;
+              border: 1px solid #bbf7d0;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin: 8px 0 8px 0;
+            }
+            .total-box .total-label {
+              font-size: 13px;
+              font-weight: 600;
+              color: #166534;
+            }
+            .total-box .total-price {
+              font-size: 22px;
+              font-weight: 700;
+              color: #166534;
+            }
+            .savings-box {
+              background: #eff6ff;
+              border-radius: 8px;
+              padding: 8px 14px;
+              border: 1px solid #bfdbfe;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 8px;
+            }
+            .savings-box .savings-label {
+              font-size: 12px;
+              font-weight: 500;
+              color: #1e40af;
+            }
+            .savings-box .savings-price {
+              font-size: 16px;
+              font-weight: 700;
+              color: #1e40af;
+            }
+            .footer {
+              border-top: 1px solid #e5e7eb;
+              padding-top: 10px;
+              margin-top: 10px;
+              display: flex;
+              justify-content: space-between;
+              font-size: 11px;
+              color: #6b7280;
+            }
+            .trust-badges {
+              display: flex;
+              justify-content: center;
+              gap: 16px;
+              font-size: 11px;
+              color: #6b7280;
+              margin-top: 6px;
+            }
+            .trust-badges span {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+            }
+            .trust-badges span::before {
+              content: "✓";
+              color: #16a34a;
+              font-weight: 700;
+            }
+            @media print {
+              body {
+                background: white;
+                padding: 0;
+              }
+              .quotation-container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 20px;
+              }
+              .no-print {
+                display: none !important;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="quotation-container">
+            <!-- Header -->
+            <div class="header">
+              <div>
+                <h1>☀️ Green Leaf Energy</h1>
+                <p class="sub">Professional Solar Quotation</p>
+              </div>
+              <div class="header-right">
+                <span class="badge">PENDING</span>
+                <p class="ref">#${form.id?.slice(0, 8) || 'DRAFT'}</p>
+                <p class="ref" style="margin-top: 2px;">${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
+              </div>
             </div>
-            <p className="text-lg font-bold text-green-700">{estimatedPrice}</p>
+
+            <!-- Customer Details -->
+            <div class="section">
+              <p class="section-title">Customer Details</p>
+              <div class="customer-grid">
+                <div class="full-width">
+                  <p class="label">Customer Name</p>
+                  <p class="value">${form.customer_name || '---'}</p>
+                </div>
+                <div>
+                  <p class="label">Phone</p>
+                  <p class="value">${form.phone || '---'}</p>
+                </div>
+                <div>
+                  <p class="label">Electricity Bill</p>
+                  <p class="value">₹${form.electricity_bill || '---'}</p>
+                </div>
+                <div class="full-width">
+                  <p class="label">Address</p>
+                  <p class="value">${form.address || '---'}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- System Specifications -->
+            <div class="section">
+              <p class="section-title">System Specifications</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Component</th>
+                    <th>Specification</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="label-text">System Capacity</span></td>
+                    <td>${form.system_capacity || '---'}</td>
+                  </tr>
+                  <tr>
+                    <td><span class="label-text">Phase</span></td>
+                    <td>${form.system_phase || '---'}</td>
+                  </tr>
+                  <tr>
+                    <td><span class="label-text">Category</span></td>
+                    <td>${form.system_category || '---'}</td>
+                  </tr>
+                  <tr>
+                    <td><span class="label-text">Panel Brand</span></td>
+                    <td>${form.panel_brand || '---'}</td>
+                  </tr>
+                  <tr>
+                    <td><span class="label-text">Inverter Type</span></td>
+                    <td>${form.inverter_type || '---'}</td>
+                  </tr>
+                  <tr>
+                    <td><span class="label-text">Battery Requirement</span></td>
+                    <td>${form.battery_requirement || '---'}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Price -->
+            <div class="total-box">
+              <div>
+                <p class="total-label">Estimated Price</p>
+                ${form.notes ? `<p style="font-size: 11px; color: #6b7280; margin-top: 2px;"><strong>Notes:</strong> ${form.notes}</p>` : ''}
+              </div>
+              <p class="total-price">${priceDisplay}</p>
+            </div>
+
+            <!-- Savings -->
+            <div class="savings-box">
+              <span class="savings-label">📊 Estimated Monthly Savings</span>
+              <span class="savings-price">${estimatedSavings}</span>
+            </div>
+
+            <!-- Subsidy Info -->
+            ${subsidyEligible ? `
+            <div style="background: #fef3c7; border-radius: 8px; padding: 6px 12px; border: 1px solid #f59e0b; margin-bottom: 8px;">
+              <p style="font-size: 11px; color: #92400e;">💰 Subsidy eligible: ₹${subsidyAmount.toLocaleString('en-IN')} under PM Surya Ghar Yojana</p>
+            </div>
+            ` : ''}
+
+            <!-- Footer -->
+            <div class="footer">
+              <span>Green Leaf Energy - Powering Tomorrow</span>
+              <span>Generated: ${new Date().toLocaleString()}</span>
+            </div>
+
+            <div class="trust-badges">
+              <span>25-Year Warranty</span>
+              <span>Free Consultation</span>
+              <span>Expert Installation</span>
+            </div>
           </div>
-        </div>
 
-        <div className="bg-blue-50 rounded-lg p-1 border border-blue-200 mb-1 print-gradient">
-          <div className="flex justify-between items-center">
-            <p className="text-xs font-semibold text-blue-800">Est. Monthly Savings</p>
-            <p className="text-base font-bold text-blue-700">{estimatedSavings}</p>
-          </div>
-        </div>
-
-        <div className="border-t border-gray-200 pt-1 flex justify-between text-xs text-gray-400">
-          <span>Green Leaf Energy - Powering Tomorrow</span>
-          <span>Generated: {new Date().toLocaleString()}</span>
-        </div>
-
-        <div className="mt-1 flex justify-center gap-3 text-xs text-gray-500">
-          <span>✓ 25-Year Warranty</span>
-          <span>✓ Free Consultation</span>
-          <span>✓ Expert Installation</span>
-        </div>
-      </div>
-    );
+          <script>
+            window.onload = function() {
+              window.print();
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 py-12 md:py-20">
-      <style>{printStyles}</style>
       
-      <div className="hidden print:block print-container" id="print-content">
-        <QuotationPrintContent />
-      </div>
-
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <div className="mb-10 md:mb-12 text-center no-print">
@@ -1007,35 +1074,6 @@ export function QuotationPage() {
           .no-print {
             display: none !important;
           }
-          body {
-            background: white !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            overflow: hidden !important;
-            height: 100vh !important;
-          }
-          .quotation-print-card {
-            box-shadow: none !important;
-            border: 1px solid #e5e7eb !important;
-            page-break-inside: avoid !important;
-            page-break-after: avoid !important;
-            page-break-before: avoid !important;
-          }
-          .border-b-2 {
-            border-bottom-width: 2px !important;
-          }
-          .print-container {
-            display: block !important;
-            padding: 0 !important;
-            max-height: 100vh !important;
-            overflow: hidden !important;
-          }
-        }
-        .border-b-2 {
-          border-bottom-width: 2px;
-        }
-        .print-container {
-          display: none;
         }
       `}</style>
 
