@@ -238,100 +238,100 @@ export function HomePage() {
           </div>
         
           {/* ==================== RIGHT COLUMN - SOLAR LOAN ==================== */}
-          <div className="w-full rounded-[32px] border border-white/20 bg-gradient-to-br from-blue-600/20 via-cyan-500/20 to-emerald-500/20 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-8 transition-all duration-500 hover:scale-105 hover:border-cyan-400 hover:shadow-[0_20px_80px_rgba(0,200,255,0.3)] group flex flex-col h-full">
+          <div className="w-full rounded-[32px] border-2 border-yellow-400/30 bg-gradient-to-br from-yellow-500/20 via-amber-500/20 to-green-500/20 backdrop-blur-xl shadow-[0_20px_60px_rgba(255,215,0,0.3)] p-8 transition-all duration-500 hover:scale-105 hover:border-yellow-400 hover:shadow-[0_20px_80px_rgba(255,215,0,0.4)] group flex flex-col h-full">
         
-            {/* Header with Glow */}
-            <div className="inline-flex items-center justify-center w-full mb-6">
-              <div className="relative px-8 py-3 rounded-full bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/70 transition-all duration-300">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/50 via-cyan-400/50 to-emerald-400/50 blur-xl animate-pulse"></div>
-                <h2 className="relative text-lg font-extrabold tracking-wider text-gray-900">
-                  🏦 SOLAR LOAN
-                </h2>
-              </div>
-            </div>
-        
-            {/* Bank/Finance Icons with Glow */}
-            <div className="relative bg-gradient-to-br from-blue-500/20 via-cyan-500/20 to-emerald-500/20 rounded-2xl p-1 flex-shrink-0">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 rounded-2xl blur-lg opacity-75 animate-pulse"></div>
-              <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 flex justify-center items-center gap-6 min-h-[120px]">
-                <div className="text-6xl md:text-7xl transform hover:scale-110 transition-transform duration-300 hover:rotate-12">🏛️</div>
-                <div className="text-6xl md:text-7xl transform hover:scale-110 transition-transform duration-300 hover:-rotate-12">💰</div>
-                <div className="text-6xl md:text-7xl transform hover:scale-110 transition-transform duration-300 hover:rotate-12">☀️</div>
-              </div>
-            </div>
-        
-            {/* Interest Rate Banner - Super Attractive */}
-            <div className="mt-8 flex justify-center flex-shrink-0">
-              <div className="relative overflow-hidden flex flex-col items-center rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 px-6 py-5 border-2 border-cyan-300 shadow-2xl shadow-cyan-500/50 w-full animate-pulse hover:scale-105 transition-all duration-300">
+  {/* Header with Golden Glow */}
+  <div className="inline-flex items-center justify-center w-full mb-6">
+    <div className="relative px-8 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-400 shadow-lg shadow-yellow-500/50 hover:shadow-yellow-500/70 transition-all duration-300">
+      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400/50 via-amber-400/50 to-yellow-400/50 blur-xl animate-pulse"></div>
+      <h2 className="relative text-lg font-extrabold tracking-wider text-black">
+        🏦 SOLAR LOAN
+      </h2>
+    </div>
+  </div>
 
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-emerald-400/20 blur-xl animate-pulse"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shine_3s_linear_infinite]"></div>
+  {/* Bank/Finance Icons - Pure White Background */}
+  <div className="relative bg-white rounded-2xl p-1 flex-shrink-0 shadow-lg shadow-yellow-500/20">
+    <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-amber-400 to-green-400 rounded-2xl blur-lg opacity-75 animate-pulse"></div>
+    <div className="relative bg-white rounded-2xl p-6 flex justify-center items-center gap-6 min-h-[120px]">
+      <div className="text-6xl md:text-7xl transform hover:scale-110 transition-transform duration-300 hover:rotate-12">🏛️</div>
+      <div className="text-6xl md:text-7xl transform hover:scale-110 transition-transform duration-300 hover:-rotate-12">💰</div>
+      <div className="text-6xl md:text-7xl transform hover:scale-110 transition-transform duration-300 hover:rotate-12">☀️</div>
+    </div>
+  </div>
 
-                <div className="absolute top-2 right-4 text-yellow-300 text-xl animate-pulse">✨</div>
-                <div className="absolute bottom-2 left-4 text-yellow-300 text-xl animate-pulse animation-delay-1000">✨</div>
-                <div className="absolute top-1/2 left-2 text-yellow-300/50 text-lg animate-pulse animation-delay-2000">✦</div>
-                <div className="absolute top-1/2 right-2 text-yellow-300/50 text-lg animate-pulse animation-delay-1500">✦</div>
+  {/* Interest Rate Banner - Golden Yellow with Green */}
+  <div className="mt-8 flex justify-center flex-shrink-0">
+    <div className="relative overflow-hidden flex flex-col items-center rounded-2xl bg-gradient-to-r from-yellow-500 via-amber-500 to-green-500 px-6 py-5 border-2 border-yellow-300 shadow-2xl shadow-yellow-500/50 w-full animate-pulse hover:scale-105 transition-all duration-300">
 
-                <div className="relative z-10 text-center w-full">
-                  <p className="text-white/90 text-sm font-semibold uppercase tracking-wider drop-shadow-lg">
-                    💫 Special Solar Loan Offer
-                  </p>
+      <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 via-amber-400/20 to-green-400/20 blur-xl animate-pulse"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shine_3s_linear_infinite]"></div>
 
-                  <div className="mt-3 flex items-center justify-center gap-3 flex-wrap">
-                    <span className="text-white text-base font-medium drop-shadow-lg">Interest Rate</span>
-                    <div className="relative inline-block bg-white/20 backdrop-blur-sm px-5 py-2 rounded-full border-2 border-white/30 shadow-lg">
-                      <div className="absolute inset-0 rounded-full bg-white/10 blur-sm animate-pulse"></div>
-                      <span className="relative text-4xl md:text-5xl font-extrabold text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
-                        5.75%
-                      </span>
-                      <span className="relative text-white/90 text-sm font-semibold ml-1">P.A.</span>
-                    </div>
-                  </div>
+      <div className="absolute top-2 right-4 text-yellow-300 text-xl animate-pulse">✨</div>
+      <div className="absolute bottom-2 left-4 text-yellow-300 text-xl animate-pulse animation-delay-1000">✨</div>
+      <div className="absolute top-1/2 left-2 text-yellow-300/50 text-lg animate-pulse animation-delay-2000">✦</div>
+      <div className="absolute top-1/2 right-2 text-yellow-300/50 text-lg animate-pulse animation-delay-1500">✦</div>
 
-                  <div className="mt-4 flex items-center justify-center gap-3 flex-wrap">
-                    <span className="text-white text-xs font-medium bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/30 shadow-lg">
-                      ✅ Aadhar Required
-                    </span>
-                    <span className="text-white text-xs font-medium bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/30 shadow-lg">
-                      ✅ PAN Required
-                    </span>
-                    <span className="text-white text-xs font-medium bg-gradient-to-r from-yellow-400/30 to-orange-400/30 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-300/50 shadow-lg animate-pulse">
-                      ⚡ Quick Approval
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-        
-            {/* Bottom Text with Features - flex-grow to push to bottom */}
-            <div className="mt-8 text-center flex-grow flex flex-col justify-end">
-              <p className="text-gray-200 text-lg drop-shadow-lg">
-                Easy Financing for Your Solar Installation
-              </p>
-              <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-cyan-300 via-blue-300 to-emerald-300 bg-clip-text text-transparent animate-pulse">
-                Minimum Documentation • Quick Approval
-              </h3>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-sm">
-                <span className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 hover:border-cyan-400/50 transition-all duration-300">
-                  <span className="text-emerald-400 text-lg">✓</span>
-                  <span className="text-gray-300">No Collateral</span>
-                </span>
-                <span className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 hover:border-cyan-400/50 transition-all duration-300">
-                  <span className="text-emerald-400 text-lg">✓</span>
-                  <span className="text-gray-300">Flexible Tenure</span>
-                </span>
-                <span className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 hover:border-cyan-400/50 transition-all duration-300">
-                  <span className="text-emerald-400 text-lg">✓</span>
-                  <span className="text-gray-300">100% Financing</span>
-                </span>
-                <span className="flex items-center gap-1.5 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-400/30 hover:border-yellow-400/60 transition-all duration-300">
-                  <span className="text-yellow-400 text-lg">⭐</span>
-                  <span className="text-gray-300">Lowest EMI</span>
-                </span>
-              </div>
-            </div>
-        
+      <div className="relative z-10 text-center w-full">
+        <p className="text-black font-bold text-sm uppercase tracking-wider drop-shadow-lg">
+          💫 Special Solar Loan Offer
+        </p>
+
+        <div className="mt-3 flex items-center justify-center gap-3 flex-wrap">
+          <span className="text-black font-bold text-base drop-shadow-lg">Interest Rate</span>
+          <div className="relative inline-block bg-white/30 backdrop-blur-sm px-5 py-2 rounded-full border-2 border-yellow-300/50 shadow-lg">
+            <div className="absolute inset-0 rounded-full bg-white/10 blur-sm animate-pulse"></div>
+            <span className="relative text-4xl md:text-5xl font-extrabold text-black drop-shadow-[0_0_20px_rgba(255,215,0,0.3)]">
+              5.75%
+            </span>
+            <span className="relative text-black font-bold text-sm ml-1">P.A.</span>
           </div>
+        </div>
+
+        <div className="mt-4 flex items-center justify-center gap-3 flex-wrap">
+          <span className="text-black font-bold text-xs bg-yellow-200/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-400 shadow-lg">
+            ✅ Aadhar Required
+          </span>
+          <span className="text-black font-bold text-xs bg-yellow-200/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-400 shadow-lg">
+            ✅ PAN Required
+          </span>
+          <span className="text-black font-bold text-xs bg-gradient-to-r from-yellow-400/80 to-orange-400/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-300 shadow-lg animate-pulse">
+            ⚡ Quick Approval
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Bottom Text with Features - Golden Yellow */}
+  <div className="mt-8 text-center flex-grow flex flex-col justify-end">
+    <p className="text-black font-bold text-lg drop-shadow-lg">
+      Easy Financing for Your Solar Installation
+    </p>
+    <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-yellow-600 via-amber-600 to-green-600 bg-clip-text text-transparent animate-pulse">
+      Minimum Documentation • Quick Approval
+    </h3>
+    <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-sm">
+      <span className="flex items-center gap-1.5 bg-yellow-100/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-300 hover:border-yellow-500 transition-all duration-300">
+        <span className="text-green-600 text-lg font-bold">✓</span>
+        <span className="text-black font-semibold">No Collateral</span>
+      </span>
+      <span className="flex items-center gap-1.5 bg-yellow-100/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-300 hover:border-yellow-500 transition-all duration-300">
+        <span className="text-green-600 text-lg font-bold">✓</span>
+        <span className="text-black font-semibold">Flexible Tenure</span>
+      </span>
+      <span className="flex items-center gap-1.5 bg-yellow-100/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-300 hover:border-yellow-500 transition-all duration-300">
+        <span className="text-green-600 text-lg font-bold">✓</span>
+        <span className="text-black font-semibold">100% Financing</span>
+      </span>
+      <span className="flex items-center gap-1.5 bg-gradient-to-r from-yellow-200 to-orange-200 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-400 hover:border-yellow-500 transition-all duration-300">
+        <span className="text-yellow-600 text-lg">⭐</span>
+        <span className="text-black font-bold">Lowest EMI</span>
+      </span>
+    </div>
+  </div>
+
+</div>
         
         </div>
         
