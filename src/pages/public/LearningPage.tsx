@@ -35,9 +35,9 @@ import stringInverterImg from '../../images/inverters/string-inverter.webp';
 import microInverterImg from '../../images/inverters/micro-inverter.jpg';
 import hybridInverterImg from '../../images/inverters/hybrid-inverter.jpg';
 import centralInverterImg from '../../images/inverters/central-inverter.webp';
-import onGridRooftopImg from '../../images/rooftop/on-grid.avif';
+import onGridRooftopImg from '../../images/On-Grid.gif';
 import offGridRooftopImg from '../../images/rooftop/off-grid.gif';
-import hybridRooftopImg from '../../images/rooftop/hybrid.jpg';
+import hybridRooftopImg from '../../images/hybrid-solar-system.gif';
 
 const learningSections = [
   {

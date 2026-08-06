@@ -168,77 +168,76 @@ export function HomePage() {
           {/* ==================== LEFT COLUMN - PM SURYA GHAR ==================== */}
           <div className="w-full rounded-[32px] border border-white/20 bg-gradient-to-br from-yellow-500/20 via-orange-500/10 to-red-500/20 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-8 transition-all duration-500 hover:scale-105 hover:border-yellow-400 hover:shadow-[0_20px_80px_rgba(255,200,0,0.3)] group flex flex-col h-full">
         
-            {/* Header with Glow */}
-            <div className="inline-flex items-center justify-center w-full mb-6">
-              <div className="relative px-8 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 shadow-lg shadow-yellow-500/50 hover:shadow-yellow-500/70 transition-all duration-300">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400/50 via-orange-400/50 to-red-400/50 blur-xl animate-pulse"></div>
-                <h2 className="relative text-lg font-extrabold tracking-wider text-gray-900">
-                  🇮🇳 PM SURYA GHAR YOJANA
-                </h2>
-              </div>
+          {/* Header with Glow */}
+          <div className="inline-flex items-center justify-center w-full mb-6">
+            <div className="relative px-8 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 shadow-lg shadow-yellow-500/50 hover:shadow-yellow-500/70 transition-all duration-300">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400/50 via-orange-400/50 to-red-400/50 blur-xl animate-pulse"></div>
+              <h2 className="relative text-lg font-extrabold tracking-wider text-gray-900">
+                🇮🇳 PM SURYA GHAR YOJANA
+              </h2>
             </div>
-        
-            {/* GIF with Glow Ring */}
-            <div className="relative bg-gradient-to-br from-yellow-500/20 via-orange-500/20 to-red-500/20 rounded-2xl p-1 flex-shrink-0">
-              <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 rounded-2xl blur-lg opacity-75 animate-pulse"></div>
-              <div className="relative bg-white rounded-2xl p-4 flex justify-center">
+          </div>
+      
+          {/* GIF with Glow Ring */}
+          <div className="relative bg-gradient-to-br from-yellow-500/20 via-orange-500/20 to-red-500/20 rounded-2xl p-1 flex-shrink-0">
+            <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 rounded-2xl blur-lg opacity-75 animate-pulse"></div>
+            <div className="relative bg-white rounded-2xl p-4 flex justify-center">
+              <img
+                src={sliderGif}
+                alt="PM Surya Ghar Solar Scheme"
+                className="w-full max-h-[280px] object-contain drop-shadow-2xl"
+              />
+            </div>
+          </div>
+      
+          {/* Subsidy Banner - Enhanced */}
+          <div className="mt-8 flex justify-center flex-shrink-0">
+            <div className="relative overflow-hidden flex items-center rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 px-4 py-3 border-2 border-yellow-300 shadow-2xl shadow-yellow-500/50 animate-pulse hover:scale-105 transition-all duration-300">
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shine_2.5s_linear_infinite]" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400/20 via-orange-400/20 to-red-400/20 blur-xl"></div>
+              <div className="relative z-10 flex-shrink-0">
+                <div className="absolute inset-0 rounded-full bg-yellow-400/50 blur-md animate-pulse"></div>
                 <img
-                  src={sliderGif}
-                  alt="PM Surya Ghar Solar Scheme"
-                  className="w-full max-h-[280px] object-contain drop-shadow-2xl"
+                  src={modiImg}
+                  alt="PM Modi"
+                  className="relative w-16 h-16 rounded-full object-cover border-2 border-white bg-white shadow-lg"
                 />
               </div>
-            </div>
-        
-            {/* Subsidy Banner - Enhanced */}
-            <div className="mt-8 flex justify-center flex-shrink-0">
-              <div className="relative overflow-hidden flex items-center rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 px-4 py-3 border-2 border-yellow-300 shadow-2xl shadow-yellow-500/50 animate-pulse hover:scale-105 transition-all duration-300">
-                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shine_2.5s_linear_infinite]" />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400/20 via-orange-400/20 to-red-400/20 blur-xl"></div>
-
-                <div className="relative z-10 flex-shrink-0">
-                  <div className="absolute inset-0 rounded-full bg-yellow-400/50 blur-md animate-pulse"></div>
-                  <img
-                    src={modiImg}
-                    alt="PM Modi"
-                    className="relative w-16 h-16 rounded-full object-cover border-2 border-white bg-white shadow-lg"
-                  />
-                </div>
-        
-                <div className="relative z-10 ml-4">
-                  <p className="text-white text-sm font-semibold uppercase tracking-wide drop-shadow-lg">
-                    💰 Subsidy up to
-                  </p>
-                  <div className="mt-1 inline-block bg-white text-red-600 px-6 py-1.5 rounded-full text-2xl font-extrabold shadow-lg hover:scale-105 transition-transform duration-300">
-                    ₹1,38,000
-                  </div>
+      
+              <div className="relative z-10 ml-4">
+                <p className="text-white text-sm font-semibold uppercase tracking-wide drop-shadow-lg">
+                  💰 Subsidy up to
+                </p>
+                <div className="mt-1 inline-block bg-white text-red-600 px-6 py-1.5 rounded-full text-2xl font-extrabold shadow-lg hover:scale-105 transition-transform duration-300">
+                  ₹1,38,000
                 </div>
               </div>
             </div>
-        
-            {/* Bottom Text with Gradient - flex-grow to push to bottom */}
-            <div className="mt-8 text-center flex-grow flex flex-col justify-end">
-              <p className="text-gray-200 text-lg drop-shadow-lg">
-                Government Subsidy Available under
-              </p>
-              <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 bg-clip-text text-transparent animate-pulse">
-                PM Surya Ghar Muft Bijli Yojana
-              </h3>
-              <div className="mt-3 flex items-center justify-center gap-4 text-sm text-yellow-200/70">
-                <span className="flex items-center gap-1">
-                  <span className="text-yellow-400">✦</span> 25-Year Warranty
-                </span>
-                <span className="w-px h-4 bg-yellow-500/30"></span>
-                <span className="flex items-center gap-1">
-                  <span className="text-yellow-400">✦</span> Free Installation
-                </span>
-              </div>
-            </div>
-        
           </div>
+      
+          {/* Bottom Text with Gradient - flex-grow to push to bottom */}
+          <div className="mt-8 text-center flex-grow flex flex-col justify-end">
+            <p className="text-gray-200 text-lg drop-shadow-lg">
+              Government Subsidy Available under
+            </p>
+            <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 bg-clip-text text-transparent animate-pulse">
+              PM Surya Ghar Muft Bijli Yojana
+            </h3>
+            <div className="mt-3 flex items-center justify-center gap-4 text-sm text-yellow-200/70">
+              <span className="flex items-center gap-1">
+                <span className="text-yellow-400">✦</span> 25-Year Warranty
+              </span>
+              <span className="w-px h-4 bg-yellow-500/30"></span>
+              <span className="flex items-center gap-1">
+                <span className="text-yellow-400">✦</span> Free Installation
+              </span>
+            </div>
+          </div>
+      
+        </div>
         
-          {/* ==================== RIGHT COLUMN - SOLAR LOAN ==================== */}
-          <div className="w-full rounded-[32px] border-2 border-yellow-400/30 bg-gradient-to-br from-yellow-500/20 via-amber-500/20 to-green-500/20 backdrop-blur-xl shadow-[0_20px_60px_rgba(255,215,0,0.3)] p-8 transition-all duration-500 hover:scale-105 hover:border-yellow-400 hover:shadow-[0_20px_80px_rgba(255,215,0,0.4)] group flex flex-col h-full">
+  {/* ==================== RIGHT COLUMN - SOLAR LOAN ==================== */}
+  <div className="w-full rounded-[32px] border-2 border-yellow-400/30 bg-gradient-to-br from-yellow-500/20 via-amber-500/20 to-green-500/20 backdrop-blur-xl shadow-[0_20px_60px_rgba(255,215,0,0.3)] p-8 transition-all duration-500 hover:scale-105 hover:border-yellow-400 hover:shadow-[0_20px_80px_rgba(255,215,0,0.4)] group flex flex-col h-full">
         
   {/* Header with Golden Glow */}
   <div className="inline-flex items-center justify-center w-full mb-6">
