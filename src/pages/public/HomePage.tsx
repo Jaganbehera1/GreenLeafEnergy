@@ -191,29 +191,30 @@ export function HomePage() {
           </div>
       
           {/* Subsidy Banner - Enhanced */}
-          <div className="mt-8 flex justify-center flex-shrink-0">
-            <div className="relative overflow-hidden flex items-center rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 px-4 py-3 border-2 border-yellow-300 shadow-2xl shadow-yellow-500/50 animate-pulse hover:scale-105 transition-all duration-300">
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shine_2.5s_linear_infinite]" />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400/20 via-orange-400/20 to-red-400/20 blur-xl"></div>
-              <div className="relative z-10 flex-shrink-0">
-                <div className="absolute inset-0 rounded-full bg-yellow-400/50 blur-md animate-pulse"></div>
-                <img
-                  src={modiImg}
-                  alt="PM Modi"
-                  className="relative w-16 h-16 rounded-full object-cover border-2 border-white bg-white shadow-lg"
-                />
-              </div>
-      
-              <div className="relative z-10 ml-4">
-                <p className="text-white text-sm font-semibold uppercase tracking-wide drop-shadow-lg">
-                  💰 Subsidy up to
-                </p>
-                <div className="mt-1 inline-block bg-white text-red-600 px-6 py-1.5 rounded-full text-2xl font-extrabold shadow-lg hover:scale-105 transition-transform duration-300">
-                  ₹1,38,000
+          <div className="mt-8 flex justify-center flex-shrink-0 px-4 sm:px-0">
+              <div className="relative overflow-hidden flex flex-col sm:flex-row items-center rounded-2xl bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 px-6 sm:px-10 py-6 sm:py-8 border-2 border-yellow-300 shadow-2xl shadow-yellow-500/50 animate-pulse hover:scale-105 transition-all duration-300 w-full max-w-3xl">
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shine_2.5s_linear_infinite]" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400/20 via-orange-400/20 to-red-400/20 blur-xl"></div>
+              
+                <div className="relative z-10 flex-shrink-0">
+                  <div className="absolute inset-0 rounded-full bg-yellow-400/50 blur-md animate-pulse"></div>
+                  <img
+                    src={modiImg}
+                    alt="PM Modi"
+                    className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white bg-white shadow-2xl"
+                  />
+                </div>
+              
+                <div className="relative z-10 ml-0 sm:ml-8 mt-4 sm:mt-0 flex-1 text-center sm:text-left">
+                  <p className="text-white text-base sm:text-xl font-bold uppercase tracking-wider drop-shadow-lg">
+                    💰 Subsidy up to
+                  </p>
+                  <div className="mt-2 sm:mt-3 inline-block bg-white text-red-600 px-6 sm:px-10 py-2 sm:py-3 rounded-full text-2xl sm:text-4xl font-extrabold shadow-xl hover:scale-110 transition-transform duration-300">
+                    ₹1,38,000
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
       
           {/* Bottom Text with Gradient - flex-grow to push to bottom */}
           <div className="mt-8 text-center flex-grow flex flex-col justify-end">
@@ -272,18 +273,18 @@ export function HomePage() {
       <div className="absolute top-1/2 right-2 text-yellow-300/50 text-lg animate-pulse animation-delay-1500">✦</div>
 
       <div className="relative z-10 text-center w-full">
-        <p className="text-black font-bold text-sm uppercase tracking-wider drop-shadow-lg">
+        <p className="text-blue font-bold text-sm uppercase tracking-wider drop-shadow-lg">
           💫 Special Solar Loan Offer
         </p>
 
         <div className="mt-3 flex items-center justify-center gap-3 flex-wrap">
-          <span className="text-black font-bold text-base drop-shadow-lg">Interest Rate</span>
+          <span className="text-white font-bold text-base drop-shadow-lg">Interest Rate</span>
           <div className="relative inline-block bg-white/30 backdrop-blur-sm px-5 py-2 rounded-full border-2 border-yellow-300/50 shadow-lg">
             <div className="absolute inset-0 rounded-full bg-white/10 blur-sm animate-pulse"></div>
-            <span className="relative text-4xl md:text-5xl font-extrabold text-black drop-shadow-[0_0_20px_rgba(255,215,0,0.3)]">
+            <span className="relative text-4xl md:text-5xl font-extrabold text-white drop-shadow-[0_0_20px_rgba(255,215,0,0.3)]">
               5.75%
             </span>
-            <span className="relative text-black font-bold text-sm ml-1">P.A.</span>
+            <span className="relative text-white font-bold text-sm ml-1">P.A.</span>
           </div>
         </div>
 
@@ -304,10 +305,10 @@ export function HomePage() {
 
   {/* Bottom Text with Features - Golden Yellow */}
   <div className="mt-8 text-center flex-grow flex flex-col justify-end">
-    <p className="text-black font-bold text-lg drop-shadow-lg">
+    <p className="text-white font-bold text-lg drop-shadow-lg">
       Easy Financing for Your Solar Installation
     </p>
-    <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-yellow-600 via-amber-600 to-green-600 bg-clip-text text-transparent animate-pulse">
+    <h3 className="mt-2 text-2xl font-bold bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent animate-pulse">
       Minimum Documentation • Quick Approval
     </h3>
     <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-sm">

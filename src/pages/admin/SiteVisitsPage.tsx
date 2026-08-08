@@ -580,7 +580,8 @@ export function SiteVisitsPage() {
       yPos = drawTable(doc, headers, data, yPos, pageWidth);
 
       // Footer
-      const pageCount = doc.internal.getNumberOfPages();
+      const internalDoc = doc.internal as any;
+      const pageCount = typeof internalDoc.getNumberOfPages === 'function' ? internalDoc.getNumberOfPages() : 1;
       for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
         doc.setFontSize(8);

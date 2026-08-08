@@ -130,7 +130,483 @@ export function ReportViewPage() {
   };
 
   const handlePrint = () => {
-    window.print();
+    if (!contentRef.current) return;
+
+    const printWindow = window.open('', '_blank', 'width=1200,height=900');
+    if (!printWindow) {
+      window.print();
+      return;
+    }
+
+    const reportMarkup = contentRef.current.innerHTML;
+    
+    printWindow.document.write(`
+      <!doctype html>
+      <html>
+        <head>
+          <title>Site Visit Report - ${report?.customer_name || 'Untitled'}</title>
+          <style>
+            @page {
+              size: A4 portrait;
+              margin: 6mm;
+            }
+            
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            
+            html, body {
+              margin: 0;
+              padding: 0;
+              background: #ffffff;
+              color: #111827;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+              font-size: 11px;
+              line-height: 1.5;
+            }
+            
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: flex-start;
+              padding: 4mm 0;
+              min-height: 100vh;
+            }
+            
+            #report-print-root {
+              width: 100%;
+              max-width: 100%;
+              padding: 0 2mm;
+            }
+            
+            #report-print-root > div {
+              width: 100%;
+              max-width: 100%;
+              border: none !important;
+              box-shadow: none !important;
+              border-radius: 0 !important;
+              overflow: visible !important;
+              background: white !important;
+              padding: 0 !important;
+            }
+            
+            .no-print {
+              display: none !important;
+            }
+            
+            /* Status Bar */
+            .h-1\\.5 {
+              height: 3px !important;
+            }
+            
+            /* Headers */
+            .text-2xl {
+              font-size: 16px !important;
+              font-weight: 700 !important;
+            }
+            .text-3xl {
+              font-size: 18px !important;
+              font-weight: 700 !important;
+            }
+            .text-xl {
+              font-size: 14px !important;
+            }
+            .text-lg {
+              font-size: 13px !important;
+            }
+            .text-sm {
+              font-size: 10px !important;
+            }
+            .text-xs {
+              font-size: 9px !important;
+            }
+            
+            /* Grid Layout */
+            .grid {
+              display: grid !important;
+              gap: 6px !important;
+            }
+            .grid-cols-1 {
+              grid-template-columns: 1fr !important;
+            }
+            .md\\:grid-cols-2 {
+              grid-template-columns: 1fr 1fr !important;
+            }
+            
+            /* Cards and Boxes */
+            .rounded-xl {
+              border-radius: 6px !important;
+            }
+            .rounded-2xl {
+              border-radius: 8px !important;
+            }
+            .rounded-3xl {
+              border-radius: 10px !important;
+            }
+            
+            .p-4 {
+              padding: 6px 8px !important;
+            }
+            .p-6 {
+              padding: 8px 10px !important;
+            }
+            .p-3 {
+              padding: 5px 6px !important;
+            }
+            
+            .border {
+              border-width: 1px !important;
+            }
+            .border-2 {
+              border-width: 1.5px !important;
+            }
+            
+            /* Margins */
+            .mt-0\\.5 {
+              margin-top: 1px !important;
+            }
+            .mt-1\\.5 {
+              margin-top: 2px !important;
+            }
+            .mt-2 {
+              margin-top: 4px !important;
+            }
+            .mt-3 {
+              margin-top: 5px !important;
+            }
+            .mt-4 {
+              margin-top: 6px !important;
+            }
+            .mt-6 {
+              margin-top: 8px !important;
+            }
+            .mt-8 {
+              margin-top: 10px !important;
+            }
+            
+            .mb-2 {
+              margin-bottom: 4px !important;
+            }
+            .mb-6 {
+              margin-bottom: 8px !important;
+            }
+            
+            .gap-2 {
+              gap: 4px !important;
+            }
+            .gap-3 {
+              gap: 5px !important;
+            }
+            .gap-4 {
+              gap: 6px !important;
+            }
+            
+            /* Flex Layout */
+            .flex {
+              display: flex !important;
+            }
+            .flex-wrap {
+              flex-wrap: wrap !important;
+            }
+            .items-center {
+              align-items: center !important;
+            }
+            .items-start {
+              align-items: flex-start !important;
+            }
+            .justify-between {
+              justify-content: space-between !important;
+            }
+            .flex-col {
+              flex-direction: column !important;
+            }
+            .flex-shrink-0 {
+              flex-shrink: 0 !important;
+            }
+            
+            /* Images */
+            img {
+              max-width: 100%;
+              height: auto;
+              display: block;
+            }
+            .h-48 {
+              height: 120px !important;
+            }
+            .w-full {
+              width: 100% !important;
+            }
+            .object-cover {
+              object-fit: cover !important;
+            }
+            .object-contain {
+              object-fit: contain !important;
+            }
+            
+            /* Status Badge */
+            .inline-flex {
+              display: inline-flex !important;
+            }
+            .px-3 {
+              padding-left: 6px !important;
+              padding-right: 6px !important;
+            }
+            .py-1\\.5 {
+              padding-top: 2px !important;
+              padding-bottom: 2px !important;
+            }
+            
+            /* Colors */
+            .bg-white {
+              background-color: #ffffff !important;
+            }
+            .text-gray-700 {
+              color: #374151 !important;
+            }
+            .text-gray-900 {
+              color: #111827 !important;
+            }
+            .text-gray-500 {
+              color: #6B7280 !important;
+            }
+            .text-gray-400 {
+              color: #9CA3AF !important;
+            }
+            
+            /* Status Colors */
+            .text-green-600 {
+              color: #059669 !important;
+            }
+            .text-green-700 {
+              color: #047857 !important;
+            }
+            .text-red-600 {
+              color: #DC2626 !important;
+            }
+            .text-red-700 {
+              color: #B91C1C !important;
+            }
+            .text-yellow-600 {
+              color: #D97706 !important;
+            }
+            .text-yellow-700 {
+              color: #B45309 !important;
+            }
+            
+            .bg-green-50 {
+              background-color: #F0FDF4 !important;
+            }
+            .bg-emerald-50 {
+              background-color: #ECFDF5 !important;
+            }
+            .bg-red-50 {
+              background-color: #FEF2F2 !important;
+            }
+            .bg-rose-50 {
+              background-color: #FFF1F2 !important;
+            }
+            .bg-yellow-50 {
+              background-color: #FFFBEB !important;
+            }
+            .bg-amber-50 {
+              background-color: #FFFBEB !important;
+            }
+            .bg-gray-50 {
+              background-color: #F9FAFB !important;
+            }
+            .bg-gray-100 {
+              background-color: #F3F4F6 !important;
+            }
+            .bg-slate-50 {
+              background-color: #F8FAFC !important;
+            }
+            .bg-blue-50 {
+              background-color: #EFF6FF !important;
+            }
+            .bg-indigo-50 {
+              background-color: #EEF2FF !important;
+            }
+            .bg-purple-50 {
+              background-color: #F5F3FF !important;
+            }
+            .bg-pink-50 {
+              background-color: #FDF2F8 !important;
+            }
+            .bg-cyan-50 {
+              background-color: #ECFEFF !important;
+            }
+            .bg-sky-50 {
+              background-color: #F0F9FF !important;
+            }
+            .bg-orange-50 {
+              background-color: #FFF7ED !important;
+            }
+            .bg-amber-50 {
+              background-color: #FFFBEB !important;
+            }
+            .bg-teal-50 {
+              background-color: #F0FDFA !important;
+            }
+            
+            /* Gradients for print */
+            .bg-gradient-to-br {
+              background-image: none !important;
+              background-color: #f8fafc !important;
+            }
+            
+            /* Remove animations */
+            .animate-pulse {
+              animation: none !important;
+            }
+            .transition-all {
+              transition: none !important;
+            }
+            .hover\\:scale-105:hover {
+              transform: none !important;
+            }
+            .hover\\:shadow-lg:hover {
+              box-shadow: none !important;
+            }
+            
+            /* Border Colors */
+            .border-green-100 {
+              border-color: #D1FAE5 !important;
+            }
+            .border-blue-100 {
+              border-color: #DBEAFE !important;
+            }
+            .border-indigo-100 {
+              border-color: #E0E7FF !important;
+            }
+            .border-purple-100 {
+              border-color: #EDE9FE !important;
+            }
+            .border-pink-100 {
+              border-color: #FCE7F3 !important;
+            }
+            .border-slate-200 {
+              border-color: #E2E8F0 !important;
+            }
+            .border-gray-200 {
+              border-color: #E5E7EB !important;
+            }
+            .border-cyan-100 {
+              border-color: #CFFAFE !important;
+            }
+            .border-sky-100 {
+              border-color: #E0F2FE !important;
+            }
+            .border-orange-100 {
+              border-color: #FFEDD5 !important;
+            }
+            .border-amber-100 {
+              border-color: #FEF3C7 !important;
+            }
+            .border-teal-100 {
+              border-color: #CCFBF1 !important;
+            }
+            .border-yellow-100 {
+              border-color: #FEF3C7 !important;
+            }
+            .border-red-100 {
+              border-color: #FECACA !important;
+            }
+            .border-rose-100 {
+              border-color: #FECDD3 !important;
+            }
+            .border-emerald-100 {
+              border-color: #D1FAE5 !important;
+            }
+            
+            /* Utility Classes */
+            .font-bold {
+              font-weight: 700 !important;
+            }
+            .font-semibold {
+              font-weight: 600 !important;
+            }
+            .font-medium {
+              font-weight: 500 !important;
+            }
+            .font-mono {
+              font-family: monospace !important;
+            }
+            .uppercase {
+              text-transform: uppercase !important;
+            }
+            .tracking-wider {
+              letter-spacing: 0.05em !important;
+            }
+            .whitespace-pre-wrap {
+              white-space: pre-wrap !important;
+            }
+            .truncate {
+              overflow: hidden !important;
+              text-overflow: ellipsis !important;
+              white-space: nowrap !important;
+            }
+            
+            /* Icons */
+            .w-4, .w-5, .w-6, .h-4, .h-5, .h-6 {
+              width: 12px !important;
+              height: 12px !important;
+            }
+            .w-3\\.5, .h-3\\.5 {
+              width: 10px !important;
+              height: 10px !important;
+            }
+            
+            /* Status Bar Gradient */
+            .bg-gradient-to-r {
+              background-image: linear-gradient(to right, #34D399, #059669) !important;
+            }
+            
+            /* Print-friendly breaks */
+            .page-break-inside-avoid {
+              page-break-inside: avoid !important;
+            }
+            
+            /* Attachment images */
+            .rounded-lg {
+              border-radius: 4px !important;
+            }
+            .border-dashed {
+              border-style: dashed !important;
+            }
+            
+            /* Hide shadow effects */
+            .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl {
+              box-shadow: none !important;
+            }
+            
+            /* Divider */
+            .border-b {
+              border-bottom-width: 1px !important;
+            }
+            .border-t {
+              border-top-width: 1px !important;
+            }
+          </style>
+        </head>
+        <body>
+          <div id="report-print-root">
+            ${reportMarkup}
+          </div>
+        </body>
+      </html>
+    `);
+    
+    printWindow.document.close();
+    printWindow.focus();
+    
+    setTimeout(() => {
+      printWindow.print();
+      setTimeout(() => {
+        printWindow.close();
+      }, 500);
+    }, 500);
   };
 
   const handleDownloadPDF = async () => {
@@ -140,7 +616,6 @@ export function ReportViewPage() {
     try {
       const element = contentRef.current;
       
-      // Capture the full content with proper scale
       const canvas = await html2canvas(element, {
         scale: 2,
         backgroundColor: '#ffffff',
@@ -152,7 +627,6 @@ export function ReportViewPage() {
         windowHeight: element.scrollHeight,
         windowWidth: element.scrollWidth,
         onclone: (clonedDoc) => {
-          // Ensure all content is visible in the clone
           const clonedElement = clonedDoc.getElementById('report-content');
           if (clonedElement) {
             clonedElement.style.overflow = 'visible';
@@ -172,62 +646,19 @@ export function ReportViewPage() {
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
       
-      // Determine how many pages we need
+      const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
-      let remainingHeight = pdfHeight;
-      let currentPosition = 0;
-      
-      // Add header to first page
-      pdf.setFontSize(22);
-      pdf.setTextColor(34, 197, 94);
-      pdf.text('Site Visit Report', pdfWidth / 2, 20, { align: 'center' });
-      
-      pdf.setFontSize(11);
-      pdf.setTextColor(100, 100, 100);
-      pdf.text(`Report ID: ${id}`, pdfWidth / 2, 28, { align: 'center' });
-      pdf.text(`Customer: ${report?.customer_name || 'N/A'}`, pdfWidth / 2, 34, { align: 'center' });
-      pdf.text(`Generated: ${new Date().toLocaleString()}`, pdfWidth / 2, 40, { align: 'center' });
-      
-      // Add the captured content starting from position 0
-      const contentStartY = 45;
-      let page = 1;
-      
-      while (remainingHeight > 0) {
-        const currentPageHeight = Math.min(remainingHeight, pageHeight - contentStartY - 20);
-        const imgWidth = pdfWidth;
-        const imgHeight = (imgWidth * currentPageHeight) / canvas.width;
-        
-        // Calculate the source position
-        const sourceY = (currentPosition / canvas.height) * canvas.height;
-        const sourceHeight = (currentPageHeight / pdfHeight) * canvas.height;
-        
-        // Add image for this page
-        pdf.addImage(
-          imgData, 
-          'PNG', 
-          0, 
-          contentStartY, 
-          imgWidth, 
-          imgHeight,
-          undefined,
-          'FAST'
-        );
-        
-        // Add footer
-        pdf.setFontSize(8);
-        pdf.setTextColor(150, 150, 150);
-        pdf.text(`Page ${page} of ${Math.ceil(pdfHeight / (pageHeight - contentStartY - 20))}`, pdfWidth / 2, pageHeight - 10, { align: 'center' });
-        pdf.text('Generated from GreenLeaf Energy Reports System', pdfWidth / 2, pageHeight - 5, { align: 'center' });
-        
-        remainingHeight -= currentPageHeight;
-        currentPosition += currentPageHeight;
-        page++;
-        
-        if (remainingHeight > 0) {
-          pdf.addPage();
-        }
-      }
-      
+      const margin = 8;
+      const maxWidth = pageWidth - margin * 2;
+      const maxHeight = pageHeight - margin * 2;
+
+      const ratio = Math.min(maxWidth / canvas.width, maxHeight / canvas.height);
+      const imgWidth = canvas.width * ratio;
+      const imgHeight = canvas.height * ratio;
+      const x = (pageWidth - imgWidth) / 2;
+      const y = (pageHeight - imgHeight) / 2;
+
+      pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight, undefined, 'FAST');
       pdf.save(`report_${id}_${new Date().toISOString().split('T')[0]}.pdf`);
     } catch (error) {
       console.error('Error generating PDF:', error);
@@ -266,6 +697,34 @@ export function ReportViewPage() {
     } catch {
       return dateString;
     }
+  };
+
+  const formatValue = (value?: string | null) => {
+    if (typeof value === 'string') {
+      const trimmed = value.trim();
+      return trimmed ? trimmed : 'N/A';
+    }
+    return value ? String(value) : 'N/A';
+  };
+
+  const getCableSummary = () => {
+    const entries = [
+      { label: 'Earthing', type: report?.cable_type_earthing || 'Earthing', measurement: report?.cable_measurement_earthing },
+      { label: 'DC', type: report?.cable_type_dc || 'DC', measurement: report?.cable_measurement_dc },
+      { label: 'AC', type: report?.cable_type_ac || 'AC', measurement: report?.cable_measurement_ac },
+    ];
+
+    const nonEmpty = entries.filter((entry) => {
+      const type = entry.type?.trim();
+      const measurement = entry.measurement?.trim();
+      return Boolean(type || measurement);
+    });
+
+    if (!nonEmpty.length) return 'N/A';
+
+    return nonEmpty
+      .map((entry) => `${entry.label}: ${entry.measurement ? `${entry.measurement} m` : (entry.type || 'N/A')}`)
+      .join(' | ');
   };
 
   const getStatusConfig = (status: string) => {
@@ -589,6 +1048,17 @@ export function ReportViewPage() {
                   </div>
                 </div>
 
+                {/* Phase Type */}
+                <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl p-4 border border-teal-100">
+                  <div className="flex items-start gap-3">
+                    <Zap className="w-5 h-5 text-cyan-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-semibold text-cyan-600 uppercase tracking-wider">Phase Type</p>
+                      <p className="text-gray-700 font-medium mt-0.5">{formatValue(report.phase_type)}</p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Panel Details */}
                 <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
                   <div className="flex items-start gap-3">
@@ -617,7 +1087,7 @@ export function ReportViewPage() {
                     <Battery className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-xs font-semibold text-purple-600 uppercase tracking-wider">Battery</p>
-                      <p className="text-gray-700 font-medium mt-0.5">{report.battery_type || 'N/A'} / {report.battery_power || 'N/A'}</p>
+                      <p className="text-gray-700 font-medium mt-0.5">{formatValue(report.battery_type)} / {formatValue(report.battery_power)} / Qty: {formatValue(report.battery_quantity)}</p>
                     </div>
                   </div>
                 </div>
@@ -666,13 +1136,13 @@ export function ReportViewPage() {
                   </div>
                 </div>
 
-                {/* Cables in meters */}
+                {/* Cable Summary */}
                 <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-4 border border-indigo-100">
                   <div className="flex items-start gap-3">
                     <Zap className="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Cables in meters</p>
-                      <p className="text-gray-700 font-medium mt-0.5">{report.cables_in_meters || 'N/A'}</p>
+                      <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Cable Details</p>
+                      <p className="text-gray-700 font-medium mt-0.5 whitespace-pre-wrap">{getCableSummary()}</p>
                     </div>
                   </div>
                 </div>
@@ -682,8 +1152,8 @@ export function ReportViewPage() {
                   <div className="flex items-start gap-3">
                     <Battery className="w-5 h-5 text-cyan-500 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-xs font-semibold text-cyan-600 uppercase tracking-wider">Cable Type</p>
-                      <p className="text-gray-700 font-medium mt-0.5">{report.cable_type || 'N/A'}</p>
+                      <p className="text-xs font-semibold text-cyan-600 uppercase tracking-wider">Cable Types</p>
+                      <p className="text-gray-700 font-medium mt-0.5">{formatValue(report.cable_type_earthing)} / {formatValue(report.cable_type_dc)} / {formatValue(report.cable_type_ac)}</p>
                     </div>
                   </div>
                 </div>
@@ -871,7 +1341,20 @@ export function ReportViewPage() {
 
       {/* Print Styles */}
       <style>{`
+        @page {
+          size: A4 portrait;
+          margin: 8mm;
+        }
+
         @media print {
+          html, body {
+            background: white !important;
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+          body {
+            min-width: 0 !important;
+          }
           .no-print {
             display: none !important;
           }
@@ -879,9 +1362,19 @@ export function ReportViewPage() {
             background: white !important;
             box-shadow: none !important;
             border: none !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 auto !important;
+            border-radius: 0 !important;
+            overflow: visible !important;
           }
           #report-content .shadow-2xl {
             box-shadow: none !important;
+          }
+          #report-content .p-6,
+          #report-content .md\\:p-8,
+          #report-content .lg\\:p-10 {
+            padding: 0.75rem !important;
           }
         }
       `}</style>

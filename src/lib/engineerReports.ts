@@ -49,7 +49,7 @@ export interface SiteVisitReport {
   electricity_units?: string; // Units/month - New field
   technician_name?: string;
   technician_mobile?: string;
-  
+  phase_type?: string;
   attachments?: {
     name: string;
     type: string;

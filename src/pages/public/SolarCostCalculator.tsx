@@ -83,8 +83,8 @@ export function SolarCostCalculator() {
     
     const netCost = systemCost - subsidyAmount;
     
-    // Monthly savings (70% of current bill)
-    const monthlySavingsAmount = monthlyBill * 0.7;
+    // UPDATED: Monthly savings (90% of current bill)
+    const monthlySavingsAmount = monthlyBill * 0.9;
     const annualSavingsAmount = monthlySavingsAmount * 12;
     
     // Payback period in years - prevent division by zero
@@ -284,17 +284,17 @@ export function SolarCostCalculator() {
                   </div>
                 </div>
 
-                {/* Monthly Savings */}
+                {/* Monthly Savings - UPDATED to 90% */}
                 <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-green-200 hover:shadow-md transition-all duration-300 hover:scale-105">
                   <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>💡</span> Monthly Savings</h3>
                   <p className="mt-2 text-gray-700 font-bold text-xl">{formatCurrency(results.monthlySavings)}</p>
-                  <p className="text-sm text-gray-500">~70% of your current bill</p>
+                  <p className="text-sm text-gray-500">~90% of your current bill</p>
                   <div className="mt-1 text-xs bg-green-50 p-1 rounded">
-                    {monthlyBill} × 70% = {formatCurrency(results.monthlySavings)}
+                    {monthlyBill} × 90% = {formatCurrency(results.monthlySavings)}
                   </div>
                 </div>
 
-                {/* Annual Savings */}
+                {/* Annual Savings - UPDATED to 90% */}
                 <div className="bg-white p-4 rounded-2xl shadow-sm border-2 border-teal-200 hover:shadow-md transition-all duration-300 hover:scale-105">
                   <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2"><span>📊</span> Annual Savings</h3>
                   <p className="mt-2 text-gray-700 font-bold text-xl">{formatCurrency(results.annualSavings)}</p>

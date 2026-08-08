@@ -52,6 +52,8 @@ const batteryBrands = ['Luminous', 'Exide', 'Power Guard', 'Amaron', 'Eastman', 
 const batteryTypes = ['Lead Acid', 'Solar Lead Acid', 'Solar GEL', 'Lithium Ion', 'No Battery'];
 const batteryPowers = ['80 AH', '100 AH', '150 AH', '200 AH', '220 AH', '250 AH', '300 AH', '350 AH', 'Nil'];
 const quantities = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
+const systemCapacities = ['1', '2', '3', '5', '10'];
+const phaseTypes = ['Single Phase', 'Three Phase'];
 
 function useFormState(id?: string) {
   const [report, setReport] = useState<SiteVisitReport | null>(null);
@@ -325,6 +327,14 @@ export function SiteVisitForm() {
       : 'border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 hover:border-gray-300'
     }
   `;
+
+  const getCableFieldValue = (
+    key: 'cable_type_earthing' | 'cable_measurement_earthing' | 'cable_type_dc' | 'cable_measurement_dc' | 'cable_type_ac' | 'cable_measurement_ac',
+    fallback = ''
+  ) => {
+    const value = report?.[key];
+    return typeof value === 'string' ? value : fallback;
+  };
 
   const labelClasses = "block text-sm font-semibold text-gray-700 mb-1.5";
 
@@ -670,58 +680,78 @@ export function SiteVisitForm() {
                     <Zap className="h-4 w-4 inline mr-1 text-cyan-400" />
                     System Capacity (kW)
                   </label>
-                  <input
+                  <select
                     value={report.system_capacity || ''}
                     onChange={(e) => update({ system_capacity: e.target.value })}
-                    placeholder="e.g. 5"
                     className={inputClasses('system_capacity')}
-                  />
+                  >
+                    <option value="">Select system capacity</option>
+                    {systemCapacities.map((capacity) => (
+                      <option key={capacity} value={capacity}>{capacity} kW</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClasses}>
+                    <Zap className="h-4 w-4 inline mr-1 text-cyan-400" />
+                    Phase Type
+                  </label>
+                  <select
+                    value={report.phase_type || ''}
+                    onChange={(e) => update({ phase_type: e.target.value })}
+                    className={inputClasses('phase_type')}
+                  >
+                    <option value="">Select phase type</option>
+                    {phaseTypes.map((phase) => (
+                      <option key={phase} value={phase}>{phase}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className={labelClasses}>
                     <Building className="h-4 w-4 inline mr-1 text-cyan-400" />
-                    South Height
+                    South Height (feet)
                   </label>
                   <input
                     value={report.structure_height_low || ''}
                     onChange={(e) => update({ structure_height_low: e.target.value })}
-                    placeholder="e.g. 2.5 m"
+                    placeholder="e.g. 8.2 ft"
                     className={inputClasses('structure_height_low')}
                   />
                 </div>
                 <div>
                   <label className={labelClasses}>
                     <Building className="h-4 w-4 inline mr-1 text-cyan-400" />
-                    North Height
+                    North Height (feet)
                   </label>
                   <input
                     value={report.structure_height_high || ''}
                     onChange={(e) => update({ structure_height_high: e.target.value })}
-                    placeholder="e.g. 4.2 m"
+                    placeholder="e.g. 13.8 ft"
                     className={inputClasses('structure_height_high')}
                   />
                 </div>
                 <div>
                   <label className={labelClasses}>
                     <ArrowLeft className="h-4 w-4 inline mr-1 text-cyan-400" />
-                    North/South Distance
+                    North/South Distance (feet)
                   </label>
                   <input
                     value={report.north_south_distance || ''}
                     onChange={(e) => update({ north_south_distance: e.target.value })}
-                    placeholder="e.g. 6 m"
+                    placeholder="e.g. 19.7 ft"
                     className={inputClasses('north_south_distance')}
                   />
                 </div>
                 <div>
                   <label className={labelClasses}>
                     <ArrowLeft className="h-4 w-4 inline mr-1 text-cyan-400" />
-                    East/West Distance
+                    East/West Distance (feet)
                   </label>
                   <input
                     value={report.east_west_distance || ''}
                     onChange={(e) => update({ east_west_distance: e.target.value })}
-                    placeholder="e.g. 5 m"
+                    placeholder="e.g. 16.4 ft"
                     className={inputClasses('east_west_distance')}
                   />
                 </div>
@@ -892,8 +922,22 @@ export function SiteVisitForm() {
                           Cable Type
                         </label>
                         <select
-                          value={report[`cable_type_${cableType.toLowerCase()}` as keyof SiteVisitReport] || cableType}
-                          onChange={(e) => update({ [`cable_type_${cableType.toLowerCase()}`]: e.target.value } as any)}
+                          value={
+                            cableType === 'Earthing'
+                              ? getCableFieldValue('cable_type_earthing', cableType)
+                              : cableType === 'DC'
+                                ? getCableFieldValue('cable_type_dc', cableType)
+                                : getCableFieldValue('cable_type_ac', cableType)
+                          }
+                          onChange={(e) =>
+                            update({
+                              ...(cableType === 'Earthing'
+                                ? { cable_type_earthing: e.target.value }
+                                : cableType === 'DC'
+                                  ? { cable_type_dc: e.target.value }
+                                  : { cable_type_ac: e.target.value })
+                            })
+                          }
                           className={inputClasses(`cable_type_${cableType.toLowerCase()}`)}
                         >
                           <option value={cableType}>{cableType}</option>
@@ -905,8 +949,22 @@ export function SiteVisitForm() {
                           Cable Measurement
                         </label>
                         <input
-                          value={report[`cable_measurement_${cableType.toLowerCase()}` as keyof SiteVisitReport] || ''}
-                          onChange={(e) => update({ [`cable_measurement_${cableType.toLowerCase()}`]: e.target.value } as any)}
+                          value={
+                            cableType === 'Earthing'
+                              ? getCableFieldValue('cable_measurement_earthing')
+                              : cableType === 'DC'
+                                ? getCableFieldValue('cable_measurement_dc')
+                                : getCableFieldValue('cable_measurement_ac')
+                          }
+                          onChange={(e) =>
+                            update({
+                              ...(cableType === 'Earthing'
+                                ? { cable_measurement_earthing: e.target.value }
+                                : cableType === 'DC'
+                                  ? { cable_measurement_dc: e.target.value }
+                                  : { cable_measurement_ac: e.target.value })
+                            })
+                          }
                           placeholder={`e.g. ${cableType === 'Earthing' ? '50' : cableType === 'DC' ? '40' : '15'} mtr`}
                           className={inputClasses(`cable_measurement_${cableType.toLowerCase()}`)}
                         />
@@ -1010,6 +1068,7 @@ export function SiteVisitForm() {
                 </div>
               </div>
             </div>
+
             {/* Section: Additional Information */}
             <div id="section-remarks" className="mb-10 scroll-mt-20">
               <div className="flex items-center gap-3 mb-5">
