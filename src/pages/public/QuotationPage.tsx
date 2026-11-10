@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { useMemo, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-=======
-import { useMemo, useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
 import { 
   FileText, 
   Printer, 
@@ -21,10 +16,6 @@ import {
   Sparkles,
   Shield,
   Clock,
-<<<<<<< HEAD
-=======
-  X,
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
   Workflow
 } from 'lucide-react';
 import { createQuotationDraft, saveQuotation } from '../../lib/quotations';
@@ -300,11 +291,7 @@ export function QuotationPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState(createQuotationDraft());
   const [priceMessage, setPriceMessage] = useState<string>('');
-<<<<<<< HEAD
   const [privacyConsent, setPrivacyConsent] = useState(false);
-=======
-  const [isPrinting, setIsPrinting] = useState<boolean>(false);
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
 
   // Auto-calculate price when selections change - Now includes Phase
   useEffect(() => {
@@ -349,15 +336,12 @@ export function QuotationPage() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-<<<<<<< HEAD
 
     if (!privacyConsent) {
       setPriceMessage('Please confirm that you agree to the processing of your enquiry information before submitting.');
       return;
     }
 
-=======
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
     const priceToSave = form.estimated_price?.startsWith('₹') ? form.estimated_price : 'Wrong Battery Field Selection';
     const quotation = {
       ...form,
@@ -378,11 +362,7 @@ export function QuotationPage() {
     return `₹${(capacityNum * 900).toLocaleString('en-IN')}`;
   }, [capacityNum]);
 
-<<<<<<< HEAD
   const handleFieldChange = (field: string, value: string) => {
-=======
-  const handleFieldChange = (field: string, value: any) => {
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
     if (field === 'inverter_type') {
       if (value === 'Ongrid') {
         setForm({ ...form, [field]: value, battery_requirement: 'No Battery' });
@@ -970,7 +950,6 @@ export function QuotationPage() {
               Generate Quotation
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
             </button>
-<<<<<<< HEAD
 
             <div className="mt-4 rounded-2xl border border-green-200 bg-green-50 p-3 text-left">
               <label className="flex items-start gap-3 text-sm text-gray-700">
@@ -991,8 +970,6 @@ export function QuotationPage() {
               </label>
             </div>
 
-=======
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
             {form.estimated_price === 'Wrong Battery Field Selection' && (
               <p className="text-xs text-red-500 mt-2 text-center">Please select a valid battery configuration</p>
             )}

@@ -51,7 +51,6 @@ const pageMetadata: Record<string, PageSeo> = {
     description: 'Explore a Green Leaf Energy franchise opportunity and help deliver trusted rooftop solar solutions to communities in Odisha.',
     name: 'Solar Franchise',
   },
-<<<<<<< HEAD
   '/terms-and-conditions': {
     title: 'Terms & Conditions | Green Leaf Energy',
     description: 'Read the Terms & Conditions governing the use of Green Leaf Energy\'s website, solar energy products, installation services and customer enquiries in Odisha, India.',
@@ -62,8 +61,6 @@ const pageMetadata: Record<string, PageSeo> = {
     description: 'Learn how Green Leaf Energy collects, uses, processes and protects personal information when visitors use its website and solar energy services.',
     name: 'Privacy Policy',
   },
-=======
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
 };
 
 function setMeta(attribute: 'name' | 'property', key: string, content: string) {
@@ -95,10 +92,7 @@ export function Seo() {
   useEffect(() => {
     document.title = page.title;
     setMeta('name', 'description', page.description);
-<<<<<<< HEAD
     setMeta('name', 'robots', 'index,follow');
-=======
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
     setMeta('property', 'og:title', page.title);
     setMeta('property', 'og:description', page.description);
     setMeta('property', 'og:type', 'website');

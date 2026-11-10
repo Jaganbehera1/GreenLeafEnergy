@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-<<<<<<< HEAD
 import { Link } from 'react-router-dom';
-=======
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
 import { Phone, Mail, MessageCircle } from 'lucide-react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, ContactInfo } from '../../lib/firebase';
@@ -64,7 +61,6 @@ export function Footer() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
-<<<<<<< HEAD
                 <li><Link to="/" className="hover:text-green-400 transition-colors">Home</Link></li>
                 <li><Link to="/about" className="hover:text-green-400 transition-colors">About Us</Link></li>
                 <li><Link to="/services" className="hover:text-green-400 transition-colors">Services</Link></li>
@@ -76,13 +72,6 @@ export function Footer() {
               <ul className="space-y-2 text-gray-400">
                 <li><Link to="/terms-and-conditions" className="hover:text-green-400 transition-colors">Terms & Conditions</Link></li>
                 <li><Link to="/privacy-policy" className="hover:text-green-400 transition-colors">Privacy Policy</Link></li>
-=======
-                <li><a href="/" className="hover:text-green-400 transition-colors">Home</a></li>
-                <li><a href="/about" className="hover:text-green-400 transition-colors">About Us</a></li>
-                <li><a href="/services" className="hover:text-green-400 transition-colors">Services</a></li>
-                <li><a href="/gallery" className="hover:text-green-400 transition-colors">Projects</a></li>
-                <li><a href="/contact" className="hover:text-green-400 transition-colors">Contact</a></li>
->>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
               </ul>
             </div>
 
