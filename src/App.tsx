@@ -23,7 +23,10 @@ import { QuotationPage } from './pages/public/QuotationPage';
 import { FranchisePage } from './pages/public/FranchisePage';
 import { QuotationsPage } from './pages/admin/QuotationsPage';
 import { LearningPage } from './pages/public/LearningPage';
+<<<<<<< HEAD
 import { TermsAndConditionsPage, PrivacyPolicyPage } from './pages/public/LegalPage';
+=======
+>>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
 
 function App() {
   return (
@@ -41,8 +44,11 @@ function App() {
               <Route path="/quotation" element={<QuotationPage />} />
               <Route path="/learning" element={<LearningPage />} />
               <Route path="/franchise" element={<FranchisePage />} />
+<<<<<<< HEAD
               <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+=======
+>>>>>>> 172c89b6fae2ed615753d6fc4cac7deb73ac4b39
             </Route>
 
             {/* Admin Login */}
