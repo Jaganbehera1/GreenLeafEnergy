@@ -102,7 +102,7 @@ export function Footer() {
                 <li className="flex items-start space-x-2">
                   <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
                   <span>
-                    <span className="font-semibold text-gray-300">Bhubaneswar Branch:</span><br />
+                    <span className="font-semibold text-gray-300">Corporate Office:</span><br />
                     Plot No - 116, District Centre,<br />
                     Chandrasekharpur, Back Side of BPCL Petrol Pump,<br />
                     Bhubaneswar, 751016, Odisha

@@ -152,7 +152,7 @@ export function Seo() {
           },
           department: {
             '@type': 'LocalBusiness',
-            name: 'Green Leaf Energy - Bhubaneswar Branch',
+            name: 'Green Leaf Energy - Corporate Office',
             address: {
               '@type': 'PostalAddress',
               streetAddress: 'Plot No - 116, District Centre, Chandrasekharpur, Back Side of BPCL Petrol Pump',

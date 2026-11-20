@@ -279,7 +279,7 @@ export function ContactPage() {
                       GSTIN - 21BIYPP3700K1Z0
                     </p>
                     <p className="text-gray-800 font-medium mt-4">
-                      <span className="font-bold">Bhubaneswar Branch</span><br />
+                      <span className="font-bold">Corporate Office</span><br />
                       Plot No - 116, District Centre<br />
                       Chandrasekharpur, Back Side of BPCL Petrol Pump<br />
                       Bhubaneswar, 751016, Odisha
