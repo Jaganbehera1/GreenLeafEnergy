@@ -150,6 +150,18 @@ export function Seo() {
             addressRegion: 'Odisha',
             addressCountry: 'IN',
           },
+          department: {
+            '@type': 'LocalBusiness',
+            name: 'Green Leaf Energy - Bhubaneswar Branch',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Plot No - 116, District Centre, Chandrasekharpur, Back Side of BPCL Petrol Pump',
+              addressLocality: 'Bhubaneswar',
+              postalCode: '751016',
+              addressRegion: 'Odisha',
+              addressCountry: 'IN',
+            },
+          },
           areaServed: ['Odisha', 'Puri District', 'Bhubaneswar', 'Cuttack', 'Khordha District'],
         },
       );

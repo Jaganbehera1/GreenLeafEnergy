@@ -512,7 +512,7 @@ const sampleFaqs: FAQItem[] = [
   {
     id: 'faq_47',
     question: 'How do I contact customer support?',
-    answer: 'You can reach our customer support team through:\n\n📞 Phone: 8260660327\n💬 WhatsApp: 8260660327\n✉️ Email: info@greenleafenergy.com\n\n🕐 Support Hours:\n• Chat: 24/7\n• Phone: 8:00 AM - 8:00 PM\n• Email: Response within 4 hours\n• Emergency: 24/7\n\n📱 Live Chat: Available on our website\n📍 Visit: Sahajpur, Pipili, Puri, Odisha\n\nWe\'re here to help!',
+    answer: 'You can reach our customer support team through:\n\n📞 Phone: 8260660327\n💬 WhatsApp: 8260660327\n✉️ Email: info@greenleafenergy.com\n\n🕐 Support Hours:\n• Chat: 24/7\n• Phone: 8:00 AM - 8:00 PM\n• Email: Response within 4 hours\n• Emergency: 24/7\n\n📱 Live Chat: Available on our website\n📍 Puri Office: Sahajpur, Pipili, Puri, Odisha\n📍 Bhubaneswar Branch: Plot No - 116, District Centre, Chandrasekharpur, Back Side of BPCL Petrol Pump, Bhubaneswar, 751016, Odisha\n\nWe\'re here to help!',
     category: 'Contact',
     popular: true,
     keywords: ['contact', 'support', 'phone', 'email', 'whatsapp', 'chat', 'visit', 'address', 'helpline'],
@@ -522,10 +522,10 @@ const sampleFaqs: FAQItem[] = [
   {
     id: 'faq_48',
     question: 'What is your address?',
-    answer: '📍 Visit us at:\n\nGreen Leaf Energy\nSahajpur, Pipili\nPuri, Odisha\nIndia\n\n📞 Phone: 8260660327\n✉️ Email: info@greenleafenergy.com\n\n🕐 Visiting Hours:\n• Monday-Saturday: 8:00 AM - 8:00 PM\n• Sunday: 8:00 AM - 2:00 PM\n\nWe recommend calling before visiting!',
+    answer: '📍 Visit us at:\n\nGreen Leaf Energy\nPuri Office:\nSahajpur, Pipili\nPuri, Odisha\nIndia\n\nBhubaneswar Branch:\nPlot No - 116, District Centre\nChandrasekharpur, Back Side of BPCL Petrol Pump\nBhubaneswar, 751016, Odisha\n\n📞 Phone: 8260660327\n✉️ Email: info@greenleafenergy.com\n\n🕐 Visiting Hours:\n• Monday-Saturday: 8:00 AM - 8:00 PM\n• Sunday: 8:00 AM - 2:00 PM\n\nWe recommend calling before visiting!',
     category: 'Contact',
     popular: false,
-    keywords: ['address', 'location', 'visit', 'office', 'Odisha', 'Pipili', 'Puri', 'Sahajpur'],
+    keywords: ['address', 'location', 'visit', 'office', 'branch', 'Odisha', 'Pipili', 'Puri', 'Sahajpur', 'Bhubaneswar', 'Chandrasekharpur'],
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   },

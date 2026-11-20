@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MessageCircle, MapPin } from 'lucide-react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, ContactInfo } from '../../lib/firebase';
 
@@ -89,6 +89,24 @@ export function Footer() {
                 <li className="flex items-center space-x-2">
                   <MessageCircle className="h-4 w-4" />
                   <span>{contactInfo?.whatsapp_number || 'Loading...'}</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
+                  <span>
+                    <span className="font-semibold text-gray-300">Head Office:</span><br />
+                    Sahajpur, Pipili,<br />
+                    Puri, Odisha, India<br />
+                    GSTIN - 21BIYPP3700K1Z0
+                  </span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
+                  <span>
+                    <span className="font-semibold text-gray-300">Bhubaneswar Branch:</span><br />
+                    Plot No - 116, District Centre,<br />
+                    Chandrasekharpur, Back Side of BPCL Petrol Pump,<br />
+                    Bhubaneswar, 751016, Odisha
+                  </span>
                 </li>
               </ul>
             </div>

@@ -270,12 +270,19 @@ export function ContactPage() {
                     <MapPin className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Our Location</h4>
+                    <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Our Locations</h4>
                     <p className="text-gray-800 font-medium mt-1">
+                      <span className="font-bold">Puri Office</span><br />
                       Sahajpur, Pipili<br />
-                      Puri, Odisha <br />
-                      India,<br />
+                      Puri, Odisha<br />
+                      India<br />
                       GSTIN - 21BIYPP3700K1Z0
+                    </p>
+                    <p className="text-gray-800 font-medium mt-4">
+                      <span className="font-bold">Bhubaneswar Branch</span><br />
+                      Plot No - 116, District Centre<br />
+                      Chandrasekharpur, Back Side of BPCL Petrol Pump<br />
+                      Bhubaneswar, 751016, Odisha
                     </p>
                   </div>
                 </div>

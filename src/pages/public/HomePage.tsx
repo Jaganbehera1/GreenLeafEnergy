@@ -166,13 +166,13 @@ export function HomePage() {
         <div className="relative max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
         
           {/* ==================== LEFT COLUMN - PM SURYA GHAR ==================== */}
-          <div className="w-full rounded-[32px] border border-white/20 bg-gradient-to-br from-yellow-500/20 via-orange-500/10 to-red-500/20 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-8 transition-all duration-500 hover:scale-105 hover:border-yellow-400 hover:shadow-[0_20px_80px_rgba(255,200,0,0.3)] group flex flex-col h-full">
+          <div className="w-full rounded-[32px] border border-white/20 bg-gradient-to-br from-yellow-500/20 via-orange-500/10 to-red-500/20 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-4 sm:p-8 transition-all duration-500 hover:scale-105 hover:border-yellow-400 hover:shadow-[0_20px_80px_rgba(255,200,0,0.3)] group flex flex-col h-full">
         
           {/* Header with Glow */}
-          <div className="inline-flex items-center justify-center w-full mb-6">
-            <div className="relative px-8 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 shadow-lg shadow-yellow-500/50 hover:shadow-yellow-500/70 transition-all duration-300">
+          <div className="flex items-center justify-center w-full mb-6">
+            <div className="relative max-w-full px-3 sm:px-8 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 shadow-lg shadow-yellow-500/50 hover:shadow-yellow-500/70 transition-all duration-300">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400/50 via-orange-400/50 to-red-400/50 blur-xl animate-pulse"></div>
-              <h2 className="relative text-lg font-extrabold tracking-wider text-gray-900">
+              <h2 className="relative whitespace-nowrap text-[13px] sm:text-lg font-extrabold tracking-normal sm:tracking-wider text-gray-900">
                 🇮🇳 PM SURYA GHAR YOJANA
               </h2>
             </div>
